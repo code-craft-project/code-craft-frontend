@@ -1,19 +1,20 @@
+import { NavLink } from 'react-router-dom';
 import logo from '../../assets/Images/Logo.svg';
 import profile from '../../assets/Images/profile.png';
 import { Icon } from '@iconify/react';
 
 function Navbar() {
   return (
-    <div className={`w-screen absolute bg-black top-0 left-0 z-50 shadow-xl py-3 ${styles.container_cen}`}>
-        <div className="flex items-center w-[15%]">
+    <div className={`w-full absolute bg-black top-0 left-0 z-50 shadow-xl py-3 ${styles.container_cen}`}>
+        <NavLink to='/' className="flex items-center w-[15%]">
             <img src={logo} alt="" className="w-8 h-8" />
             <h1 className=" font-medium text-md">Challenger mentality</h1>
-        </div>
+        </NavLink>
         <div className={`${styles.container_end} w-[68%] `}>
             <div className={`${styles.container} w-96`}>
                 <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Home</p>
                 <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Challenges</p>
-                <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</p>
+                <NavLink to='/jobs_post' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</NavLink>
                 <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Events</p>
                 <button className='px-3 py-1 transition-transform  duration-300 rounded-xl bg-white bg-opacity-30 active:scale-105 hover:opacity-90'>Sign in</button>
             </div>

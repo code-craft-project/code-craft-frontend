@@ -23,7 +23,7 @@ export default function LandingPage() {
     // const alertInfoHandler = () => { toastManager.alertInfo("Info Message"); }
 
     return (
-        <div className="w-screen min-h-screen flex flex-col items-center bg-black">
+        <div className=" min-h-screen flex flex-col items-center bg-black">
             <Navbar/>
             <div className="flex mt-14">
                 <div className=" w-1/2 p-10 mt-10">
@@ -100,11 +100,11 @@ export default function LandingPage() {
     )
 }
 
-const styles2 = {
-    container: "w-full h-screen overflow-auto bg-black flex justify-around items-center",
-    btn: "px-16 py-2 rounded-lg text-white",
-    btn_info: "bg-yellow-600",
-    btn_success: "bg-green-600",
-    btn_error: "bg-red-600",
-};
+// const styles2 = {
+//     container: "w-full h-screen overflow-auto bg-black flex justify-around items-center",
+//     btn: "px-16 py-2 rounded-lg text-white",
+//     btn_info: "bg-yellow-600",
+//     btn_success: "bg-green-600",
+//     btn_error: "bg-red-600",
+// };
 
