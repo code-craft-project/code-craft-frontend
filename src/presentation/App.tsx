@@ -7,6 +7,8 @@ import Toast from "./components/Toast";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import JobPost from './pages/JobsPost';
+import Root from './layout/Root';
+import Home from './pages/Home';
 
 function App() {
   const toastManager = useToast();
@@ -14,10 +16,13 @@ function App() {
   return (
       <ToastContext.Provider value={toastManager}>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
           <Route path="/sign_up" element={<SignUp />} />
           <Route path="/sign_in" element={<SignIn  />} />
-          <Route path="/jobs_post" element={<JobPost />} />
+          <Route path='/' element={(<Root />)}>
+            <Route path="" element={<LandingPage />} />
+            <Route path="jobs_post" element={<JobPost />} />
+            <Route path="home" element={<Home />} />
+          </Route>
         </Routes>
         <Toast />
       </ToastContext.Provider>

@@ -12,10 +12,10 @@ function Navbar() {
         </NavLink>
         <div className={`${styles.container_end} w-[68%] `}>
             <div className={`${styles.container} w-96`}>
-                <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Home</p>
+                <NavLink to='/home' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Home</NavLink>
                 <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Challenges</p>
                 <NavLink to='/jobs_post' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</NavLink>
-                <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Events</p>
+                <NavLink to='/home' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Events</NavLink>
                 <button className='px-3 py-1 transition-transform  duration-300 rounded-xl bg-white bg-opacity-30 active:scale-105 hover:opacity-90'>Sign in</button>
             </div>
             {/* <div className={`${styles.container} w-1/5 `}>

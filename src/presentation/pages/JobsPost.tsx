@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router-dom';
 import JobImg from '../../assets/Images/JobImg.png';
@@ -9,7 +7,7 @@ import { useEffect } from 'react';
 
 function JobsPost() {
   const {styles} = GradientColor()
-  
+
   useEffect(() => {
     const scrollContainer:any = document.querySelector('.scroll-container');
     let scrollInterval:any;
@@ -33,8 +31,7 @@ function JobsPost() {
   }, []);
 
   return (
-    <div className='min-h-screen py-5 bg-black'>
-      <Navbar/>
+    <>
       <div className='p-16 mt-12 flex flex-col items-center'>
         <div className='flex'>
           <div className='w-1/2 p-10 flex flex-col items-start'>
@@ -97,30 +94,30 @@ function JobsPost() {
         <div className='w-[90%] mx-auto flex justify-around items-center my-20'>
           <div className='p-2 bg-white w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
               <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
-              <Icon 
-                icon="clarity:mobile-line" 
-                width="32" 
-                height="32"  
-                className='text-primary-blue'
-              />
-              <h1>Mobile Development</h1>
+                <Icon 
+                  icon="clarity:mobile-line" 
+                  width="32" 
+                  height="32"  
+                  className='text-primary-blue'
+                />
+                <h1>Mobile Development</h1>
             </div>
           </div>          
           <div className='p-2 bg-white w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
             <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
-            <Icon 
-              icon="clarity:mobile-line" 
-              width="32" 
-              height="32"  
-              className='text-primary-blue'
-            />
+              <Icon 
+                icon="simple-icons:frontendmentor" 
+                width="32" 
+                height="32"  
+                className='text-primary-blue'
+              />
               <h1>Front End</h1>
             </div>
           </div>          
           <div className='p-2 bg-white w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
             <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon 
-              icon="clarity:mobile-line" 
+              icon="iconoir:pc-firewall" 
               width="32" 
               height="32"  
               className='text-primary-blue'
@@ -135,8 +132,7 @@ function JobsPost() {
             </div>
           </div>
         </div>
-      <Footer/>
-    </div>
+      </>
   )
 }
 

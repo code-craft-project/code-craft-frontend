@@ -1,6 +1,5 @@
 // import { useContext } from "react";
 // import ToastContext from "../../application/contexts/ToastContext";
-import Navbar from "../components/Navbar";
 import profiles from '../../assets/Images/profiles.png';
 import Landimg1 from '../../assets/Images/LandImg1.png';
 import Landimg2 from '../../assets/Images/LandImg2.png';
@@ -12,7 +11,6 @@ import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
 import InformationCard from "../components/InformationCard";
 import logo from '../../assets/Images/Logo.svg';
-import Footer from "../components/Footer";
 
 export default function LandingPage() {
     // const toastManager = useContext(ToastContext);
@@ -23,8 +21,7 @@ export default function LandingPage() {
     // const alertInfoHandler = () => { toastManager.alertInfo("Info Message"); }
 
     return (
-        <div className=" min-h-screen flex flex-col items-center bg-black">
-            <Navbar/>
+        <div className="flex flex-col items-center ">
             <div className="flex mt-14">
                 <div className=" w-1/2 p-10 mt-10">
                     <h1 className="font-semibold text-2xl my-8">Talk is cheap. Show me the code</h1>
@@ -95,7 +92,6 @@ export default function LandingPage() {
                 </NavLink>
                 <NavLink to={''} className={`underline my-2 hover:opacity-85 transition-all duration-300`}>Learn more  </NavLink>
             </div>
-            <Footer />
         </div>
     )
 }
