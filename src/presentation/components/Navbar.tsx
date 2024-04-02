@@ -15,8 +15,8 @@ function Navbar() {
                 <NavLink to='/home' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Home</NavLink>
                 <p className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Challenges</p>
                 <NavLink to='/jobs_post' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</NavLink>
-                <NavLink to='/home' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Events</NavLink>
-                <button className='px-3 py-1 transition-transform  duration-300 rounded-xl bg-white bg-opacity-30 active:scale-105 hover:opacity-90'>Sign in</button>
+                <NavLink to='/events' className='cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Events</NavLink>
+                <NavLink to='sign_in' className='px-3 py-1 transition-transform  duration-300 rounded-xl bg-white bg-opacity-30 active:scale-105 hover:opacity-90'>Sign in</NavLink>
             </div>
             {/* <div className={`${styles.container} w-1/5 `}>
                 <div className='flex justify-around w-20'>

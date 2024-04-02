@@ -9,6 +9,7 @@ import SignIn from "./pages/SignIn";
 import JobPost from './pages/JobsPost';
 import Root from './layout/Root';
 import Home from './pages/Home';
+import Events from './pages/Events';
 
 function App() {
   const toastManager = useToast();
@@ -22,6 +23,7 @@ function App() {
             <Route path="" element={<LandingPage />} />
             <Route path="jobs_post" element={<JobPost />} />
             <Route path="home" element={<Home />} />
+            <Route path="events" element={<Events />} />
           </Route>
         </Routes>
         <Toast />

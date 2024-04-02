@@ -63,7 +63,7 @@ export default function SignIn() {
                         <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105 px-5 py-1 rounded-xl w- text-xs font-semibold  shadow-lg `} type="submit">LOGIN</button>
                         <div className="flex flex-col justify-center mx-4 items-center">
                             <p className="" style={{fontSize:"8px"}}>Don't have account?</p>
-                            <a className=" font-semibold underline" style={{fontSize:"10px"}} href="">Sign up!</a>
+                            <NavLink to='/sign_up' className=" font-semibold underline" style={{fontSize:"10px"}} >Sign up!</NavLink>
                         </div>
                     </div>
                 </form>

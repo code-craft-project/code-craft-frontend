@@ -9,41 +9,37 @@ function Home() {
 
     const scroller =() => {
         const scrollContainer:any = document.querySelector('.scroll-container');
-        let scrollInterval:any;
         const startScroll = () => {
             scrollContainer.scrollLeft += 5; 
-        };
-        const stopScroll = () => {
-        clearInterval(scrollInterval);
         };
         startScroll();
     }
 return (
-    <div className="mt-20 p-16">
+    <div className="mt-20 p-16 mx-12 ">
         <div  >
             <h3 className="opacity-60 ">Welcome to</h3>
             <h2 className="font-semibold">Challenger  Mentality Home</h2>
         </div>
-        <div className="flex py-14 justify-between w-[95%]">
+        <div className="flex py-14 justify-between w-[99%]">
             <div className="bg-primary-blue bg-opacity-60 py-3 px-5 w-[17rem] h-36 flex flex-col items-start justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg">
                 <h1 className="text-xl font-semibold">Public Challenges:</h1>
                 <p className="text-xs opacity-75">There are more than 300 challenges</p>
-                <NavLink to="/" className="bg-primary-yellow font-semibold py-0.5 px-3 text-sm rounded-sm flex items-center active:scale-105 hover:opacity-90 transition-all">Get Started</NavLink>
+                <NavLink to="/" className="bg-primary-yellow bg-opacity-80 font-semibold py-0.5 px-3 text-sm rounded-sm flex items-center active:scale-105 hover:opacity-90 transition-all">Get Started</NavLink>
             </div>
             <div className="bg-primary-blue bg-opacity-60 py-3 px-5 w-[17rem] h-36 flex flex-col items-start justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg">
                 <h1 className="text-xl font-semibold">Events:</h1>
                 <p className="text-xs opacity-75">There are two event types public and private event</p>
-                <NavLink to="/" className="bg-primary-yellow font-semibold py-0.5 px-3 text-sm rounded-sm flex items-center active:scale-105 hover:opacity-90 transition-all">Explore Events</NavLink>
+                <NavLink to="/" className="bg-primary-yellow bg-opacity-80 font-semibold py-0.5 px-3 text-sm rounded-sm flex items-center active:scale-105 hover:opacity-90 transition-all">Explore Events</NavLink>
             </div>
             <div className="bg-primary-blue bg-opacity-60 py-3 px-5 w-[17rem] h-36 flex flex-col items-start justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg">
                 <h1 className="text-xl font-semibold">Job Posts:</h1>
                 <p className="text-xs opacity-75">Our companies give you job opportunities to hire you</p>
-                <NavLink to="/" className="bg-primary-yellow font-semibold py-0.5 px-3 text-sm rounded-sm flex items-center active:scale-105 hover:opacity-90 transition-all">Learn more</NavLink>
+                <NavLink to="/" className="bg-primary-yellow bg-opacity-80 font-semibold py-0.5 px-3 text-sm rounded-sm flex items-center active:scale-105 hover:opacity-90 transition-all">Learn more</NavLink>
             </div>
         </div>
         <h1 className="opacity-60 pt-16 mb-2">Top Challenges</h1>
         <div className="flex flex-wrap gap-16 pb-16  w-[100%]">
-            <div className="w-2/3">
+            <div className="w-[66%]">
                 <div className="scroll-container w-[100%] scrollbar-none ">
                     <div className="flex py-2 gap-10 relative  scroll-content items-center">
                         <div className={`cursor-pointer hover:opacity-75 transition-opacity duration-300  flex justify-center items-center gap-1  px-3 py-1 rounded-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
