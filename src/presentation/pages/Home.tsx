@@ -74,14 +74,18 @@ return (
                             <Icon icon="material-symbols:double-arrow" width="18" height="18" />  
                         </div>
                     </div>
-                </div>
+                </div>    
                 <div className="text-sm">
                     <div >
-                        <div className="flex py-2 justify-between w-[80%]">
-                            <span>Status</span>
-                            <span>Title</span>
-                            <span className="ml-24 ">Difficulty</span>
-                            <span>Maximum Score</span>
+                        <div className="flex items-center py-2 w-[80%] gap-16">
+                            <div className="w-[14rem]">
+                                <span className=" px-2">Status</span>
+                            </div>
+                            <div className=" w-80 text-center">
+                                <span>Title</span>
+                            </div>
+                            <span className="w-[10rem] text-end">Difficulty</span>
+                            <span className="text-nowrap">Maximum Score</span>
                         </div>
                         <hr className="w-[80%]"/>
                         {Array.from({length: 8}).map((_,index)=>(

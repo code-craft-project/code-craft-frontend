@@ -10,6 +10,7 @@ import JobPost from './pages/JobsPost';
 import Root from './layout/Root';
 import Home from './pages/Home';
 import Events from './pages/Events';
+import Challenges from './pages/Challenges';
 
 function App() {
   const toastManager = useToast();
@@ -24,6 +25,7 @@ function App() {
             <Route path="jobs_post" element={<JobPost />} />
             <Route path="home" element={<Home />} />
             <Route path="events" element={<Events />} />
+            <Route path="challenges" element={<Challenges />} />
           </Route>
         </Routes>
         <Toast />
