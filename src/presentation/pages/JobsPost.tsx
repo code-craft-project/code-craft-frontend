@@ -37,10 +37,10 @@ function JobsPost() {
           <div className='w-1/2 p-10 flex flex-col items-start'>
             <h1 className='text-6xl'>Find a job that suits your <br /> passion</h1>
             <div className='flex justify-start mt-16'>
-              <div className='flex '>
-                <Icon icon="iconoir:search"  style={{color: "black "}}   className="bg-white rounded-l-sm flex h-10 w-10 px-3 cursor-pointer"/>
-                <input type="text" placeholder="Job Post" className=" bg-white px-8 w-[20rem] py-2 text-black outline-none"/>
-              </div>
+            <div className="flex relative ">
+                <input type="text" placeholder="Quick Search" className=" bg-white rounded-l-sm px-10 w-[22rem] py-2 text-black outline-primary-yellow"/>
+                <Icon icon="iconoir:search" className=" h-10 w-10 px-2 cursor-pointer absolute left-0 text-black opacity-40"/>
+            </div>
               <NavLink to="/sign_in" className="bg-primary-yellow bg-opacity-80 font-meduim px-4 py-2 rounded-r-sm ">Search</NavLink>
             </div>
           </div>
@@ -82,7 +82,7 @@ function JobsPost() {
           <div className="scroll-content flex gap-16 min-w-full">
             {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} >
-                <JobPostCard  jobData={{"logo":'https://w7.pngwing.com/pngs/606/802/png-transparent-meta-meta-logo-facebook-fb-logo-meta-icon-meta-symbol-facebook-logo-thumbnail.png', "company":'Meta', "skill":"Fluter", 'location':'medea', 'tag':"App development", date_posted:"2 days ago", tag_color:'green-700'}}/>
+                <JobPostCard cardStyle={'Large'}  jobData={{"logo":'https://w7.pngwing.com/pngs/606/802/png-transparent-meta-meta-logo-facebook-fb-logo-meta-icon-meta-symbol-facebook-logo-thumbnail.png', "company":'Meta', "skill":"Fluter", 'location':'medea', 'tag':"App development", date_posted:"2 days ago", tag_color:'green-700'}}/>
               </div>
             ))}
           </div>

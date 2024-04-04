@@ -1,12 +1,10 @@
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router-dom';
 import Event from '../../assets/Images/Event.png';
-import GradientColor from '../components/GradiantColor';
 import OneEventCard from '../components/OneEventCard';
 import OneEventImg from '../../assets/Images/OneEventImg.png';
 
 function Events() {
-    const {styles} = GradientColor()
 
   return (
     <div className="mt-20 p-16 mx-3">   

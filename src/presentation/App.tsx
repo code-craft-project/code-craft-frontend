@@ -11,6 +11,8 @@ import Root from './layout/Root';
 import Home from './pages/Home';
 import Events from './pages/Events';
 import Challenges from './pages/Challenges';
+import Search from './pages/Search';
+import SingleJobPost from './pages/SingleJobPost';
 
 function App() {
   const toastManager = useToast();
@@ -26,6 +28,8 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="events" element={<Events />} />
             <Route path="challenges" element={<Challenges />} />
+            <Route path="search" element={<Search />} />
+            <Route path="single_job_post/:id" element={<SingleJobPost />} />
           </Route>
         </Routes>
         <Toast />

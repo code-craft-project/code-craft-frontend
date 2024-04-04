@@ -31,9 +31,11 @@ export default function LandingPage() {
                         <p className="text-xs font-medium">Join 780,900 developers building projects, <br /> reviewing code, and helping each other improve.</p>
                     </div>
                     <div className="flex justify-between w-[30rem]">
-                        <div className="flex ">
-                            <input type="text" placeholder="Quick Search" className=" bg-white rounded-l-sm px-8 w-[20rem] py-2 text-black outline-none"/>
-                            <Icon icon="iconoir:search"  style={{color: "black "}}   className="bg-white rounded-r-sm flex h-10 w-10 px-3 cursor-pointer"/>
+                        <div className="flex relative ">
+                            <input type="text" placeholder="Quick Search" className=" bg-white rounded-l-sm px-8 w-[22rem] py-2 text-black outline-primary-yellow"/>
+                            <NavLink to='/search' className=' cursor-pointer absolute right-0'>
+                                <Icon icon="iconoir:search" className=" h-11 w-11 px-3 text-primary-yellow"/>
+                            </NavLink>
                         </div>
                         <NavLink to="/sign_in" className="bg-primary-yellow bg-opacity-80 font-meduim px-4 py-2 rounded-sm">Get Started</NavLink>
                     </div>
