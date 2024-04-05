@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react'
 import GradientColor from '../components/GradiantColor'
 import JobPostCard from '../components/JobPostCard'
+import { NavLink } from 'react-router-dom'
 
 function SingleJobPost() {
     const {styles} = GradientColor()
@@ -11,10 +12,10 @@ function SingleJobPost() {
             <div className='w-1/2 flex flex-col gap-5 items-start'>
                 <img src="" alt="Company Image" className='w-20 h-10'/>
                 <h1 className='font-semibold text-3xl'>Full Stack Developer</h1>
-                <div className='flex items-center gap-3'>
+                <NavLink to='/single_organization/2' className='flex items-center gap-3 hover:text-primary-blue transition-colors duration-150'>
                     <Icon icon="mdi:company" width="16" height="16" />
                     <span>Google</span>
-                </div>
+                </NavLink>
                 <div className='flex items-center gap-3 '>
                     <Icon icon="carbon:location-company-filled" width="16" height="16" />
                     <span>USA</span>

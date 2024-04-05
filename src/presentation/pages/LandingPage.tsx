@@ -88,9 +88,9 @@ export default function LandingPage() {
                 <img src={logo} alt="" className="w-52 my-2" />
                 <h1 className="my-2 text-center">Practice coding challenges & Discuss with programmers</h1>
                 <h1 className="my-2 text-center">Public Challenge Discourse enables open discussions within the <br /> project and idea exchange.</h1>
-                <NavLink to={''} className='flex items-center border hover:scale-105 transition-transform duration-500 active:scale-110 hover:bg-white hover:text-black border-white px-16 py-2 rounded-xl my-2 '>
+                <NavLink to={''} className='flex items-center border hover:scale-105 transition-transform duration-500 active:scale-110 hover:bg-white hover:text-black border-white px-16 py-2 rounded-xl my-2 text'>
                     Discover our challenges world  
-                    <Icon icon="tabler:arrow-right" className="hover:text-black text-white"  style={{ margin: "5px",}} />
+                    <Icon icon="tabler:arrow-right"  style={{ margin: "5px",}} />
                 </NavLink>
                 <NavLink to={''} className={`underline my-2 hover:opacity-85 transition-all duration-300`}>Learn more  </NavLink>
             </div>
