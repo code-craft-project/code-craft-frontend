@@ -4,7 +4,7 @@ interface JobPostEntity {
     description: string;
     role: string;
     type: string;
+    location: string;
     organization_id: number;
     created_at?: string;
-    location: string;
 };
