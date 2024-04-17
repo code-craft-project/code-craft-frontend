@@ -6,7 +6,7 @@ import Landimg2 from '../../assets/Images/LandImg2.png';
 import Landimg3 from '../../assets/Images/LandImg3.png';
 import Landimg4 from '../../assets/Images/LandImg4.png';
 import Landimg5 from '../../assets/Images/LandImg5.png';
-import GradientColor from "../components/GradiantColor";
+import GradientColor from "../../application/data/GradientColor";
 import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
 import InformationCard from "../components/InformationCard";

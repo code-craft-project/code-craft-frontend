@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import GradientColor from '../components/GradiantColor'
+import GradientColor from '../../application/data/GradientColor'
 import JobPostCard from '../components/JobPostCard'
 import { NavLink } from 'react-router-dom'
 

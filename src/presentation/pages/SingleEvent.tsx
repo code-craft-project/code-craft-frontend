@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import SingleEventImg from '../../assets/Images/SingleEventImg.png';
 import OneChallengeCard from '../components/OneChallengeCard';
 import { Icon } from '@iconify/react';
-import GradientColor from '../components/GradiantColor';
+import GradientColor from "../../application/data/GradientColor";
 
 function SingleEvent() {
   const { styles } = GradientColor();

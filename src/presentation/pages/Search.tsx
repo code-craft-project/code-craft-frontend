@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import GradientColor from '../components/GradiantColor'
+import GradientColor from '../../application/data/GradientColor'
 import OneEventImg from '../../assets/Images/OneEventImg.png';
 import OneEventCard from '../components/OneEventCard';
 import { NavLink } from 'react-router-dom';

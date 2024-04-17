@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router-dom';
 import JobImg from '../../assets/Images/JobImg.png';
-import GradientColor from '../components/GradiantColor';
+import GradientColor from '../../application/data/GradientColor'
 import JobPostCard from '../components/JobPostCard';
 import { useEffect } from 'react';
 

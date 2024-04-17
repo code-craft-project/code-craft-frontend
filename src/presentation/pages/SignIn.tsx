@@ -3,7 +3,7 @@ import ToastContext from "../../application/contexts/ToastContext";
 import { useContext } from "react";
 import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
-import GradientColor from "../components/GradiantColor";
+import GradientColor from "../../application/data/GradientColor";
 import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
 

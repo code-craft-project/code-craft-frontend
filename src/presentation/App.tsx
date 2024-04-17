@@ -15,6 +15,7 @@ import Search from './pages/Search';
 import SingleJobPost from './pages/SingleJobPost';
 import SingleOrganization from './pages/SingleOrganization';
 import SingleEvent from './pages/SingleEvent';
+import Settings from './pages/Settings';
 
 function App() {
   const toastManager = useToast();
@@ -22,18 +23,19 @@ function App() {
   return (
       <ToastContext.Provider value={toastManager}>
         <Routes>
-          <Route path="/sign_up" element={<SignUp />} />
-          <Route path="/sign_in" element={<SignIn  />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn  />} />
           <Route path='/' element={(<Root />)}>
             <Route path="" element={<LandingPage />} />
-            <Route path="jobs_post" element={<JobPost />} />
+            <Route path="jobs-post" element={<JobPost />} />
             <Route path="home" element={<Home />} />
             <Route path="events" element={<Events />} />
             <Route path="challenges" element={<Challenges />} />
             <Route path="search" element={<Search />} />
-            <Route path="single_job_post/:id" element={<SingleJobPost />} />
-            <Route path="single_organization/:id" element={<SingleOrganization />} />
-            <Route path="single_event/:id" element={<SingleEvent />} />
+            <Route path="single-job-post/:id" element={<SingleJobPost />} />
+            <Route path="single-organization/:id" element={<SingleOrganization />} />
+            <Route path="single-event/:id" element={<SingleEvent />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
         <Toast />

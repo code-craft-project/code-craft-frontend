@@ -1,4 +1,4 @@
-import GradientColor from "../components/GradiantColor";
+import GradientColor from "../../application/data/GradientColor";
 
 interface Props {
     title: string;
