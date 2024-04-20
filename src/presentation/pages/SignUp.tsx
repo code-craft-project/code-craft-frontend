@@ -3,7 +3,7 @@ import ToastContext from "../../application/contexts/ToastContext";
 import { useContext } from "react";
 import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
-import GradientColor from "../../application/data/GradientColor";
+import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
 
@@ -61,7 +61,7 @@ export default function SignUp() {
                         <button className={`px-2 py-1 rounded-xl w- text-xs font-semibold  shadow-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105`} type="submit">Create An Account</button>
                         <div className="flex flex-col justify-center mx-4 items-center">
                             <p className="" style={{fontSize:"8px"}}>Already have account?</p>
-                            <NavLink to='/sign_in' className=" font-semibold underline" style={{fontSize:"10px"}} >Sign in!</NavLink>
+                            <NavLink to='/sign-in' className=" font-semibold underline" style={{fontSize:"10px"}} >Sign in!</NavLink>
                         </div>
                     </div>
                 </form>

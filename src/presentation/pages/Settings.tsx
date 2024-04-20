@@ -1,79 +1,66 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import GradientColor from "../../application/data/GradientColor";
+import GradientColor from "../../application/data/GradientColor.ts";
 import profile from '../../assets/Images/profile.png';
+import PersonalDetails from "../components/PersonalDetails";
+import Privacy from "../components/Privacy";
+import MyProgress from "../components/MyProgress";
+import { useState } from "react";
 
 function Settings() {
     const {styles} = GradientColor()
-
+    const [changeComponent,setChangeComponent] =useState<number>(0)
+    const components = [
+        {
+            title: 'Select User Information & Updates',
+            content: <PersonalDetails/>
+        },
+        {
+            title: 'Edit password ',
+            content: <Privacy/>
+        },
+        {
+            title: 'Show user progress',
+            content: <MyProgress/>,
+        },
+        ] 
     return (
-        <div className="w-screen flex mt-14" >
-            <div className="flex w-1/5 flex-col justify-between p-5 border-r border-white">
+        <div className="w-screen flex mt-14 pb-5" >
+            <div className="flex w-1/5 flex-col gap-60 py-5 px-10 border-r border-white">
                 <div className="flex flex-col gap-8">
-                    <h1 className="opacity-90 px-8">Profile Settings</h1>
-                    <div className="flex flex-col gap-3 items-center px-3">
-                        <div className="cursor-pointer flex gap-2 items-center">
+                    <h1 className="opacity-90 pl-8">Profile Settings</h1>
+                    <div className="flex flex-col gap-3 items-center pl-8">
+                        <button 
+                            onClick={() => setChangeComponent(0)} 
+                            className={`cursor-pointer flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 0 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : 'hover:text-primary-yellow hover:bg-clip-text hover:text-transparent'}`}
+                        >
                             <Icon icon="zondicons:user" width="18" height="18" />
-                            <span className="w-32">Personal details</span>
-                        </div>
-                        <div className="cursor-pointer flex gap-2 items-center">
+                            <span className="w-32 text-sm text-start">Personal details</span>
+                        </button>
+                        <button 
+                            onClick={() => setChangeComponent(1)} 
+                            className={`cursor-pointer flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 1 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : 'hover:text-primary-yellow hover:bg-clip-text hover:text-transparent'}`}
+                        > 
                             <Icon icon="material-symbols:privacy-tip" width="18" height="18" />
-                            <span className="w-32">Privacy</span>
-                        </div>
-                        <div className="cursor-pointer flex gap-2 items-center">
-                            <Icon icon="ri:progress-3-fill" width="18" height="18" />
-                            <span className="w-32">My progress</span>
-                        </div>
+                            <span className="w-32 text-sm text-start">Privacy</span>
+                        </button>
+                        <button 
+                            onClick={() => setChangeComponent(2)} 
+                            className={`cursor-pointer flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 2 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : 'hover:text-primary-yellow hover:bg-clip-text hover:text-transparent'}`}
+                        >
+                            <Icon icon="ri:progress-3-fill" width="18" height="18"
+                            
+                            />
+                            <span className="w-32 text-sm text-start">My progress</span>
+                        </button>
                     </div>
                 </div>
-                <div className="flex gap-2 items-center px-8 cursor-pointer">
+                <div className="flex gap-2 items-center px-8 cursor-pointer hover:text-primary-yellow ">
                     <Icon icon="tabler:logout" width="18" height="18" />
                     <span>Log out</span>
                 </div>
             </div>
-            <div className="flex flex-col gap-8 py-5 px-20 w-4/5">
-                <div>
-                    <h1 className="font-semibold text-2xl">Personal details</h1>
-                    <h1 className="font-meduim text-lg opacity-75">Edit your personal details</h1>
-                </div>
-                <img src={profile} alt="" className="w-12 h-12" />
-                <div className="w-2/3 flex items-center justify-between">
-                    <span className="w-20">username</span>
-                    <span className="w-24">sta24</span>
-                    <button className="hover:underline hover:bg-opacity-65">Edit</button>
-                    <div className=" items-center gap-3 hidden">
-                        <button className="bg-green-500 rounded-md px-3">Save</button>
-                        <button className="text-red-500">Close</button>
-                    </div>
-                </div>
-                <div className="w-2/3 flex items-center justify-between">
-                    <span  className="w-20">First Name</span>
-                    <span className="w-24">sta24</span>
-                    <button className="hover:underline hover:bg-opacity-65">Edit</button>
-                    <div className=" items-center gap-3 hidden">
-                        <button className="bg-green-500 rounded-md px-3">Save</button>
-                        <button className="text-red-500">Close</button>
-                    </div>
-                </div>
-                <div className="w-2/3 flex items-center justify-between">
-                    <span className="w-20">Last Name</span>
-                    <span className="w-24">sta24</span>
-                    <button className="hover:underline hover:bg-opacity-65">Edit</button>
-                    <div className=" items-center gap-3 hidden">
-                        <button className="bg-green-500 rounded-md px-3">Save</button>
-                        <button className="text-red-500">Abcd</button>
-                    </div>
-                </div>
-                <div className="w-2/3 flex items-center justify-between">
-                    <span className="w-20">Email</span>
-                    <span className="w-24"> kadiksalah03@gmail.com</span>
-                    <button className="hover:underline hover:bg-opacity-65">Edit</button>
-                    <div className=" items-center gap-3 hidden">
-                        <button className="bg-green-500 rounded-md px-3">Save</button>
-                        <button className="text-red-500">Close</button>
-                    </div>
-                </div>
+            {components[changeComponent].content}
 
-            </div>
         </div>
     )
 }

@@ -18,7 +18,7 @@ function OneEventCard({eventData}:{eventData:eventData}) {
         };
     }, [eventData.image]);
   return (
-    <NavLink to={'/single_event/2'} className='flex flex-col w-56 h-44 m-3 '>
+    <NavLink to={'/single-event/2'} className='flex flex-col w-56 h-44 m-3 '>
         <div className=' overflow-hidden'>
 
         <img src={imageSrc} alt={eventData.title} className='w-full h-[60%] hover:scale-110 transition-all duration-300'/>

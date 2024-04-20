@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import OneChallengeCard from "../components/OneChallengeCard"
 import { Icon } from '@iconify/react';
-import GradientColor from "../../application/data/GradientColor";
+import GradientColor from "../../application/data/GradientColor.ts";
 import profile from '../../assets/Images/profile.png';
 
 function Home() {

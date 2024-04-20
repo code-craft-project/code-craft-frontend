@@ -3,7 +3,7 @@ import ToastContext from "../../application/contexts/ToastContext";
 import { useContext } from "react";
 import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
-import GradientColor from "../../application/data/GradientColor";
+import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
 
@@ -38,19 +38,19 @@ export default function SignIn() {
                 </div>
                 <form className="pl-8 flex flex-col items-center ">
                     <div className="mb-2">
-                        <div className="flex flex-row mb-5 justify-around items-center w-64 mx-auto">
+                        <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
                             <div className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} w-6 h-6 rounded-sm flex justify-center items-center`}>
                                 <Icon icon="ic:baseline-email"  style={{color: "white"}} />             
                             </div>
                             <input type="text" className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" placeholder="Email" />
                         </div>
-                        <div className="flex flex-row mb-5 justify-around items-center w-64 mx-auto">
+                        <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
                             <div className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} w-6 h-6 rounded-sm  flex justify-center items-center`}>
                                 <Icon icon="mdi:password"  style={{color: "white"}} />                        
                             </div>
                             <input type="text" className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" placeholder="Password" />
                         </div>
-                        <div className="flex flex-row mb-5 justify-end items-center w-64 mx-auto">
+                        <div className="flex  mb-5 justify-end items-center w-64 mx-auto">
                             <div className=" h-6 rounded-sm flex mr-5 justify-center items-center">
                                 <input type="checkbox"/>
                                 <p className="ml-1  text-xs">Remember me</p>
@@ -63,7 +63,7 @@ export default function SignIn() {
                         <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105 px-5 py-1 rounded-xl w- text-xs font-semibold  shadow-lg `} type="submit">LOGIN</button>
                         <div className="flex flex-col justify-center mx-4 items-center">
                             <p className="" style={{fontSize:"8px"}}>Don't have account?</p>
-                            <NavLink to='/sign_up' className=" font-semibold underline" style={{fontSize:"10px"}} >Sign up!</NavLink>
+                            <NavLink to='/signup' className=" font-semibold underline" style={{fontSize:"10px"}} >Sign up!</NavLink>
                         </div>
                     </div>
                 </form>

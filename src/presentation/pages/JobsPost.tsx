@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router-dom';
 import JobImg from '../../assets/Images/JobImg.png';
-import GradientColor from '../../application/data/GradientColor'
+import GradientColor from '../../application/data/GradientColor.ts'
 import JobPostCard from '../components/JobPostCard';
 import { useEffect } from 'react';
 
@@ -41,7 +41,7 @@ function JobsPost() {
                 <input type="text" placeholder="Quick Search" className=" bg-white rounded-l-sm px-10 w-[22rem] py-2 text-black outline-primary-yellow"/>
                 <Icon icon="iconoir:search" className=" h-10 w-10 px-2 cursor-pointer absolute left-0 text-black opacity-40"/>
             </div>
-              <NavLink to="/sign_in" className="bg-primary-yellow bg-opacity-80 font-meduim px-4 py-2 rounded-r-sm ">Search</NavLink>
+              <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-meduim px-4 py-2 rounded-r-sm ">Search</NavLink>
             </div>
           </div>
           <div className='w-1/2 px-10'>

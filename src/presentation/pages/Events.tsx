@@ -16,7 +16,7 @@ function Events() {
                         <Icon icon="iconoir:search"  style={{color: "black "}}   className="bg-white rounded-l-sm flex h-10 w-10 px-3 cursor-pointer"/>
                         <input type="text" placeholder="Public Events" className=" bg-white px-8 w-[20rem] py-2 text-black outline-none"/>
                     </div>
-                    <NavLink to="/sign_in" className="bg-primary-yellow bg-opacity-80  font-meduim px-4 py-2 rounded-r-sm ">Search</NavLink>
+                    <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80  font-meduim px-4 py-2 rounded-r-sm ">Search</NavLink>
                 </div>
             </div>
             <div className='w-1/2 px-10'>

@@ -6,7 +6,7 @@ import Landimg2 from '../../assets/Images/LandImg2.png';
 import Landimg3 from '../../assets/Images/LandImg3.png';
 import Landimg4 from '../../assets/Images/LandImg4.png';
 import Landimg5 from '../../assets/Images/LandImg5.png';
-import GradientColor from "../../application/data/GradientColor";
+import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
 import InformationCard from "../components/InformationCard";
@@ -37,7 +37,7 @@ export default function LandingPage() {
                                 <Icon icon="iconoir:search" className=" h-11 w-11 px-3 text-primary-yellow"/>
                             </NavLink>
                         </div>
-                        <NavLink to="/sign_in" className="bg-primary-yellow bg-opacity-80 font-meduim px-4 py-2 rounded-sm">Get Started</NavLink>
+                        <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-meduim px-4 py-2 rounded-sm">Get Started</NavLink>
                     </div>
                 </div>
                 <div className="flex flex-col justify-start items-center w-1/2 p-10">
