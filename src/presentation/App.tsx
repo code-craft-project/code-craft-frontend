@@ -19,6 +19,7 @@ import Settings from './pages/Settings';
 import CreateEvent from './pages/CreateEvent';
 import WithoutFooter from './layout/WithoutFooter';
 import CreateOrganization from './pages/CreatOrganization';
+import ChallengePage from './pages/ChallengePage';
 
 function App() {
   const toastManager = useToast();
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn  />} />
+          <Route path="/challenges/:id" element={<ChallengePage />} />
           <Route path='/' element={(<Root />)}>
             <Route path="" element={<LandingPage />} />
             <Route path="jobs-post" element={<JobPost />} />
