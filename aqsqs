@@ -1,0 +1,65 @@
+[33mcommit da110cf74c888ac009ecaaa3c80e655412e9122d[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Sat Apr 20 22:35:33 2024 +0100
+
+    create settings page and fixed GradientColor..some issues
+
+[33mcommit 93025590124a20a75fe29c601f4d763d62b61a13[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Thu Apr 18 00:30:58 2024 +0100
+
+    get doctors data in front & auth user
+
+[33mcommit 3fc5c5f3aab6ad53522e3df6ed29b61faebb6938[m
+Author: abdelfetah18 <nstart0319@gmail.com>
+Date:   Sat Apr 6 00:59:12 2024 +0100
+
+    update entities types
+
+[33mcommit af92a7cfa4f6a42fdfa39ba77c88124848df0658[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Fri Apr 5 18:37:46 2024 +0100
+
+    create single event/organizations pages ui
+
+[33mcommit 3ca544e76d0b36197604e57a75118de336533679[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Thu Apr 4 16:22:33 2024 +0100
+
+    create search and single job post page ui
+
+[33mcommit 07603fbab5ddb1ae049ba2f480eae569b985d7a7[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Wed Apr 3 15:20:19 2024 +0100
+
+    challenges page ui
+
+[33mcommit d285326d5f4109d10ce050fe6711e4cbf21f0f7e[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Tue Apr 2 15:32:36 2024 +0100
+
+    create events page ui
+
+[33mcommit 9720b40de0b260abbc1d9696502ac0f31f6d0a12[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Mon Apr 1 18:31:39 2024 +0100
+
+    create home page ui
+
+[33mcommit c517d8f0881184267a3abafe845cf061f2d017a6[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Sun Mar 31 16:17:45 2024 +0100
+
+    create job posts ui page
+
+[33mcommit d9aed1659755d3e0ea92ec1be14e15d211c1e01b[m
+Author: unknown <kadiksalah03@gmail.com>
+Date:   Sat Mar 30 16:19:07 2024 +0100
+
+    create sign_up sign_in  landing_page ui pages
+
+[33mcommit 1e1c53ce5a2e9da964af95acfe8578b5db042434[m
+Author: abdelfetah18 <nstart0319@gmail.com>
+Date:   Tue Mar 12 23:10:19 2024 +0100
+
+    Project Setup

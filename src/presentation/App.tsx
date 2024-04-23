@@ -16,6 +16,9 @@ import SingleJobPost from './pages/SingleJobPost';
 import SingleOrganization from './pages/SingleOrganization';
 import SingleEvent from './pages/SingleEvent';
 import Settings from './pages/Settings';
+import CreateEvent from './pages/CreateEvent';
+import WithoutFooter from './layout/WithoutFooter';
+import CreateOrganization from './pages/CreatOrganization';
 
 function App() {
   const toastManager = useToast();
@@ -36,6 +39,10 @@ function App() {
             <Route path="single-organization/:id" element={<SingleOrganization />} />
             <Route path="single-event/:id" element={<SingleEvent />} />
             <Route path="settings" element={<Settings />} />
+          </Route>
+          <Route path='/' element={(<WithoutFooter />)}>
+            <Route path="create-event" element={<CreateEvent />} />
+            <Route path="create-organization" element={<CreateOrganization />} />
           </Route>
         </Routes>
         <Toast />

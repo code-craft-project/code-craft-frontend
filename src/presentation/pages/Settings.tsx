@@ -1,6 +1,9 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import GradientColor from "../../application/data/GradientColor.ts";
 import profile from '../../assets/Images/profile.png';
+import privacy from '../../assets/Icons/privacy.svg';
+import progress from '../../assets/Icons/progress.svg';
+import user from '../../assets/Icons/user.svg';
 import PersonalDetails from "../components/PersonalDetails";
 import Privacy from "../components/Privacy";
 import MyProgress from "../components/MyProgress";
@@ -31,26 +34,33 @@ function Settings() {
                     <div className="flex flex-col gap-3 items-center pl-8">
                         <button 
                             onClick={() => setChangeComponent(0)} 
-                            className={`cursor-pointer flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 0 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : 'hover:text-primary-yellow hover:bg-clip-text hover:text-transparent'}`}
+                            className={`cursor-pointer hover:opacity-60 flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 0 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : ''}`}
                         >
-                            <Icon icon="zondicons:user" width="18" height="18" />
+                            {changeComponent==0 
+                            ? <img src={user} alt="" />
+                            : <Icon icon="zondicons:user" width="18" height="18" />
+                            }
                             <span className="w-32 text-sm text-start">Personal details</span>
                         </button>
                         <button 
                             onClick={() => setChangeComponent(1)} 
-                            className={`cursor-pointer flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 1 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : 'hover:text-primary-yellow hover:bg-clip-text hover:text-transparent'}`}
+                            className={`cursor-pointer hover:opacity-60 flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 1 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : ''}`}
                         > 
-                            <Icon icon="material-symbols:privacy-tip" width="18" height="18" />
+                            {changeComponent==1
+                            ? <img src={privacy} alt="" />
+                            : <Icon icon="material-symbols:privacy-tip" width="18" height="18" />
+                            }
                             <span className="w-32 text-sm text-start">Privacy</span>
                         </button>
                         <button 
                             onClick={() => setChangeComponent(2)} 
-                            className={`cursor-pointer flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 2 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : 'hover:text-primary-yellow hover:bg-clip-text hover:text-transparent'}`}
+                            className={`cursor-pointer hover:opacity-60 flex gap-1 transition-colors duration-300 ease-in-out items-center '}`}
                         >
-                            <Icon icon="ri:progress-3-fill" width="18" height="18"
-                            
-                            />
-                            <span className="w-32 text-sm text-start">My progress</span>
+                            {changeComponent == 2
+                            ? <img src={progress} alt="" className="scale-75 "/>
+                            : <Icon icon="ri:progress-3-fill" className="text-white" width="18" height="18"/>
+                            }
+                            <span className={`w-32 text-sm text-start ${changeComponent == 2 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : ''}`}>My progress</span>
                         </button>
                     </div>
                 </div>
