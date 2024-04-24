@@ -1,4 +1,4 @@
-import profile from '../../assets/Images/profile.png';
+import profile from '../../../assets/Images/profile.png'
 
 function PersonalDetails() {
     

@@ -1,4 +1,4 @@
-import GradientColor from "../../application/data/GradientColor.ts";
+import GradientColor from "../../../application/data/GradientColor.ts";
 
 function MyProgress() {
     const {styles} = GradientColor()

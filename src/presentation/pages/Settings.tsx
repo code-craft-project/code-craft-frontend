@@ -4,9 +4,9 @@ import profile from '../../assets/Images/profile.png';
 import privacy from '../../assets/Icons/privacy.svg';
 import progress from '../../assets/Icons/progress.svg';
 import user from '../../assets/Icons/user.svg';
-import PersonalDetails from "../components/PersonalDetails";
-import Privacy from "../components/Privacy";
-import MyProgress from "../components/MyProgress";
+import PersonalDetails from "../components/settings/PersonalDetails.tsx";
+import Privacy from "../components/settings/Privacy.tsx";
+import MyProgress from "../components/settings/MyProgress.tsx";
 import { useState } from "react";
 
 function Settings() {

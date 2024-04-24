@@ -2,7 +2,7 @@ import { useState } from "react";
 import GradientColor from "../../application/data/GradientColor"
 import upload from '../../assets/Icons/upload.svg';
 
-function CreateOrganization() {
+    function CreateOrganization() {
     const {styles} = GradientColor()
     const [files, setFiles] = useState([]);
     const onDragOver = (event: any) => {
@@ -32,7 +32,7 @@ function CreateOrganization() {
                 </div>
                 <div className="flex flex-col gap-3">
                     <h1 className="text-xl font-meduim text-start">Description</h1>
-                    <textarea  cols="85" rows="5" className="w-full p-3 placeholder:font-meduim font-meduim rounded-lg" placeholder="text.."/>
+                    <textarea  cols={85} rows={5} className="w-full p-3 text-black placeholder:font-meduim font-meduim rounded-lg" placeholder="text.."/>
                 </div>
                 <div className="flex flex-col gap-3 w-full">
                     <h1 className="text-xl font-meduim text-start">Logo</h1>

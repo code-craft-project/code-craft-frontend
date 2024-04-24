@@ -8,3 +8,10 @@ interface ChallengeEntity {
     type: "in_out" | "project";
     creator_id?: number;
 };
+
+interface TestCase {
+    input: string;
+    type: string;
+    output: string;
+    newInput: string;
+}
