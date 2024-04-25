@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import GradientColor from "../../application/data/GradientColor.ts";
-import profile from '../../assets/Images/profile.png';
 import privacy from '../../assets/Icons/privacy.svg';
 import progress from '../../assets/Icons/progress.svg';
 import user from '../../assets/Icons/user.svg';

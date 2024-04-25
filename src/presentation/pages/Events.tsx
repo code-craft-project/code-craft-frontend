@@ -27,7 +27,7 @@ function Events() {
         <div className='flex flex-wrap w-[100%] px-10'>
             {Array.from({length:10}).map((_,index)=>(
                 <div key={index}>
-                    <OneEventCard eventData={{image:OneEventImg, title:'#101Tech', date:'Mars 01 10:00 AM'}}/>
+                    <OneEventCard eventData={{logo_url:OneEventImg, title:'#101Tech', start_at:'2024-04-20T19:00:00Z', end_at:'2024-04-25T19:00:00Z'}}/>
                 </div>
             ))}
         </div>

@@ -11,3 +11,11 @@ interface EventEntity {
     is_team_based: boolean;
     max_team_members?: number;
 };
+
+type eventDataCard = {
+    logo_url?: string;
+    title:string,
+    start_at:string,
+    end_at: timestamp;
+
+}

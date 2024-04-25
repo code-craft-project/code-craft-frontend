@@ -22,6 +22,8 @@ import CreateOrganization from './pages/CreatOrganization';
 import ChallengePage from './pages/ChallengePage';
 import CreateChallenge from './pages/CreateChallenge';
 import CreateJobPost from './pages/CreateJobPost';
+import OrganizationSettings from './pages/OrganizationSettings';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const toastManager = useToast();
@@ -43,6 +45,8 @@ function App() {
             <Route path="single-organization/:id" element={<SingleOrganization />} />
             <Route path="single-event/:id" element={<SingleEvent />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="organization-settings" element={<OrganizationSettings />} />
+            <Route path="dashboard" element={<Dashboard />} />
           </Route>
           <Route path='/' element={(<WithoutFooter />)}>
             <Route path="create-event" element={<CreateEvent />} />
