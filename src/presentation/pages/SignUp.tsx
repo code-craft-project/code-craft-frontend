@@ -1,18 +1,51 @@
 // import React from 'react'
 import ToastContext from "../../application/contexts/ToastContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
 import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
+import { userAuthentication } from "../../application/services.ts";
 
 export default function SignUp() {
     const toastManager = useContext(ToastContext);
-    const alertSuccessHandler = () => { toastManager.alertSuccess('Success Message') }
-    const alertErroreHandler = () => { toastManager.alertError("Error Message"); }
-    const alertInfoHandler = () => { toastManager.alertInfo("Info Message"); }
+    const alertSuccessHandler = (_p0: string) => { toastManager.alertSuccess('Success Message') }
+    const alertErroreHandler = (_p0: string) => { toastManager.alertError("Error Message"); }
     const {styles} = GradientColor()
+
+    var [first_name,setFirst_name] = useState("");
+    var [last_name,setLast_name] = useState("");
+    var [email,setEmail] = useState("");
+    var [password,setPassword] = useState("");
+
+
+    async function sign_up(ev: any) {
+        ev.preventDefault();
+        if (first_name.length > 0 && last_name.length > 0 && email.length > 0 && password.length > 0) {
+            const username = `${first_name} ${last_name}`; 
+            const user = { 
+                username,
+                first_name,
+                last_name,
+                email,
+                password,
+            };
+            try {
+                const response = await userAuthentication.signUp(user);
+                if (response.status == "success") {
+                    alertSuccessHandler("Registration successful");
+                    window.location.href = "/sign-in";
+                } else {
+                    console.error('Registration failed:', response.message);
+                    alertErroreHandler("Registration failed"); 
+                }
+            } catch (error) {
+                console.log(error);
+                alertErroreHandler("Registration failed"); 
+            }
+        }
+    }
 
     return (
         <div className="container bg-black w-screen h-screen flex flex-col justify-center items-center">
@@ -29,31 +62,64 @@ export default function SignUp() {
                 </div>
             </div>
             <div className="w-1/2 h-5/6" style={{backgroundImage: `url('${sign}')`, backgroundSize: 'contain',backgroundRepeat:"no-repeat", backgroundPosition:"center"}}>
-                <div className="flex flex-col justify-center items-center mb-8 ">
+                <div className="flex flex-col justify-center items-center mb-5 ">
                     <div className="w-14 h-14 overflow-hidden rounded-full flex justify-center items-center">
                         <Icon icon="mingcute:user-4-fill" className={` w-20 h-20 rounded-full ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`} />
                     </div>
                     <h1 className=" text-xl font-bold ">Sign up</h1>
                 </div>
-                <form className="pl-8 flex flex-col items-center ">
+                <form onClick={sign_up} className="pl-8 flex flex-col items-center ">
                     <div className="mb-2">
-                        <div className="flex mb-5 justify-around items-center w-64 mx-auto">
+                        <div className="flex mb-3 justify-around items-center w-64 mx-auto">
                             <div className={`w-6 h-6 rounded-sm ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} flex justify-center items-center`}>
                                 <Icon icon="ph:user-fill"  style={{color: "white"}} />
                             </div>
-                            <input type="text" className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" placeholder="First & Last name" />
+                            <input 
+                                type="text" 
+                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" 
+                                placeholder="First name"
+                                value={first_name} 
+                                onChange={(ev) => setFirst_name(ev.target.value)}
+                            />
                         </div>
-                        <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
+                        <div className="flex mb-3 justify-around items-center w-64 mx-auto">
+                            <div className={`w-6 h-6 rounded-sm ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} flex justify-center items-center`}>
+                                <Icon icon="ph:user-fill"  style={{color: "white"}} />
+                            </div>
+                            <input 
+                                type="text" 
+                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" 
+                                placeholder="Last name" 
+                                value={last_name} 
+                                onChange={(ev) => setLast_name(ev.target.value)}
+
+                            />
+                        </div>
+                        <div className="flex  mb-3 justify-around items-center w-64 mx-auto">
                             <div className={`w-6 h-6 rounded-sm ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} flex justify-center items-center`}>
                                 <Icon icon="ic:baseline-email"  style={{color: "white"}} />             
                             </div>
-                            <input type="text" className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" placeholder="Email" />
+                            <input 
+                                type="text" 
+                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" 
+                                placeholder="Email" 
+                                value={email} 
+                                onChange={(ev) => setEmail(ev.target.value)}
+
+                            />
                         </div>
-                        <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
+                        <div className="flex  mb-3 justify-around items-center w-64 mx-auto">
                             <div className={`w-6 h-6 rounded-sm ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} flex justify-center items-center`}>
                                 <Icon icon="mdi:password"  style={{color: "white"}} />                        
                             </div>
-                            <input type="password" className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" placeholder="Password" />
+                            <input 
+                                type="password" 
+                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" 
+                                placeholder="Password"
+                                value={password} 
+                                onChange={(ev) => setPassword(ev.target.value)}
+
+                            />
                         </div>
 
                     </div>

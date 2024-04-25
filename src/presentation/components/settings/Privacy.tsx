@@ -1,8 +1,6 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
-import GradientColor from "../../.././application/data/GradientColor.ts";
 
 function Privacy() {
-  const {styles} = GradientColor()
 
   return (
     <div className="flex flex-col gap-8 py-5 px-20 w-4/5">
