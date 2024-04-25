@@ -1,12 +1,22 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TestCases from "./TestCases";
 import TestResult from "./TestResult";
+import SubmissionContext from "../../../application/contexts/SubmissionContext";
 
-type Tab = 'test-cases' | 'test-result';
+type Tab = 'test-cases' | 'test-result' | 'terminal';
 
-export default function ExecutionResult() {
-    const [selectedTab, setSelectedTab] = useState<Tab>('test-cases');
+interface ExecutionResultProps {
+    challengeId: number;
+};
+
+export default function ExecutionResult({ challengeId }: ExecutionResultProps) {
+    const [selectedTab, setSelectedTab] = useState<Tab>('terminal');
+    const { runResult, testCases, getTestCases } = useContext(SubmissionContext);
+
+    useEffect(() => {
+        getTestCases(challengeId);
+    }, []);
 
     return (
         <div className="w-full h-full flex flex-col bg-gradient-to-b from-slate-950 to-blue-950 rounded-lg">
@@ -23,9 +33,18 @@ export default function ExecutionResult() {
                     <div className="ml-1 text-sm font-semibold">Test Result</div>
                 </div>
             </div>
-            <div className="w-full flex flex-col items-center flex-grow">
-                {selectedTab == "test-cases" && <TestCases />}
-                {selectedTab == "test-result" && <TestResult />}
+            <div className="w-full flex flex-col items-center overflow-auto flex-grow">
+                {selectedTab == "test-cases" && <TestCases testCases={testCases} />}
+                {selectedTab == "test-result" && <TestResult testCases={testCases} />}
+                {selectedTab == "terminal" && (
+                    <div className="w-full text-gray-100 font-medium font-mono text-sm p-2">
+                        <div className="w-full flex items-center mb-4">
+                            <div className="">Output:</div>
+                            <div className="ml-4 whitespace-pre-line">{runResult.output}</div>
+                        </div>
+                        <div className="text-red-500">{runResult.error}</div>
+                    </div>
+                )}
             </div>
         </div>
     )
