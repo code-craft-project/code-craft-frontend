@@ -1,71 +1,81 @@
-import OneEventCard from '../components/OneEventCard';
-import OneEventImg from '../../assets/Images/OneEventImg.png';
 import OrganizationImg from '../../assets/Images/OrganizationImg.png';
-import OneChallengeCard from '../components/OneChallengeCard';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import useOrganization from '../../application/hooks/useOrganization';
+import { useEffect } from 'react';
+import EventCard from '../components/EventCard';
+import ChallengeCard from '../components/ChallengeCard';
 
-function SingleOrganization() {
-  return (
-    <div className="mt-24 px-28">
-        <div className='flex'>
-            <div className="w-1/2 pr-5">
-                <h1 className="text-3xl py-5">Microsoft</h1>
-                <p className='pt-5'>
-                    Microsoft Corporation is an American multinational corporation and technology company headquartered in Redmond, Washington. It is also incorporated in Washington.Microsoft's best-known software products are the Windows line of operating systems, the Microsoft 365 suite of productivity applications, and the Edge web browser. 
-                </p>
-                <div className='py-2'>
-                    <span className='opacity-60 mr-2'>Owner:</span>
-                    <span>Bill Gates</span>
+function OrganizationPage() {
+    const { id } = useParams();
+    const { organization, getOrganizationById, events, getOrganizationEvents, challenges, getOrganizationChallenges } = useOrganization();
+
+    useEffect(() => {
+        if (id) {
+            getOrganizationById(parseInt(id));
+            getOrganizationEvents(parseInt(id), 0, 10);
+            getOrganizationChallenges(parseInt(id));
+        }
+    }, [id]);
+
+    return (
+        <div className="mt-24 px-24">
+            <div className='flex justify-between'>
+                <div className="w-2/3 pr-16">
+                    <h1 className="text-3xl">{organization.name}</h1>
+                    <p className='mt-8 whitespace-pre-line'>
+                        {organization.description}
+                    </p>
+                    <div className='mt-8'>
+                        <span className='text-white/60 font-semibold mr-2'>Owner:</span>
+                        <span>{`${organization.creator?.first_name} ${organization.creator?.last_name}`}</span>
+                    </div>
+                    <div className=''>
+                        <span className='text-white/60 font-semibold mr-2'>Organization Type:</span>
+                        <span className='capitalize'>{organization.type}</span>
+                    </div>
                 </div>
-                <div className='py-2'>
-                    <span className='opacity-60 mr-2'>Organization Type:</span>
-                    <span>Company</span>
+                <div className='w-1/3 h-80'>
+                    <img src={organization.profile_image_url ? organization.profile_image_url : OrganizationImg} alt="" className='rounded-3xl bg-white w-full h-full object-contain' />
                 </div>
             </div>
-            <div className='w-1/2'>
-                <img src={OrganizationImg} alt="" className='rounded-[20px]'/>
-            </div>
-        </div>
-        <div className='my-20'>
-            <h1 className="text-3xl mb-10">Company events</h1>
-            <div className='flex flex-wrap w-[100%] '>
-                {Array.from({length:7}).map((_,index)=>(
-                    <div key={index}>
-                        <OneEventCard eventData={{image:OneEventImg, title:'#101Tech', date:'Mars 01 10:00 AM'}}/>
-                    </div>
-                ))}
-            </div>          
-        </div>
-        <div className="text-sm my-20 w-[60%] ml-2">
-            <h1 className="text-3xl py-5">Company Challenges</h1>
-            <div >
-                <div className="flex items-center py-2 w-[80%] gap-16">
-                    <div className="w-[14rem]">
-                        <span className=" px-2">Status</span>
-                    </div>
-                    <div className=" w-80 text-center">
-                        <span>Title</span>
-                    </div>
-                    <span className="w-[10rem] text-end">Difficulty</span>
-                    <span className="text-nowrap">Maximum Score</span>
+            <div className='my-20'>
+                <h1 className="text-3xl mb-4 font-semibold">Events:</h1>
+                <div className='flex flex-wrap w-full'>
+                    {
+                        events.map((event, index) => {
+                            return (
+                                <div key={index} className='w-1/5 pr-4'>
+                                    <EventCard event={event} />
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-                <hr className="w-[80%]"/>
-                {Array.from({length: 8}).map((_,index)=>(
-                <div key={index}>
-                    <OneChallengeCard challenge={{status: 'Done', title: 'Bracket Combinations dsfdsf dsfsd', difficulty:'Hard', maximumScore: 13}}/>
-                </div>
-                ))}
             </div>
-            <div className='flex justify-end w-full'>
-                <NavLink to='/challenges' className='px-5 flex py-2 my-3 border transition-all duration-300 rounded-lg border-white hover:scale-105 hover:bg-white hover:text-black'>
-                    Show all company challenges
+            <div className="text-sm my-20 w-[60%] ml-2">
+                <h1 className="text-3xl mb-4 font-semibold">Challenges:</h1>
+                <div >
+                    <div className="w-full flex items-center py-2">
+                        <div className='flex-1 font-semibold'>Status</div>
+                        <div className='flex-1 font-semibold'>Title</div>
+                        <div className='flex-1 font-semibold'>Difficulty</div>
+                        <div className='flex-1 font-semibold'></div>
+                    </div>
+                    <div className='w-4/5 h-px bg-gray-400'></div>
+                    {challenges.map((challenge, index) => (
+                        <ChallengeCard key={index} challenge={challenge} />
+                    ))}
+                </div>
+            </div>
+            <div className='w-full flex flex-col items-center'>
+                <NavLink to='/challenges' className='flex items-center px-8 py-2 border transition-all duration-300 rounded-lg border-white hover:scale-105 hover:bg-white hover:text-black'>
+                    {"View more challenges"}
                     <Icon icon="material-symbols-light:double-arrow" width="18" height="18" />
                 </NavLink>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
-export default SingleOrganization
+export default OrganizationPage;

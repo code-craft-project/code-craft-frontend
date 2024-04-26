@@ -9,6 +9,7 @@ interface ChallengeEntity {
     is_public: boolean;
     type: "in_out" | "project";
     creator_id?: number;
+    status?: string; // TODO: Make sure to update this property when fetching challenges.
 };
 
 interface TestCase {
