@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import UserSessionContext from "../contexts/UserSessionContext";
+import {  useEffect, useState } from "react";
+import { userAuthentication } from "../services";
 
 const ACCESS_TOKEN_KEY = "access_token";
 
@@ -15,14 +15,30 @@ export default function useUserSession() {
             password: ""
         }
     });
-    const {user} = useContext(UserSessionContext)
 
     useEffect(() => {
+        const user:any = getCurrentUser()
         const accessToken = getAccessToken();
-        if (accessToken) {
-            setUserSession(state => ({ ...state, access_token: accessToken, user: user }));
+        if (accessToken && user.data) {
+            setUserSession(state => ({ ...state, access_token: accessToken, user: user.data}));
         }    
     }, []);
+
+    const getCurrentUser = async () => {
+        try {
+            const response = await userAuthentication.currentUser();
+                if (response.status == "success") {
+                    return response
+                } else {
+                    console.error('Token expired:', response.message);
+                    return response.message
+                }
+        }catch (error) {
+            console.log(error);
+            return ('something has wrong')
+        }
+    }
+
 
     function saveAccessToken(userSession: UserSession){
         let { access_token } = userSession;

@@ -28,5 +28,5 @@ export class AxiosHttp {
 
   async delete<Result>(uri: string): Promise<AxiosResponse<Result>> {
     return this.axiosInstance.delete<Result>(uri);
-  }
+  } 
 }
