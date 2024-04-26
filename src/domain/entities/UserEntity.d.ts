@@ -9,3 +9,10 @@ interface UserEntity {
     updated_at?: date;
     profile_image_url?: string;
 };
+
+interface UpdateUserEntity {
+    username: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+}

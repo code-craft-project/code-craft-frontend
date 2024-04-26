@@ -19,5 +19,8 @@ export default class UserAuthentication {
         return (await this.axiosHttp.get<HttpResponse<UserEntity>>('/api/users')).data
     }
     
+    async updateUser(user: any): Promise<HttpResponse<any>> {
+        return (await this.axiosHttp.post<HttpResponse<UserEntity>>('/api/users',user)).data
+    }
 
 }

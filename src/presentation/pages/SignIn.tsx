@@ -65,7 +65,7 @@ export default function SignIn() {
                     </div>
                     <h1 className=" text-xl font-bold ">Sign in</h1>
                 </div>
-                <form onClick={sign_in} className="pl-8 flex flex-col items-center ">
+                <form onSubmit={sign_in} className="pl-8 flex flex-col items-center ">
                     <div className="mb-2">
                         <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
                             <div className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} w-6 h-6 rounded-sm flex justify-center items-center`}>
@@ -84,7 +84,7 @@ export default function SignIn() {
                                 <Icon icon="mdi:password"  style={{color: "white"}} />                        
                             </div>
                             <input 
-                                type="text" 
+                                type="password" 
                                 className="border-1.5 outline-none border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" 
                                 placeholder="Password" 
                                 value={password} 

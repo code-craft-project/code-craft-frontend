@@ -17,29 +17,26 @@ export default function useUserSession() {
     });
 
     useEffect(() => {
-        const user:any = getCurrentUser()
-        const accessToken = getAccessToken();
-        if (accessToken && user.data) {
-            setUserSession(state => ({ ...state, access_token: accessToken, user: user.data}));
-        }    
+        
+        fetchUserSession();   
     }, []);
-
-    const getCurrentUser = async () => {
-        try {
-            const response = await userAuthentication.currentUser();
-                if (response.status == "success") {
-                    return response
+    
+    const fetchUserSession = async () => {
+        const accessToken = getAccessToken()
+        if (accessToken) {
+            try {
+                const response = await userAuthentication.currentUser();
+                if (response.status === "success") {
+                    setUserSession(state => ({ ...state, access_token: accessToken, user: response.data }));
                 } else {
                     console.error('Token expired:', response.message);
-                    return response.message
                 }
-        }catch (error) {
-            console.log(error);
-            return ('something has wrong')
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
         }
-    }
-
-
+    };
+    
     function saveAccessToken(userSession: UserSession){
         let { access_token } = userSession;
         localStorage.setItem(ACCESS_TOKEN_KEY, access_token);

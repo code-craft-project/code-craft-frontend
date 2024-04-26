@@ -68,7 +68,7 @@ export default function SignUp() {
                     </div>
                     <h1 className=" text-xl font-bold ">Sign up</h1>
                 </div>
-                <form onClick={sign_up} className="pl-8 flex flex-col items-center ">
+                <form onSubmit={sign_up} className="pl-8 flex flex-col items-center ">
                     <div className="mb-2">
                         <div className="flex mb-3 justify-around items-center w-64 mx-auto">
                             <div className={`w-6 h-6 rounded-sm ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} flex justify-center items-center`}>
