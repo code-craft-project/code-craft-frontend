@@ -1,5 +1,3 @@
-// import { useContext } from "react";
-// import ToastContext from "../../application/contexts/ToastContext";
 import profiles from '../../assets/Images/profiles.png';
 import Landimg1 from '../../assets/Images/LandImg1.png';
 import Landimg2 from '../../assets/Images/LandImg2.png';
@@ -11,21 +9,64 @@ import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
 import InformationCard from "../components/InformationCard";
 import logo from '../../assets/Images/Logo.svg';
+import { useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 export default function LandingPage() {
-    // const toastManager = useContext(ToastContext);
     const { styles } = GradientColor();
+    
+    // Ref and controls for each pair of elements
+    const [ref1, inView1] = useInView();
+    const controls1 = useAnimation();
 
-    // const alertSuccessHandler = () => { toastManager.alertSuccess("Success Message"); }
-    // const alertErroreHandler = () => { toastManager.alertError("Error Message"); }
-    // const alertInfoHandler = () => { toastManager.alertInfo("Info Message"); }
+    const [ref2, inView2] = useInView();
+    const controls2 = useAnimation();
+
+    const [ref3, inView3] = useInView();
+    const controls3 = useAnimation();
+
+    const [ref4, inView4] = useInView();
+    const controls4 = useAnimation();
+
+    useEffect(() => {
+        if (inView1) {
+            controls1.start({ opacity: 1, x: 0 });
+        } else {
+            controls1.start({ opacity: 0, x: -50 });
+        }
+    }, [inView1, controls1]);
+
+    useEffect(() => {
+        if (inView2) {
+            controls2.start({ opacity: 1, x: 0 });
+        } else {
+            controls2.start({ opacity: 0, x: -50 });
+        }
+    }, [inView2, controls2]);
+
+    useEffect(() => {
+        if (inView3) {
+            controls3.start({ opacity: 1, x: 0 });
+        } else {
+            controls3.start({ opacity: 0, x: -50 });
+        }
+    }, [inView3, controls3]);
+
+    useEffect(() => {
+        if (inView4) {
+            controls4.start({ opacity: 1, x: 0 });
+        } else {
+            controls4.start({ opacity: 0, x: -50 });
+        }
+    }, [inView4, controls4]);
 
     return (
         <div className="flex flex-col items-center ">
             <div className="flex mt-14">
-                <div className=" w-1/2 p-10 mt-10">
+                <div className="w-1/2 p-10 mt-10">
                     <h1 className="font-semibold text-2xl my-8">Talk is cheap. Show me the code</h1>
-                    <h2 className="font-meduim text-xl opacity-75 mb-8">Take your code to the next level through quality <br/> code review by our expert engineers. Learn <br /> problem solving with our coding world</h2>
+                    <h2 className="font-medium text-xl opacity-75 mb-8">Take your code to the next level through quality <br/> code review by our expert engineers. Learn <br /> problem solving with our coding world</h2>
                     <div className="flex justify-around items-center mb-8 bg-white bg-opacity-30 w-[30rem] py-4 ">
                         <img src={profiles} alt="" className="w-28 h-11 "/>
                         <p className="text-xs font-medium">Join 780,900 developers building projects, <br /> reviewing code, and helping each other improve.</p>
@@ -37,7 +78,7 @@ export default function LandingPage() {
                                 <Icon icon="iconoir:search" className=" h-11 w-11 px-3 text-primary-yellow"/>
                             </NavLink>
                         </div>
-                        <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-meduim px-4 py-2 rounded-sm">Get Started</NavLink>
+                        <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-medium px-4 py-2 rounded-sm">Get Started</NavLink>
                     </div>
                 </div>
                 <div className="flex flex-col justify-start items-center w-1/2 p-10">
@@ -56,37 +97,90 @@ export default function LandingPage() {
                 <div className="absolute bottom-[23.8rem] left-[77%] h-2 w-2 rounded-full bg-primary-yellow" style={{boxShadow:"0px 2px 10px 1px rgb(0,0,0,.8)"}}></div>
                 <Icon icon="formkit:arrowdown" width='120' height='120'  className="absolute bottom-[17.9rem]   left-[44.5%] text-primary-yellow opacity-60" />
                 <InformationCard  title="Code Review" text="Online IDE and professional reviewers."/>
-                <InformationCard  title="Job Opportunities" text="Every company is a tech company.We’re here "/>
+                <InformationCard  title="Job Opportunities" text="Every company is a tech company. We’re here "/>
                 <InformationCard  title="Real-time Discussion" text="Discuss anytime with our community"/>
             </div>
             <div className="flex flex-col items-center mt-10">
-                <h1 className="inline-block text-3xl font-bold mb-5"> Tech hiring is evolving</h1>
-                <h1 className="inline-block text-md opacity-90 font-md text-center"> Tech hiring needs a reset. Instead of the traditional route, <br /> let’s empower developers with the right tools.</h1>
+                <motion.h1
+                    ref={ref1}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls1}
+                    transition={{ duration: 0.5 }}
+                    className="inline-block text-3xl font-bold mb-5"
+                >
+                    Tech hiring is evolving
+                </motion.h1>
+                <motion.h1
+                    ref={ref1}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls1}
+                    transition={{ duration: 0.5 }}
+                    className="inline-block text-md opacity-90 font-md text-center"
+                >
+                    Tech hiring needs a reset. Instead of the traditional route, <br /> let’s empower developers with the right tools.
+                </motion.h1>
             </div>
-            <div className="flex w-full  justify-around gap-[24rem] items-center p-10">
-                <div className="w-1/4">
+            <div className="flex w-full justify-around gap-[24rem] items-center p-10">
+                <motion.div
+                    ref={ref2}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls2}
+                    transition={{ duration: 0.5 }}
+                    className="w-1/4"
+                >
                     <h1 className="font-semibold text-xl text-center mb-3">Take part in the challenges</h1>
-                    <p className=" text-center"> Sharpen your skills by solving real-world problems, Understand the fundamentals and connect with the tech community. </p>
-                </div>
-                <img src={Landimg3} alt="" />
+                    <p className="text-center">Sharpen your skills by solving real-world problems, Understand the fundamentals and connect with the tech community.</p>
+                </motion.div>
+                <motion.img
+                    ref={ref2}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls2}
+                    transition={{ duration: 0.5 }}
+                    src={Landimg3}
+                    alt=""
+                />
             </div>
             <div className="flex w-full  justify-around gap-[16rem] items-center py-10  ">
-                <img src={Landimg4} alt="" className=" scale-75 "/>
-                <div className="w-1/4 mr-1">
+                <motion.img
+                    ref={ref3}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls3}
+                    transition={{ duration: 0.5 }}
+                    src={Landimg4}
+                    alt="" 
+                    className=" scale-75 "
+                />
+                <motion.div
+                    ref={ref3}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls3}
+                    transition={{ duration: 0.5 }}
+                    className="w-1/4 mr-1">
                     <h1 className="font-semibold text-xl text-center mb-3">Create job opportunities</h1>
-                    <p className=" text-center">  Stay updated with the latest hiring trends and job openings in the tech industry. Companies like EY, HCL tech, Google, and HBE are actively hiring. </p>
-                </div>
+                    <p className=" text-center"> Stay updated with the latest hiring trends and job openings in the tech industry.Companies like EY, HCL tech, Google, and HBE are actively hiring.</p>
+                </motion.div>
             </div>
             <div className="flex w-full  justify-around gap-[20rem] items-center p-10">
-                <div className="w-1/4">
+                <motion.div
+                    ref={ref4}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls4}
+                    transition={{ duration: 0.5 }}
+                    className="w-1/4">
                     <h1 className="font-semibold text-xl text-center mb-3">Coding challenge events</h1>
-                    <p className=" text-center">   Events are exciting opportunities for developers to showcase their skills and learn </p>
-                </div>
-                <img src={Landimg5} alt="" className=" scale-75"/>
+                    <p className=" text-center">Events are exciting opportunities for developers to showcase their skills and learn</p>
+                </motion.div>
+                <motion.img
+                    ref={ref4}
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={controls4}
+                    transition={{ duration: 0.5 }}
+                    src={Landimg5} alt=""
+                    className=" scale-75"/>
             </div>
             <div className={`w-[1150px] h-[500px] my-10 rounded-3xl p-10 flex flex-col items-center justify-center ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`} style={{ backgroundImage: `linear-gradient(to bottom, rgba(33, 32, 156, 0.3), rgba(253, 184, 39, 0.3))` }}>
                 <img src={logo} alt="" className="w-52 my-2" />
-                <h1 className="my-2 text-center">Practice coding challenges & Discuss with programmers</h1>
+                <h1 className="my-2 text-center">Practice coding challenges & Discuss with programmers</h1>
                 <h1 className="my-2 text-center">Public Challenge Discourse enables open discussions within the <br /> project and idea exchange.</h1>
                 <NavLink to={''} className='flex items-center border hover:scale-105 transition-transform duration-500 active:scale-110 hover:bg-white hover:text-black border-white px-16 py-2 rounded-xl my-2 text'>
                     Discover our challenges world  
@@ -97,12 +191,3 @@ export default function LandingPage() {
         </div>
     )
 }
-
-// const styles2 = {
-//     container: "w-full h-screen overflow-auto bg-black flex justify-around items-center",
-//     btn: "px-16 py-2 rounded-lg text-white",
-//     btn_info: "bg-yellow-600",
-//     btn_success: "bg-green-600",
-//     btn_error: "bg-red-600",
-// };
-
