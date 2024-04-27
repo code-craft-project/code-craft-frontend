@@ -1,12 +1,9 @@
 import { createContext } from "react";
 
-export default createContext<UserSession>({
-    access_token: '',
-    user: {
-        username:'',
-        first_name:'',
-        last_name:'',
-        email:'',
-        password:''
-    }
+export default createContext<useUserSessionReturn>({
+    isLoading: true,
+    userSession: { access_token: '' },
+    isValidSession: false,
+    signOut: () => { },
+    signIn: (userSession: UserSession) => { userSession; }
 });

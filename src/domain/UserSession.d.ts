@@ -2,3 +2,11 @@ interface UserSession {
     access_token: string;
     user?: UserEntity;
 };
+
+interface useUserSessionReturn {
+    userSession: UserSession;
+    isLoading: boolean;
+    isValidSession: boolean;
+    signIn: (userSession: UserSession) => void;
+    signOut: () => void;
+};

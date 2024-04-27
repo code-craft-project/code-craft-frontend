@@ -5,15 +5,7 @@ import OrganizationsSerivce from "./services/OrganizationsSerivce";
 import UserAuthentication from "./services/UserAuthentication";
 import EventsService from "./services/EventsService";
 
-const accessToken = localStorage.getItem("access_token");
-
-const axiosInstance = axios.create({
-    headers: {
-        Authorization: accessToken ? accessToken : undefined,
-    },
-});
-
-export const axiosHttp = new AxiosHttp(axiosInstance);
+export const axiosHttp = new AxiosHttp(axios, localStorage, true);
 
 export const challengesService = new ChallengesService(axiosHttp);
 export const userAuthentication = new UserAuthentication(axiosHttp);
