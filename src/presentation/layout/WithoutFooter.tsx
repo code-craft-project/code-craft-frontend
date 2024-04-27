@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 
 function WithoutFooter() {
   return (
-    <div className='min-h-screen py-5 bg-black'>
+    <div className='min-h-screen py-5 bg-black overflow-auto'>
         <Navbar/>
         <Outlet/>
     </div>

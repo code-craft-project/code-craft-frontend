@@ -24,6 +24,7 @@ import CreateChallenge from './pages/CreateChallenge';
 import CreateJobPost from './pages/CreateJobPost';
 import UserSessionContext from '../application/contexts/UserSessionContext';
 import useUserSession from '../application/hooks/useUserSession';
+import UpdateEvent from './pages/UpdateEvent';
 
 function App() {
   const toastManager = useToast();
@@ -53,6 +54,7 @@ function App() {
                 <Route path="create-organization" element={<CreateOrganization />} />
                 <Route path="create-challenge" element={<CreateChallenge />} />
                 <Route path="create-job-post" element={<CreateJobPost />} />
+                <Route path="update-event/:id" element={<UpdateEvent />} />
               </Route>
             </Routes>
             <Toast />
