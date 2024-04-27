@@ -12,6 +12,7 @@ export interface HttpResponse<T> {
 
 export class AxiosHttp {
   constructor(private axiosInstance: AxiosInstance) { }
+  
 
   async get<Result>(uri: string, config = {}): Promise<AxiosResponse<Result>> {
     return this.axiosInstance.get<Result>(uri, config);
@@ -27,5 +28,5 @@ export class AxiosHttp {
 
   async delete<Result>(uri: string): Promise<AxiosResponse<Result>> {
     return this.axiosInstance.delete<Result>(uri);
-  }
+  } 
 }

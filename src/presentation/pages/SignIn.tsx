@@ -1,18 +1,47 @@
 // import React from 'react'
 import ToastContext from "../../application/contexts/ToastContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
 import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
 import { NavLink } from "react-router-dom";
+import { userAuthentication } from "../../application/services.ts";
+import useUserSession from "../../application/hooks/useUserSession.ts";
 
 export default function SignIn() {
     const toastManager = useContext(ToastContext);
-    const alertSuccessHandler = () => { toastManager.alertSuccess('Success Message') }
-    const alertErroreHandler = () => { toastManager.alertError("Error Message"); }
-    const alertInfoHandler = () => { toastManager.alertInfo("Info Message"); }
+    const alertSuccessHandler = (_p0: string) => { toastManager.alertSuccess('Success Message') }
+    const alertErroreHandler = (_p0: string) => { toastManager.alertError("Error Message"); }
     const { styles } = GradientColor();
+    const {saveAccessToken} = useUserSession();
+    var [email,setEmail] = useState("");
+    var [password,setPassword] = useState("");
+
+
+    async function sign_in(ev: any) {
+        ev.preventDefault();
+        if (email.length > 0 && password.length > 0) {
+            const user = { 
+                email,
+                password,
+            };
+            try {
+                const response = await userAuthentication.signIn(user);
+                if (response.status == "success") {
+                    alertSuccessHandler("Registration successful");
+                    saveAccessToken(response.data);
+                    window.location.href = "/home";
+                } else {
+                    console.error('Registration failed:', response.message);
+                    alertErroreHandler("Registration failed"); 
+                }
+            } catch (error) {
+                console.log(error);
+                alertErroreHandler("Registration failed"); 
+            }
+        }
+    }
 
 
     return (
@@ -36,19 +65,32 @@ export default function SignIn() {
                     </div>
                     <h1 className=" text-xl font-bold ">Sign in</h1>
                 </div>
-                <form className="pl-8 flex flex-col items-center ">
+                <form onSubmit={sign_in} className="pl-8 flex flex-col items-center ">
                     <div className="mb-2">
                         <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
                             <div className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} w-6 h-6 rounded-sm flex justify-center items-center`}>
                                 <Icon icon="ic:baseline-email"  style={{color: "white"}} />             
                             </div>
-                            <input type="text" className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" placeholder="Email" />
+                            <input 
+                                type="text" 
+                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" 
+                                placeholder="Email" 
+                                value={email} 
+                                onChange={(ev) => setEmail(ev.target.value)}
+                            />
                         </div>
                         <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
                             <div className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} w-6 h-6 rounded-sm  flex justify-center items-center`}>
                                 <Icon icon="mdi:password"  style={{color: "white"}} />                        
                             </div>
-                            <input type="text" className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" placeholder="Password" />
+                            <input 
+                                type="password" 
+                                className="border-1.5 outline-none border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm" 
+                                placeholder="Password" 
+                                value={password} 
+                                onChange={(ev) => setPassword(ev.target.value)}
+
+                            />
                         </div>
                         <div className="flex  mb-5 justify-end items-center w-64 mx-auto">
                             <div className=" h-6 rounded-sm flex mr-5 justify-center items-center">
@@ -63,7 +105,7 @@ export default function SignIn() {
                         <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105 px-5 py-1 rounded-xl w- text-xs font-semibold  shadow-lg `} type="submit">LOGIN</button>
                         <div className="flex flex-col justify-center mx-4 items-center">
                             <p className="" style={{fontSize:"8px"}}>Don't have account?</p>
-                            <NavLink to='/signup' className=" font-semibold underline" style={{fontSize:"10px"}} >Sign up!</NavLink>
+                            <NavLink to='/sign-up' className=" font-semibold underline" style={{fontSize:"10px"}} >Sign up!</NavLink>
                         </div>
                     </div>
                 </form>
