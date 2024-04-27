@@ -18,4 +18,12 @@ export default class OrganizationsSerivce {
     async getOrganizationChallenges(organizationId: number): Promise<HttpResponse<ChallengeEntity[]>> {
         return (await this.axiosHttp.get<HttpResponse<ChallengeEntity[]>>(`/api/organizations/${organizationId}/challenges`)).data;
     }
+
+    async getOrganizationMembers(organizationId: number): Promise<HttpResponse<MemberEntity[]>> {
+        return (await this.axiosHttp.get<HttpResponse<MemberEntity[]>>(`/api/organizations/${organizationId}/members`)).data;
+    }
+
+    async getOrganizationDashboardStats(organizationId: number): Promise<HttpResponse<OrganizationDashboardStats>> {
+        return (await this.axiosHttp.get<HttpResponse<OrganizationDashboardStats>>(`/api/organizations/${organizationId}/dashboard`)).data;
+    }
 }

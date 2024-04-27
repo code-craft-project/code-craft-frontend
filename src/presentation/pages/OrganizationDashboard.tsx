@@ -1,56 +1,191 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
-import GradientColor from "../../application/data/GradientColor.ts";
-import { useState } from "react";
-import Members from "../components/dashboard/Members.tsx";
-import Events from "../components/dashboard/Events.tsx";
+import { useContext, useEffect, useState } from "react";
+
+import EventCard from "../components/EventCard.tsx";
+import OrganizationChallenges from "../components/dashboard/OrganizationChallenges.tsx";
+import useOrganizationDashboard from "../../application/hooks/useOrganizationDashboard.ts";
+import OrganizationDashboardContext from "../../application/contexts/OrganizationDashboardContext.ts";
+import OrganizationEvents from "../components/dashboard/OrganizationEvents.tsx";
+import OrganizationMembers from "../components/dashboard/OrganizationMembers.tsx";
+import { NavLink, useParams } from "react-router-dom";
+import LoadingIndicator from "../components/LoadingIndicator.tsx";
+import moment from "moment";
+import OrganizationSettings from "./OrganizationSettings.tsx";
+import { userProfilePicture } from "../../application/consts.ts";
+
+type OrganizationTabs = 'dashboard' | 'members' | 'events' | 'challenges' | 'settings';
+
+const challengeLevelColor: ChallengeLevelColor = {
+    easy: 'text-green-500',
+    medium: 'text-red-500',
+    hard: 'text-yellow-500'
+};
 
 function OrganizationDashboard() {
-    const { styles } = GradientColor()
-    const [changeComponent, setChangeComponent] = useState<number>(0)
+    const useOrganizationDashboardState = useOrganizationDashboard();
+    const [selectedTab, setSelectedTab] = useState<OrganizationTabs>('dashboard');
 
-    const components = [
-        {
-            title: 'Controll your organization members',
-            content: <Members />
-        },
-        {
-            title: 'Controll your events',
-            content: <Events />
-        },
-    ]
-    const handleDashboardChange = (event: any) => {
-        if (event.target.value == 'members') {
-            setChangeComponent(0)
-        } else {
-            setChangeComponent(1)
-        }
-    };
     return (
-        <div className="mt-10">
-            <div className="flex justify-around items-center gap-10 mt-24">
-                <div className="flex gap-10 items-center">
-                    <h1 className="text-xl font-bold flex gap-3 items-center">Dashboard</h1>
-                    <select
-                        className="bg-white bg-opacity-20 font-semibold text-lg rounded-lg px-3 py-1 outline-none"
-                        onChange={handleDashboardChange}
-                    >
-                        <option value="members">Members</option>
-                        <option value="events">Events</option>
-                    </select>
+        <OrganizationDashboardContext.Provider value={useOrganizationDashboardState}>
+            <div className="w-full h-screen overflow-auto bg-black flex items-center">
+                <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
+                    <div onClick={() => setSelectedTab('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
+                    <div onClick={() => setSelectedTab('members')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'members' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="tdesign:member" /></div>
+                    <div onClick={() => setSelectedTab('events')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'events' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="mdi:events" /></div>
+                    <div onClick={() => setSelectedTab('challenges')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'challenges' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="jam:code" /></div>
+                    <div onClick={() => setSelectedTab('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
                 </div>
-                <div className="flex items-center gap-5">
-                    <div className="flex relative rounded-r-lg ">
-                        <input type="text" placeholder={` ${changeComponent == 0 ? 'Search member..' : 'Search event..'}`} className=" bg-white outline-none bg-opacity-20 rounded-lg px-10 w-[22rem] py-1.5" />
-                        <Icon icon="iconoir:search" className=" h-10 w-10 px-2 cursor-pointer absolute left-0 text-white rounded-r-lg opacity-40" />
-                    </div>
-                    <button className={`bg-white bg-opacity-30 font-semibold flex items-center gap-3 ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} px-2 py-1 hover:bg-opacity-35 transition-all duration-200 active:scale-105 rounded-md`}>
-                        <Icon icon="material-symbols:add" width="18" height="18" />
-                        <span> {changeComponent == 0 ? 'Add Member' : 'Add Event'}</span>
-                    </button>
+                <div className="flex-grow h-full flex flex-col items-center p-8 overflow-auto">
+                    {selectedTab == 'dashboard' && (<DashboardComponent />)}
+                    {selectedTab == 'members' && (<OrganizationMembers />)}
+                    {selectedTab == 'events' && (<OrganizationEvents />)}
+                    {selectedTab == 'challenges' && (<OrganizationChallenges />)}
+                    {selectedTab == 'settings' && (<OrganizationSettings />)}
                 </div>
             </div>
-            {components[changeComponent].content}
+        </OrganizationDashboardContext.Provider>
 
+    )
+}
+
+function DashboardComponent() {
+    const { id } = useParams();
+    const { getOrganizationById,dashboardStats, getOrganizationDashboardStats, isDashboardStatsLoading } = useContext(OrganizationDashboardContext);
+
+    useEffect(() => {
+        if (id && isDashboardStatsLoading) {
+            getOrganizationDashboardStats(parseInt(id));
+            getOrganizationById(parseInt(id));
+        }
+    }, [id]);
+
+    return (
+        <div className="w-full h-full flex flex-col">
+            <div className="w-full flex">
+                <div className="font-bold text-gray-50 text-3xl">Welcome to Dashboard</div>
+            </div>
+            <div className="w-full flex mt-8">
+                <div className="w-1/4 flex flex-col bg-gray-950 rounded-3xl">
+                    <div className="px-4 py-2 font-semibold text-gray-50 text-xl">Latest Event</div>
+                    <div className="w-full flex flex-col items-center px-4">
+                        <div className="w-full py-4">
+                            {
+                                dashboardStats.latest_events.length > 0 && (
+                                    <EventCard event={dashboardStats.latest_events[0]} />
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="w-3/4 flex items-center pl-8">
+                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl p-4">
+                        <div className="text-2xl font-bold text-gray-50">Members</div>
+                        <div className="my-8 text-7xl">
+                            <Icon icon="mdi:users" />
+                        </div>
+                        <div className="text-yellow-600 text-5xl font-bold">{dashboardStats.total_members}</div>
+                        <div className="flex-grow w-full"></div>
+                        <div className="text-sm font-semibold text-gray-400 cursor-pointer hover:text-gray-200 duration-300">view</div>
+                    </div>
+                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl ml-8 p-4">
+                        <div className="text-2xl font-bold text-gray-50">Events</div>
+                        <div className="my-8 text-7xl">
+                            <Icon icon="mdi:events" />
+                        </div>
+                        <div className="text-yellow-600 text-5xl font-bold">{dashboardStats.total_events}</div>
+                        <div className="flex-grow w-full"></div>
+                        <div className="text-sm font-semibold text-gray-400 cursor-pointer hover:text-gray-200 duration-300">view</div>
+                    </div>
+                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl ml-8 p-4">
+                        <div className="text-2xl font-bold text-gray-50">Challenges</div>
+                        <div className="my-8 text-7xl">
+                            <Icon icon="jam:code" />
+                        </div>
+                        <div className="text-yellow-600 text-5xl font-bold">{dashboardStats.total_challenges}</div>
+                        <div className="flex-grow w-full"></div>
+                        <div className="text-sm font-semibold text-gray-400 cursor-pointer hover:text-gray-200 duration-300">view</div>
+                    </div>
+                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl ml-8 p-4">
+                        <div className="text-2xl font-bold text-gray-50">Participants</div>
+                        <div className="my-8 text-7xl">
+                            <Icon icon="fluent:people-team-20-filled" />
+                        </div>
+                        <div className="text-yellow-600 text-5xl font-bold">{dashboardStats.total_participants}</div>
+                        <div className="flex-grow w-full"></div>
+                        <div className="text-sm font-semibold text-gray-400 cursor-pointer hover:text-gray-200 duration-300">view</div>
+                    </div>
+                </div>
+
+            </div>
+            <div className="mt-8 w-full flex flex-grow overflow-auto">
+                <div className="w-1/2 flex flex-col bg-gray-950 rounded-3xl overflow-auto">
+                    <div className="px-4 py-3 text-gray-50 text-xl font-semibold">Latest Challenges</div>
+                    <div className="w-full flex flex-col px-4 overflow-auto">
+                        <div className="p-2 w-full flex items-center">
+                            <div className="flex-1 text-gray-200 text-sm font-medium">Title</div>
+                            <div className="flex-1 text-gray-200 text-sm font-medium">Topic</div>
+                            <div className="flex-1 text-gray-200 text-sm font-medium">Difficulty</div>
+                            <div className="flex-1"></div>
+                        </div>
+                        <div className="w-4/5 h-px bg-gray-500 rounded-lg"></div>
+                        <div className="w-full overflow-auto px-2">
+                            {
+                                dashboardStats.latest_challenges.map((challenge, index) => {
+                                    return (
+                                        <NavLink key={index} to={`/challenges/${challenge.id}`} className="w-full flex items-center py-2">
+                                            <div className="flex-1 font-semibold">{challenge.title}</div>
+                                            <div className="flex-1 font-semibold">{challenge.topic}</div>
+                                            <div className={`flex-1 font-semibold ${challengeLevelColor[challenge.level]}`}>{challenge.level}</div>
+                                            <div className="flex-1 flex flex-col items-end">
+                                                <div className='flex gap-2 items-center hover:underline'>
+                                                    <Icon icon="ph:chat-fill" style={{ color: 'white' }} width="18" height="18" />
+                                                    Discussion
+                                                </div>
+                                            </div>
+                                        </NavLink>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="ml-8 w-1/2 flex flex-col bg-gray-950 rounded-3xl">
+                    <div className="px-4 py-3 text-gray-50 text-xl font-semibold">New Members</div>
+                    <div className="w-full flex-grow flex flex-col px-4">
+                        <div className="w-full flex items-center bg-gray-900 rounded-lg px-4 py-2">
+                            <div className="flex-1 text-sm font-semibold text-gray-200">Profile Picture</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200">First Name</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200">Last Name</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200">Role</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200">Joined At</div>
+                        </div>
+                        <div className="w-full flex-grow overflow-auto">
+                            {
+                                isDashboardStatsLoading && (
+                                    <div className="w-full flex flex-col items-center">
+                                        <LoadingIndicator />
+                                    </div>
+                                )
+                            }
+                            {
+                                dashboardStats.latest_members.map((member, index) => {
+                                    return (
+                                        <div key={index} className="w-full flex items-center px-4 py-2">
+                                            <div className="flex-1">
+                                                <img src={member.user?.profile_image_url || userProfilePicture} className="w-10 h-10 bg-gray-800 rounded-full object-cover" />
+                                            </div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200">{member.user?.first_name}</div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200">{member.user?.last_name}</div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200">{member.role}</div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200">{moment(member.created_at).format("DD-MM-yyyy HH:mm")}</div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

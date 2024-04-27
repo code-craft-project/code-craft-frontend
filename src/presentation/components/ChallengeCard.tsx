@@ -5,10 +5,6 @@ interface ChallengeCardProps {
   challenge: ChallengeEntity;
 };
 
-type ChallengeLevelColor = {
-  [key in ChallengeLevel]: string;
-};
-
 const challengeLevelColor: ChallengeLevelColor = {
   easy: 'text-green-500',
   medium: 'text-red-500',
@@ -19,7 +15,7 @@ function ChallengeCard({ challenge }: ChallengeCardProps) {
   return (
     <NavLink to={`/challenges/${challenge.id}`} className="w-full flex items-center py-2">
       <div className="flex-1">
-        <div className={`w-fit rounded-xl px-2 font-semibold ${challenge.status != 'Done' ? "bg-green-500" : "bg-white bg-opacity-50"}`}>{challenge.status}</div>
+        <div className={`w-fit rounded-xl px-2 font-semibold ${challenge.status == 'Done' ? "bg-green-500" : "bg-white bg-opacity-50"}`}>{challenge.status || "Not Started"}</div>
       </div>
       <div className="flex-1 font-semibold">{challenge.title}</div>
       <div className={`flex-1 font-semibold ${challengeLevelColor[challenge.level]}`}>{challenge.level}</div>

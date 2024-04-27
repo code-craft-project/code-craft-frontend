@@ -48,9 +48,9 @@ function App() {
           <Route path='/organization/create' element={<CreateOrganization />} />
         </Route>
 
+        <Route path='/organization/:id/dashboard' element={<OrganizationDashboard />} />
         <Route path='/organization/:id' element={(<Root />)}>
           <Route index element={<OrganizationPage />} />
-          <Route path='dashboard' element={<OrganizationDashboard />} />
           <Route path='settings' element={<OrganizationSettings />} />
         </Route>
 
