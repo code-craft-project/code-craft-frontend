@@ -1,58 +1,28 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import GradientColor from "../../application/data/GradientColor.ts";
-import organization from '../../assets/Icons/organization.svg';
-import permissions from '../../assets/Icons/permissions.svg';
 import { useState } from "react";
-import OrganizationDetails from "../components/organization_settings/OrganizationDetails.tsx";
-import Permissions from "../components/organization_settings/Permissions.tsx";
+import OrganizationProfile from "../components/organization_settings/OrganizationProfile.tsx";
+
+type SettingsTab = 'profile';
 
 function OrganizationSettings() {
-    const {styles} = GradientColor()
-    const [changeComponent,setChangeComponent] =useState<number>(0)
-    const components = [
-        {
-            title: 'Select organization Information & Updates',
-            content: <OrganizationDetails/>
-        },
-        {
-            title: 'Show user permissions & updates',
-            content: <Permissions/>,
-        },
-        ] 
+    const [selectedTab, setSelectedTab] = useState<SettingsTab>('profile');
+
     return (
-        <div className="w-screen flex mt-14 pb-5" >
-            <div className="flex w-1/5 flex-col gap-60 py-5 px-10 border-r border-white">
-                <div className="flex flex-col gap-8">
-                    <h1 className="opacity-90 pl-8 text-nowrap">Organization Settings</h1>
-                    <div className="flex flex-col gap-3 items-center pl-8">
-                        <button 
-                            onClick={() => setChangeComponent(0)} 
-                            className={`cursor-pointer hover:opacity-60 flex gap-1 transition-colors ml-10 ${changeComponent==0 ? 'ml-0' : ''} duration-300 ease-in-out items-center ${changeComponent == 0 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : ''}`}
-                        >
-                            {changeComponent==0 
-                            ? <img src={organization} alt="" className="scale-50 "/>
-                            : <Icon className="text-white" icon="icons8:organization" width="18" height="18" />
-                            }
-                            <span className="w-40 text-sm text-start text-nowrap">Organization details</span>
-                        </button>
-                        <button 
-                            onClick={() => setChangeComponent(1)} 
-                            className={`cursor-pointer hover:opacity-60 ml-10 ${changeComponent==1 ? 'mr-12 ' : ''} flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 1 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : ''}`}
-                        > 
-                            {changeComponent==1
-                            ? <img src={permissions} alt="" className="scale-50 "/>
-                            : <Icon className="text-white" icon="icon-park-solid:permissions" width="18" height="18" />
-                            }
-                            <span className="w-40 text-sm text-start">Permissions</span>
-                        </button>
+        <div className="w-full h-full flex flex-col">
+            <div className="font-bold text-3xl mb-8">Settings</div>
+            <div className="w-full flex-grow flex">
+                <div className="w-1/5 flex flex-col rounded-xl p-8">
+                    <div onClick={() => setSelectedTab('profile')} className="w-full flex items-center text-yellow-600">
+                        <Icon icon="mingcute:profile-fill" className="text-lg" />
+                        <div className="ml-2 font-semibold">Organization Profile</div>
                     </div>
                 </div>
-                <div className="flex gap-2 items-center px-8 cursor-pointer hover:text-primary-yellow ">
-                    <Icon icon="tabler:logout" width="18" height="18" />
-                    <span>Log out</span>
+                <div className="w-4/5 px-8 flex-grow">
+                    {
+                        selectedTab == 'profile' && (<OrganizationProfile />)
+                    }
                 </div>
             </div>
-            {components[changeComponent].content}
 
         </div>
     )
