@@ -7,7 +7,7 @@ import useOrganizationDashboard from "../../application/hooks/useOrganizationDas
 import OrganizationDashboardContext from "../../application/contexts/OrganizationDashboardContext.ts";
 import OrganizationEvents from "../components/dashboard/OrganizationEvents.tsx";
 import OrganizationMembers from "../components/dashboard/OrganizationMembers.tsx";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import LoadingIndicator from "../components/LoadingIndicator.tsx";
 import moment from "moment";
 import OrganizationSettings from "./OrganizationSettings.tsx";
@@ -22,18 +22,68 @@ const challengeLevelColor: ChallengeLevelColor = {
 };
 
 function OrganizationDashboard() {
+    const { id } = useParams();
+    const navigate = useNavigate();
     const useOrganizationDashboardState = useOrganizationDashboard();
     const [selectedTab, setSelectedTab] = useState<OrganizationTabs>('dashboard');
+
+    useEffect(() => {
+        if (id && useOrganizationDashboardState.isLoading) {
+            useOrganizationDashboardState.getOrganizationById(parseInt(id));
+            useOrganizationDashboardState.getCurrentMember(parseInt(id));
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (!useOrganizationDashboardState.isMember) {
+            setTimeout(() => {
+                navigate("/home")
+            }, 1000);
+        }
+    }, [useOrganizationDashboardState.isMember]);
+
+    if (useOrganizationDashboardState.isLoading || useOrganizationDashboardState.isMemberLoading) {
+        return (
+            <div className="w-full h-screen bg-black flex items-center justify-center">
+                <LoadingIndicator />
+            </div>
+        )
+    }
+
+    if (!useOrganizationDashboardState.isMember) {
+        return (
+            <div className="text-gray-50 h-screen bg-black w-full flex items-center justify-center">
+                You are not a Member.
+                <a className="text-blue-700 hover:text-blue-600 hover:underline duration-300 cursor-pointer mx-2" href="/sign-in"> Click here to redirect manually,</a>
+                Redirecting to Home Page...
+            </div>);
+    }
 
     return (
         <OrganizationDashboardContext.Provider value={useOrganizationDashboardState}>
             <div className="w-full h-screen overflow-auto bg-black flex items-center">
                 <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
                     <div onClick={() => setSelectedTab('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
-                    <div onClick={() => setSelectedTab('members')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'members' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="tdesign:member" /></div>
-                    <div onClick={() => setSelectedTab('events')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'events' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="mdi:events" /></div>
-                    <div onClick={() => setSelectedTab('challenges')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'challenges' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="jam:code" /></div>
-                    <div onClick={() => setSelectedTab('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
+                    {
+                        useOrganizationDashboardState.hasPermissions('admin') && (
+                            <div onClick={() => setSelectedTab('members')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'members' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="tdesign:member" /></div>
+                        )
+                    }
+                    {
+                        useOrganizationDashboardState.hasPermissions('events_manager') && (
+                            <div onClick={() => setSelectedTab('events')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'events' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="mdi:events" /></div>
+                        )
+                    }
+                    {
+                        useOrganizationDashboardState.hasPermissions('challenges_manager') && (
+                            <div onClick={() => setSelectedTab('challenges')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'challenges' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="jam:code" /></div>
+                        )
+                    }
+                    {
+                        useOrganizationDashboardState.hasPermissions('admin') && (
+                            <div onClick={() => setSelectedTab('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
+                        )
+                    }
                 </div>
                 <div className="flex-grow h-full flex flex-col items-center p-8 overflow-auto">
                     {selectedTab == 'dashboard' && (<DashboardComponent />)}
@@ -50,12 +100,11 @@ function OrganizationDashboard() {
 
 function DashboardComponent() {
     const { id } = useParams();
-    const { getOrganizationById,dashboardStats, getOrganizationDashboardStats, isDashboardStatsLoading } = useContext(OrganizationDashboardContext);
+    const { dashboardStats, getOrganizationDashboardStats, isDashboardStatsLoading } = useContext(OrganizationDashboardContext);
 
     useEffect(() => {
         if (id && isDashboardStatsLoading) {
             getOrganizationDashboardStats(parseInt(id));
-            getOrganizationById(parseInt(id));
         }
     }, [id]);
 

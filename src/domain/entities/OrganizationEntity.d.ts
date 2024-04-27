@@ -3,7 +3,7 @@ interface OrganizationEntity {
     name: string;
     creator_id?: number;
     creator?: UserEntity;
-    type: 'club' | 'company';
+    type?: 'club' | 'company';
     profile_image_url?: string;
     description: string;
     created_at?: string;
@@ -23,20 +23,28 @@ interface useOrganizationReturn {
 
 interface useOrganizationDashboardReturn {
     organization: OrganizationEntity;
+    editOrganization: OrganizationEntity;
     challenges: ChallengeEntity[];
     events: EventEntity[];
     members: MemberEntity[],
     dashboardStats: OrganizationDashboardStats;
+    member: MemberEntity;
     isLoading: boolean;
     isChallengesLoading: boolean;
     isEventsLoading: boolean;
     isMembersLoading: boolean;
     isDashboardStatsLoading: boolean;
+    isMemberLoading: boolean;
+    isMember: boolean;
+    updateOrganization: () => Promise<void>,
     getOrganizationById: (organizationId: number) => void;
     getOrganizationEvents: (organizationId: number, page: number, limits: number) => void;
     getOrganizationChallenges: (organizationId: number) => void;
     getOrganizationMembers: (organizationId: number) => void;
     getOrganizationDashboardStats: (organizationId: number) => void;
+    getCurrentMember: (organizationId: number) => void;
+    hasPermissions: (role: MemberRole) => boolean;
+    setEditOrganization: React.Dispatch<React.SetStateAction<OrganizationEntity>>;
 }
 
 interface OrganizationDashboardStats {
