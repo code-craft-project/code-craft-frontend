@@ -5,10 +5,11 @@ import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
 import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { userAuthentication } from "../../application/services.ts";
 
 export default function SignUp() {
+    const navigate = useNavigate();
     const toastManager = useContext(ToastContext);
     const { styles } = GradientColor()
 
@@ -20,27 +21,47 @@ export default function SignUp() {
 
     async function sign_up(ev: any) {
         ev.preventDefault();
-        if (first_name.length > 0 && last_name.length > 0 && email.length > 0 && password.length > 0) {
-            const user = {
-                username,
-                first_name,
-                last_name,
-                email,
-                password,
-            };
-            try {
-                const response = await userAuthentication.signUp(user);
-                if (response.status == "success") {
-                    toastManager.alertSuccess("Registration successful");
-                    window.location.href = "/sign-in";
-                } else {
-                    console.error('Registration failed:', response.message);
-                    toastManager.alertError("Registration failed");
-                }
-            } catch (error) {
-                console.log(error);
-                toastManager.alertError("Registration failed");
+        if (first_name.length == 0) {
+            toastManager.alertError("First Name field is required");
+            return;
+        }
+        if (last_name.length == 0) {
+            toastManager.alertError("Last Name field is required");
+            return;
+        }
+        if (username.length == 0) {
+            toastManager.alertError("Username field is required");
+            return;
+        }
+        if (email.length == 0) {
+            toastManager.alertError("Email field is required");
+            return;
+        }
+
+        if (password.length == 0) {
+            toastManager.alertError("Email field is required");
+            return;
+        }
+
+        const user = {
+            username,
+            first_name,
+            last_name,
+            email,
+            password,
+        };
+        try {
+            const response = await userAuthentication.signUp(user);
+            if (response.status == "success") {
+                toastManager.alertSuccess("Sign Up successfully");
+                navigate("/sign-in");
+            } else {
+                toastManager.alertError(response.message || "");
             }
+        } catch (error) {
+            console.log(error);
+            toastManager.alertError("Sign Up failed");
+
         }
     }
 

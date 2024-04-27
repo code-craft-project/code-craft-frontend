@@ -11,10 +11,19 @@ export interface HttpResponse<T> {
 };
 
 export class AxiosHttp {
-  constructor(private axiosInstance: AxiosInstance) { }
-  
+  constructor(private axiosInstance: AxiosInstance, private localStorage: Storage, private withCredentials: boolean = false) {
+    if (this.withCredentials) {
+      const data = this.localStorage.getItem('user_session');
+      if (data) {
+        const userSession = JSON.parse(data) as UserSession;
+        axiosInstance.defaults.headers.common['Authorization'] = userSession.access_token;
+      }
+    }
+  }
 
-  async get<Result>(uri: string, config = {}): Promise<AxiosResponse<Result>> {
+  async get<Result>(uri: string, config = { headers: {} }): Promise<AxiosResponse<Result>> {
+
+
     return this.axiosInstance.get<Result>(uri, config);
   }
 
@@ -28,5 +37,5 @@ export class AxiosHttp {
 
   async delete<Result>(uri: string): Promise<AxiosResponse<Result>> {
     return this.axiosInstance.delete<Result>(uri);
-  } 
+  }
 }

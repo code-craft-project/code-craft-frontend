@@ -21,19 +21,19 @@ import CreateOrganization from './pages/CreatOrganization';
 import ChallengePage from './pages/ChallengePage';
 import CreateChallenge from './pages/CreateChallenge';
 import CreateJobPost from './pages/CreateJobPost';
-import OrganizationSettings from './pages/OrganizationSettings';
 import OrganizationDashboard from './pages/OrganizationDashboard';
 import OrganizationPage from './pages/SingleOrganization';
 import UserSessionContext from '../application/contexts/UserSessionContext';
 import useUserSession from '../application/hooks/useUserSession';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const toastManager = useToast();
-  const { userSession } = useUserSession();
+  const useUserSessionValue = useUserSession();
 
   return (
     <ToastContext.Provider value={toastManager}>
-      <UserSessionContext.Provider value={userSession}>  
+      <UserSessionContext.Provider value={useUserSessionValue}>
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
@@ -41,7 +41,7 @@ function App() {
           <Route path='/' element={(<Root />)}>
             <Route path="" element={<LandingPage />} />
             <Route path="jobs-post" element={<JobPost />} />
-            <Route path="home" element={<Home />} />
+            <Route path="home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="events" element={<Events />} />
             <Route path="challenges" element={<Challenges />} />
             <Route path="search" element={<Search />} />
@@ -52,17 +52,16 @@ function App() {
             <Route path='/organization/create' element={<CreateOrganization />} />
           </Route>
 
-          <Route path='/organization/:id/dashboard' element={<OrganizationDashboard />} />
+          <Route path='/organization/:id/dashboard' element={<ProtectedRoute><OrganizationDashboard /></ProtectedRoute>} />
           <Route path='/organization/:id' element={(<Root />)}>
             <Route index element={<OrganizationPage />} />
-            <Route path='settings' element={<OrganizationSettings />} />
           </Route>
 
           <Route path='/' element={(<WithoutFooter />)}>
-            <Route path="create-event" element={<CreateEvent />} />
-            <Route path="create-organization" element={<CreateOrganization />} />
-            <Route path="create-challenge" element={<CreateChallenge />} />
-            <Route path="create-job-post" element={<CreateJobPost />} />
+            <Route path="create-event" element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
+            <Route path="create-organization" element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
+            <Route path="create-challenge" element={<ProtectedRoute><CreateChallenge /></ProtectedRoute>} />
+            <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
           </Route>
         </Routes>
         <Toast />
