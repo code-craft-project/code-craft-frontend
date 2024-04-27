@@ -9,6 +9,10 @@ interface ChallengeEntity {
     is_public: boolean;
     type: "in_out" | "project";
     creator_id?: number;
+    creator?: UserEntity;
+    comments?: number;
+    submissions?: number;
+    status?: string; // TODO: Make sure to update this property when fetching challenges.
 };
 
 interface TestCase {
@@ -22,3 +26,7 @@ interface useChallengeReturn {
     isLoading: boolean;
     getChallengeById: (challengeId: number) => Promise<void>;
 }
+
+type ChallengeLevelColor = {
+    [key in ChallengeLevel]: string;
+};
