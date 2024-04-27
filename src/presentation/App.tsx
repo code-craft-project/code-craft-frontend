@@ -26,6 +26,7 @@ import OrganizationPage from './pages/SingleOrganization';
 import UserSessionContext from '../application/contexts/UserSessionContext';
 import useUserSession from '../application/hooks/useUserSession';
 import ProtectedRoute from './components/ProtectedRoute';
+import UpdateEvent from './pages/UpdateEvent';
 
 function App() {
   const toastManager = useToast();
@@ -62,6 +63,7 @@ function App() {
             <Route path="create-organization" element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
             <Route path="create-challenge" element={<ProtectedRoute><CreateChallenge /></ProtectedRoute>} />
             <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
+            <Route path="update-event/:id" element={<UpdateEvent />} />
           </Route>
         </Routes>
         <Toast />

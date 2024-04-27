@@ -15,11 +15,11 @@ export default class EventsService {
         return (await this.axiosHttp.get<HttpResponse<EventEntity[]>>(`/api/events/?page=${pagesNbr}`)).data;
     }
 
-    async createEvents(eventId: number,event:any): Promise<HttpResponse<EventEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<EventEntity>>(`/api/events/${eventId}/create`,event)).data;
+    async createEvent(event:any): Promise<HttpResponse<EventEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<EventEntity>>(`/api/events/create`,event)).data;
     }
 
-    async updateEvents(eventId: number,event:any): Promise<HttpResponse<EventEntity>> {
+    async updateEvent(eventId: number,event:any): Promise<HttpResponse<EventEntity>> {
         return (await this.axiosHttp.post<HttpResponse<EventEntity>>(`/api/events/${eventId}/update`,event)).data;
     }
 
