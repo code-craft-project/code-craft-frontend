@@ -29,16 +29,18 @@ export default function SignIn() {
             try {
                 const response = await userAuthentication.signIn(user);
                 if (response.status == "success") {
-                    alertSuccessHandler("Registration successful");
+                    alertSuccessHandler("Login successful");
                     saveAccessToken(response.data);
-                    window.location.href = "/home";
+                    // setTimeout(() => {
+                    //     window.location.href = "/home";
+                    // }, 2000);
                 } else {
-                    console.error('Registration failed:', response.message);
-                    alertErroreHandler("Registration failed"); 
+                    console.error('Login failed:', response.message);
+                    alertErroreHandler("Login failed"); 
                 }
             } catch (error) {
                 console.log(error);
-                alertErroreHandler("Registration failed"); 
+                alertErroreHandler("Login failed"); 
             }
         }
     }

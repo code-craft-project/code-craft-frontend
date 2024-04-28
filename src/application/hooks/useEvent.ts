@@ -14,9 +14,26 @@ const eventFormat: EventEntity = {
     max_team_members: 0,
 }
 
+const challengeFormat: ChallengeEntity = {
+        id: 0,
+        title: '',
+        description: '',
+        topic: '',
+        level: 'Easy',
+        is_public: false,
+        type: "in_out",
+        creator_id: 0,
+        creator: {id: 0,username: '',first_name: '',last_name: '',email: '',password: '',created_at: '',updated_at: '',profile_image_url: ''}
+        ,comments: 0,
+        submissions: 0,
+        score: 0,
+        status: 'Not Started',
+    }
+
 export default function useEvent() {
 
     const [event, setEvent] = useState<EventEntity>(eventFormat)
+    const [eventChallenges, setEventChallenges] = useState<ChallengeEntity[]>([challengeFormat])
     const toastManager = useContext(ToastContext);
     const alertSuccessHandler = (_p0: string) => { toastManager.alertSuccess('Success Message') }
     const alertErroreHandler = (_p0: string) => { toastManager.alertError("Error Message"); }
@@ -69,17 +86,11 @@ export default function useEvent() {
             const response = await eventsService.getEventById(eventId)
             if (response.status == "success") {
                 setEvent(response.data)
-                alertSuccessHandler("getting event successful");
-                setTimeout(() => {
-                    window.location.href = "/dashboard";
-                }, 2000);
             } else {
                 console.error('getting event failed:', response.message);
-                alertErroreHandler("getting event failed");
             }
         } catch (error) {
             console.log(error);
-            alertErroreHandler("getting failed");
         }
     }
 
@@ -123,6 +134,19 @@ export default function useEvent() {
         }
     }
 
+    const getEventChallenges = async (eventId:number) => {
+        try{
+            const response = await eventsService.getEventChallenges(eventId)
+            if(response.status == "success") {
+                setEventChallenges(response.data)
+            }else{
+                console.log(response.message);
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     return {
         event,
         setEvent,
@@ -136,6 +160,8 @@ export default function useEvent() {
         leaveEvent,
         setStartAt,
         setEndAt,
-        getEventById
+        getEventById,
+        eventChallenges,
+        getEventChallenges
     }
 }

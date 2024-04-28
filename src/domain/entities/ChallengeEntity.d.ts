@@ -1,5 +1,5 @@
-type ChallengeLevel = 'easy' | 'medium' | 'hard';
-
+type ChallengeLevel = 'Hard' | 'Medium' | 'Easy'  ;
+type ChallengeStatus = "Done" | "Not Started"
 interface ChallengeEntity {
     id?: number;
     title: string;
@@ -12,7 +12,8 @@ interface ChallengeEntity {
     creator?: UserEntity;
     comments?: number;
     submissions?: number;
-    status?: string; // TODO: Make sure to update this property when fetching challenges.
+    score: number;
+    status: ChallengeStatus; // TODO: Make sure to update this property when fetching challenges.
 };
 
 interface TestCase {

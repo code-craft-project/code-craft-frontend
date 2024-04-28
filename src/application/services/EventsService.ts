@@ -47,11 +47,11 @@ export default class EventsService {
         return (await this.axiosHttp.post<HttpResponse<any>>(`/api/events/${eventId}/teams/leave`)).data;
     }
 
-    async getEventChallenges(eventId: number): Promise<HttpResponse<any>> {
-        return (await this.axiosHttp.post<HttpResponse<any>>(`/api/events/${eventId}/challenges`)).data;
+    async getEventChallenges(eventId: number): Promise<HttpResponse<ChallengeEntity[]>> {
+        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity[]>>(`/api/events/${eventId}/challenges`)).data;
     }
 
-    async createEventChallenges(eventId: number,eventChallenge:any): Promise<HttpResponse<any>> {
-        return (await this.axiosHttp.post<HttpResponse<any>>(`/api/events/${eventId}/challenges`,eventChallenge)).data;
+    async createEventChallenges(eventId: number,eventChallenge:any): Promise<HttpResponse<ChallengeEntity[]>> {
+        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity[]>>(`/api/events/${eventId}/challenges`,eventChallenge)).data;
     }
 }

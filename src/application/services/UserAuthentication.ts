@@ -16,11 +16,15 @@ export default class UserAuthentication {
     }
 
     async currentUser(): Promise<HttpResponse<UserEntity>> {
-        return (await this.axiosHttp.get<HttpResponse<UserEntity>>('/api/users')).data
+        return (await this.axiosHttp.get<HttpResponse<UserEntity>>('/api/users/me')).data
     }
     
     async updateUser(user: any): Promise<HttpResponse<any>> {
-        return (await this.axiosHttp.post<HttpResponse<UserEntity>>('/api/users',user)).data
+        return (await this.axiosHttp.post<HttpResponse<UserEntity>>('/api/users/me',user)).data
+    }
+
+    async getUserById(userId: any): Promise<HttpResponse<UserEntity>> {
+        return (await this.axiosHttp.get<HttpResponse<UserEntity>>(`/api/users/${userId}`)).data
     }
 
 }
