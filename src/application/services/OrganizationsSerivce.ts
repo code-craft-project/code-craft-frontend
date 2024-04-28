@@ -26,4 +26,12 @@ export default class OrganizationsSerivce {
     async getOrganizationDashboardStats(organizationId: number): Promise<HttpResponse<OrganizationDashboardStats>> {
         return (await this.axiosHttp.get<HttpResponse<OrganizationDashboardStats>>(`/api/organizations/${organizationId}/dashboard`)).data;
     }
+
+    async getCurrentMember(organizationId: number): Promise<HttpResponse<MemberEntity>> {
+        return (await this.axiosHttp.get<HttpResponse<MemberEntity>>(`/api/organizations/${organizationId}/members/me`)).data;
+    }
+
+    async updateOrganization(organizationId: number, organization: OrganizationEntity): Promise<HttpResponse<OrganizationEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<OrganizationEntity>, OrganizationEntity>(`/api/organizations/${organizationId}/update`, organization)).data;
+    }
 }

@@ -19,7 +19,19 @@ const initialValue: useOrganizationDashboardReturn = {
     isDashboardStatsLoading: true,
     isEventsLoading: true,
     isMembersLoading: true,
-    members: []
+    members: [],
+    getCurrentMember: (org_id: number) => { org_id; },
+    hasPermissions: (role: MemberRole) => { role; return false; },
+    isMemberLoading: true,
+    member: { organization_id: 1, role: 'admin', user_id: 1 },
+    isMember: false,
+    editOrganization: {
+        description: '',
+        name: '',
+        type: 'company',
+    },
+    setEditOrganization: (org: any) => { org; },
+    updateOrganization: async () => { }
 };
 
 export default createContext<useOrganizationDashboardReturn>(initialValue);
