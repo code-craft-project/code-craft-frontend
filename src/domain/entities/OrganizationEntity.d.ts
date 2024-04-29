@@ -1,9 +1,10 @@
+type OrganizationType = 'club' | 'company';
 interface OrganizationEntity {
     id?: number;
     name: string;
     creator_id?: number;
     creator?: UserEntity;
-    type?: 'club' | 'company';
+    type?: OrganizationType;
     profile_image_url?: string;
     description: string;
     created_at?: string;
@@ -55,4 +56,11 @@ interface OrganizationDashboardStats {
     total_events: number;
     total_challenges: number;
     total_participants: number;
+};
+
+interface useCreateOrganizationReturn {
+    organization: OrganizationEntity;
+    setOrganization: React.Dispatch<React.SetStateAction<OrganizationEntity>>;
+    createOrganization: () => Promise<void>;
+    isLoading: boolean;
 };

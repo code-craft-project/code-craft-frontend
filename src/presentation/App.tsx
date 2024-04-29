@@ -50,7 +50,6 @@ function App() {
             <Route path="single-event/:id" element={<SingleEvent />} />
             <Route path="settings" element={<Settings />} />
 
-            <Route path='/organization/create' element={<CreateOrganization />} />
           </Route>
 
           <Route path='/organization/:id/dashboard' element={<ProtectedRoute><OrganizationDashboard /></ProtectedRoute>} />
@@ -59,8 +58,8 @@ function App() {
           </Route>
 
           <Route path='/' element={(<WithoutFooter />)}>
+            <Route path='/organization/create' element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
             <Route path="create-event" element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
-            <Route path="create-organization" element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
             <Route path="create-challenge" element={<ProtectedRoute><CreateChallenge /></ProtectedRoute>} />
             <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
             <Route path="update-event/:id" element={<UpdateEvent />} />
