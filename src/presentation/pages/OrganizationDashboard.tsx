@@ -12,8 +12,9 @@ import LoadingIndicator from "../components/LoadingIndicator.tsx";
 import moment from "moment";
 import OrganizationSettings from "./OrganizationSettings.tsx";
 import { userProfilePicture } from "../../application/consts.ts";
+import OrganizationJobPosts from "../components/dashboard/OrganizationJobPosts.tsx";
 
-type OrganizationTabs = 'dashboard' | 'members' | 'events' | 'challenges' | 'settings';
+type OrganizationTabs = 'dashboard' | 'members' | 'events' | 'challenges' | 'job_posts' | 'settings';
 
 const challengeLevelColor: ChallengeLevelColor = {
     easy: 'text-green-500',
@@ -80,6 +81,11 @@ function OrganizationDashboard() {
                         )
                     }
                     {
+                        useOrganizationDashboardState.hasPermissions('job_posts_manager') && (
+                            <div onClick={() => setSelectedTab('job_posts')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'job_posts' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="fluent-mdl2:work" /></div>
+                        )
+                    }
+                    {
                         useOrganizationDashboardState.hasPermissions('admin') && (
                             <div onClick={() => setSelectedTab('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
                         )
@@ -90,6 +96,7 @@ function OrganizationDashboard() {
                     {selectedTab == 'members' && (<OrganizationMembers />)}
                     {selectedTab == 'events' && (<OrganizationEvents />)}
                     {selectedTab == 'challenges' && (<OrganizationChallenges />)}
+                    {selectedTab == 'job_posts' && (<OrganizationJobPosts />)}
                     {selectedTab == 'settings' && (<OrganizationSettings />)}
                 </div>
             </div>
