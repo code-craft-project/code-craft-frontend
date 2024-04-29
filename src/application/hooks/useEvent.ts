@@ -19,7 +19,7 @@ const challengeFormat: ChallengeEntity = {
         title: '',
         description: '',
         topic: '',
-        level: 'Easy',
+        level: 'easy',
         is_public: false,
         type: "in_out",
         creator_id: 0,
