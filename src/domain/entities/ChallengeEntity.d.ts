@@ -1,4 +1,4 @@
-type ChallengeLevel = 'Hard' | 'Medium' | 'Easy'  ;
+type ChallengeLevel = 'hard' | 'medium' | 'easy'  ;
 type ChallengeStatus = "Done" | "Not Started"
 interface ChallengeEntity {
     id?: number;
