@@ -22,7 +22,9 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
     const [isDashboardStatsLoading, setIsDashboardStatsLoading] = useState(true);
     const [member, setMember] = useState<MemberEntity>({ organization_id: 0, role: 'admin', user_id: 0, });
     const [isMemberLoading, setIsMemberLoading] = useState(true);
-
+    const [jobPosts, setJobPosts] = useState<JobPostEntity[]>([]);
+    const [isJobPostsLoading, setIsJobPostsLoading] = useState(true);
+    
     const getOrganizationById = async (organizationId: number): Promise<void> => {
         const response = await organizationsService.getOrganizationById(organizationId);
         setIsLoading(false);
@@ -111,6 +113,17 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         }
     }
 
+    const getOrganizationJobPosts = async (organizationId: number): Promise<void> => {
+        setIsJobPostsLoading(true);
+        const response = await organizationsService.getOrganizationJobPosts(organizationId);
+        setIsJobPostsLoading(false);
+        if (response.status == 'success') {
+            setJobPosts(response.data);
+        } else {
+            // TODO: Handle Error
+        }
+    }
+
     return {
         organization, getOrganizationById,
         events, getOrganizationEvents,
@@ -118,12 +131,14 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         members, getOrganizationMembers,
         dashboardStats, getOrganizationDashboardStats,
         member, getCurrentMember,
+        jobPosts, getOrganizationJobPosts,
         editOrganization, setEditOrganization,
         hasPermissions,
         updateOrganization,
         isLoading, isChallengesLoading,
         isEventsLoading, isMembersLoading,
         isDashboardStatsLoading, isMemberLoading,
+        isJobPostsLoading,
         isMember
     };
 }

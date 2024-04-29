@@ -28,6 +28,7 @@ interface useOrganizationDashboardReturn {
     challenges: ChallengeEntity[];
     events: EventEntity[];
     members: MemberEntity[],
+    jobPosts: JobPostEntity[];
     dashboardStats: OrganizationDashboardStats;
     member: MemberEntity;
     isLoading: boolean;
@@ -36,12 +37,14 @@ interface useOrganizationDashboardReturn {
     isMembersLoading: boolean;
     isDashboardStatsLoading: boolean;
     isMemberLoading: boolean;
+    isJobPostsLoading: boolean;
     isMember: boolean;
     updateOrganization: () => Promise<void>,
     getOrganizationById: (organizationId: number) => void;
     getOrganizationEvents: (organizationId: number, page: number, limits: number) => void;
     getOrganizationChallenges: (organizationId: number) => void;
     getOrganizationMembers: (organizationId: number) => void;
+    getOrganizationJobPosts: (organizationId: number) => void;
     getOrganizationDashboardStats: (organizationId: number) => void;
     getCurrentMember: (organizationId: number) => void;
     hasPermissions: (role: MemberRole) => boolean;
