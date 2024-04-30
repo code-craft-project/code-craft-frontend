@@ -46,7 +46,9 @@ function Navbar() {
                     animate={{ opacity: 1 }} 
                     transition={{ delay: 0.5 }}
                 >
-                    <Icon icon="iconamoon:search-thin"  style={{color: "white"}} />
+                    <NavLink to={'/search'}>
+                        <Icon icon="iconamoon:search-thin"  className='text-white hover:scale-105 transition-all duration-200 cursor-pointer' />
+                    </NavLink>
                     <motion.div 
                         className='relative cursor-pointer'
                         whileHover={{ scale: 1.1 }}
@@ -63,7 +65,7 @@ function Navbar() {
                 />
                 {activeMenu && (
                     <motion.div 
-                        className="absolute top-14 right-24 bg-white bg-opacity-10 z-50 w-36 h-32 p-5 rounded-lg shadow-sm overflow-hidden" 
+                        className="absolute top-14 right-24 bg-white bg-opacity-10 z-50 w-44 h-32 p-5 rounded-lg shadow-sm overflow-hidden" 
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
@@ -74,8 +76,8 @@ function Navbar() {
                                 <NavLink to="/settings">Settings</NavLink>
                             </li>
                             <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
-                                <Icon icon="icon-park-solid:permissions" width="18" height="18" />
-                                <a href="#">Other</a>
+                                <Icon icon="mdi:company" width="18" height="18" />
+                                <NavLink to="/my-organizations">My Organizations</NavLink>
                             </li>
                             <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                 <Icon icon="tabler:logout" width="18" height="18" />
