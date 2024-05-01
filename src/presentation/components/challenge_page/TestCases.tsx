@@ -21,7 +21,7 @@ export default function TestCases({ testCases }: TestCasesProps) {
             </div>
             <div className="w-full my-8">
                 {
-                    testCases[selectedTestCase].inputs?.map((input, index) => {
+                    testCases.length > 0 && testCases[selectedTestCase].inputs?.map((input, index) => {
                         return (
                             <div key={index}>
                                 <div className="text-gray-50 text-sm py-2 font-semibold">{`Arg ${index + 1}:`}</div>

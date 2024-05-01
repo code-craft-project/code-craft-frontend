@@ -6,9 +6,11 @@ import { javascript } from "@codemirror/lang-javascript";
 import { cpp } from "@codemirror/lang-cpp";
 import { php } from "@codemirror/lang-php";
 import { python } from "@codemirror/lang-python";
-import { supportedLanguages } from "../../../application/consts";
+import { CODE_HISTORY_KEY, supportedLanguages } from "../../../application/consts";
+import { useParams } from "react-router-dom";
 
 export default function CodeEditor() {
+    const { id } = useParams();
     const { language, sourceCode, setLanguage, setSourceCode } = useContext(SubmissionContext);
     const [IDEHeight, setIDEHeight] = useState(0);
     const IDEContainerRef = useRef<HTMLDivElement>(null);
@@ -29,11 +31,15 @@ export default function CodeEditor() {
                 return python();
             case 'c++':
                 return cpp();
-            case 'typescript':
-                return javascript();
             case 'c':
                 return cpp();
         }
+    }
+
+    const handleOnChange = (value: string) => {
+        const payload: CodeHistory = { challenge_id: parseInt(id || '0'), language, sourceCode: value };
+        localStorage.setItem(CODE_HISTORY_KEY, JSON.stringify(payload));
+        setSourceCode(value);
     }
 
     return (
@@ -45,7 +51,7 @@ export default function CodeEditor() {
                 </div>
             </div>
             <div ref={IDEContainerRef} className="w-full flex flex-col items-center flex-grow">
-                <ReactCodeMirror value={sourceCode} onChange={(value) => { setSourceCode(value) }} className="w-full h-full" height={`${IDEHeight}px`} theme={"dark"} extensions={[getSelectedLanguage()]} />
+                <ReactCodeMirror value={sourceCode} onChange={handleOnChange} className="w-full h-full" height={`${IDEHeight}px`} theme={"dark"} extensions={[getSelectedLanguage()]} />
             </div>
             <div className="w-full flex items-center bg-blue-900 rounded-b-lg">
                 <div className="flex items-center py-1 px-4 cursor-pointer text-gray-300 hover:text-gray-400">

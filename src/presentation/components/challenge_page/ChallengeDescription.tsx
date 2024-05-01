@@ -1,4 +1,5 @@
 import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 type LevelColor = {
     [key in ChallengeLevel]: string;
@@ -17,9 +18,9 @@ export default function ChallengeDescription({ title, level, description, topic 
             <div className="my-4 text-xl text-gray-50 font-semibold">{title}</div>
             <div className="text-sm text-gray-300 mb-4">{topic}</div>
 
-            <div className={`text-sm font-semibold bg-blue-950 rounded-lg w-fit px-4 ${levelColorMap[level]} mb-4`}>{level}</div>
+            <div className={`text-sm font-semibold bg-blue-950 rounded-lg w-fit px-4 ${levelColorMap[level.toLowerCase() as ChallengeLevel]} mb-4`}>{level}</div>
 
-            <div className={`w-full prose ${markdownStyle} py-8`}><Markdown >{description}</Markdown></div>
+            <div className={`w-full prose ${markdownStyle} pb-16`}><Markdown rehypePlugins={[rehypeRaw]} >{description}</Markdown></div>
         </div>
     )
 }

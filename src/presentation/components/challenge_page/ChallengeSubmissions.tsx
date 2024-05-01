@@ -17,6 +17,10 @@ export default function ChallengeSubmissions() {
         return JSON.parse(submission.content);
     }
 
+    if (submissions.length == 0) {
+        return <div className="text-gray-400 py-2 text-sm">{"No submissions yet"}</div>;
+    }
+
     return (
         <div className="w-full flex flex-col">
             <div className="w-full flex items-center bg-blue-800/60 rounded-lg px-4 py-1 my-2">

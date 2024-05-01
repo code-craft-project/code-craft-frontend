@@ -48,7 +48,7 @@ export default function TestResult({ testCases }: TestResultProps) {
                     testCases[selectedTestCase].output_result && (
                         <div>
                             <div className="text-gray-50 text-sm py-2 font-semibold">Output:</div>
-                            <div className={`bg-gray-700 rounded-lg px-4 py-2 ${getBgResultColor(testCases[selectedTestCase])}`}>{testCases[selectedTestCase].output_result}</div>
+                            <div className={`bg-gray-700 rounded-lg px-4 py-2 ${getBgResultColor(testCases[selectedTestCase])} whitespace-pre-line`}>{testCases[selectedTestCase].output_result}</div>
                         </div>
                     )
                 }

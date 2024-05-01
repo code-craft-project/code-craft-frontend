@@ -1,4 +1,4 @@
-type ChallengeLevel = 'hard' | 'medium' | 'easy'  ;
+type ChallengeLevel = 'hard' | 'medium' | 'easy';
 type ChallengeStatus = "Done" | "Not Started"
 interface ChallengeEntity {
     id?: number;
@@ -12,8 +12,8 @@ interface ChallengeEntity {
     creator?: UserEntity;
     comments?: number;
     submissions?: number;
-    score: number;
-    status: ChallengeStatus; // TODO: Make sure to update this property when fetching challenges.
+    status?: ChallengeStatus; // TODO: Make sure to update this property when fetching challenges.
+    score?: number;
 };
 
 interface TestCase {
@@ -24,8 +24,13 @@ interface TestCase {
 }
 interface useChallengeReturn {
     challenge: ChallengeEntity;
+    comments: ChallengeCommentEntity[];
     isLoading: boolean;
+    isCommentsLoading: boolean;
     getChallengeById: (challengeId: number) => Promise<void>;
+    getChallengeComments: (challengeId: number) => Promise<void>;
+    appendNewComment: (comment: ChallengeCommentEntity) => void;
+    likeComment: (commentId: number, didLike: boolean) => void;
 }
 
 type ChallengeLevelColor = {

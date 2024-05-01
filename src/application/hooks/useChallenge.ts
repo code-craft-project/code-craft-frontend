@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { challengesService } from "../services";
+import ToastContext from "../contexts/ToastContext";
+import { useNavigate } from "react-router-dom";
 
 const initChallenge: ChallengeEntity = {
     title: "Two Sum",
@@ -42,20 +44,77 @@ Follow-up: Can you come up with an algorithm that is less than O(n2) time comple
 };
 
 export default function useChallenge(): useChallengeReturn {
+    const { alertError } = useContext(ToastContext);
+    const navigate = useNavigate();
     const [challenge, setChallenge] = useState<ChallengeEntity>(initChallenge);
+    const [comments, setComments] = useState<ChallengeCommentEntity[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isCommentsLoading, setIsCommentsLoading] = useState(true);
 
     const getChallengeById = async (challengeId: number): Promise<void> => {
-        // const response = await challengesService.getChallengeById(challengeId);
-        setIsLoading(false);
-        // if (response.status == 'success') {
-        //     setChallenge(response.data);
-        // } else {
+        setIsLoading(true);
+        const response = await challengesService.getChallengeById(challengeId);
+        if (response.status == 'success') {
+            setChallenge(response.data);
+        } else {
             // TODO: Handle Error
-        // }
+            alertError("Challenge Not Found");
+            navigate("/home");
+            return;
+        }
+        setIsLoading(false);
+    }
+
+    const getChallengeComments = async (challengeId: number): Promise<void> => {
+        setIsCommentsLoading(true);
+        const response = await challengesService.getComments(challengeId);
+        if (response.status == 'success') {
+            setComments(response.data);
+        } else {
+            // TODO: Handle Error
+        }
+        setIsCommentsLoading(false);
+    }
+
+    const appendNewComment = (comment: ChallengeCommentEntity) => {
+        if (comment.is_reply) {
+            setComments(state => {
+                const list = [...state];
+                const targetIndex = list.findIndex(c => c.id == comment.reply_to_comment_id);
+                if (targetIndex != -1) {
+                    list[targetIndex].replies_details?.push(comment);
+                }
+
+                return list;
+            });
+        } else {
+            setComments(state => ([...state, comment]));
+        }
+    }
+
+    const likeComment = (commentId: number, didLike: boolean): void => {
+        setComments(state => {
+            const list = [...state];
+            const targetIndex = list.findIndex(c => c.id == commentId);
+            console.log("list[targetIndex]:", list[targetIndex]);
+            if (targetIndex != -1) {
+                if (didLike) {
+                    list[targetIndex].likes = (list[targetIndex].likes as number) + 1;
+                } else {
+                    list[targetIndex].likes = (list[targetIndex].likes as number) - 1;
+                }
+            }
+
+            return list;
+        });
+
     }
 
     return {
-        challenge, getChallengeById, isLoading
+        challenge, getChallengeById,
+        comments, getChallengeComments,
+        isLoading, isCommentsLoading,
+        appendNewComment,
+        likeComment
     };
 }

@@ -1,21 +1,28 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ChallengeDescription from "./ChallengeDescription";
 import ChallengeSubmissions from "./ChallengeSubmissions";
 import ChallengeComments from "./ChallengeComments";
-
-interface ChallengeBoxProps {
-    challenge: ChallengeEntity;
-};
+import ChallengeContext from "../../../application/contexts/ChallengeContext";
+import { useParams } from "react-router-dom";
 
 type Tab = 'description' | 'submissions' | 'comments';
 
-export default function ChallengeBox({ challenge }: ChallengeBoxProps) {
+export default function ChallengeBox() {
+    const { id } = useParams();
+    const { challenge, getChallengeById, comments, getChallengeComments } = useContext(ChallengeContext);
     const [selectedTab, setSelectedTab] = useState<Tab>('description');
 
     const isSelected = (tabName: Tab): boolean => {
         return tabName == selectedTab;
     }
+
+    useEffect(() => {
+        if (id) {
+            getChallengeById(parseInt(id));
+            getChallengeComments(parseInt(id));
+        }
+    }, [id]);
 
     return (
         <div className="relative w-full h-full flex flex-col items-center bg-gradient-to-b from-slate-950 to-blue-950 rounded-lg overflow-auto">
@@ -49,7 +56,7 @@ export default function ChallengeBox({ challenge }: ChallengeBoxProps) {
             <div className="w-full flex items-center bg-transparent absolute bottom-0 left-0">
                 <div className={`flex items-center py-2 px-4 cursor-pointer text-gray-50 hover:text-gray-300 bg-blue-900 rounded-tr-xl ${isSelected('comments') ? "text-gray-50" : "text-gray-400"}`} onClick={() => setSelectedTab('comments')}>
                     <Icon icon="mdi:comments-text-outline" />
-                    <div className="ml-1 text-sm font-semibold">236</div>
+                    <div className="ml-1 text-sm font-semibold">{comments.length}</div>
                 </div>
             </div>
         </div>

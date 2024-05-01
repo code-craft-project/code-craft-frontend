@@ -10,6 +10,12 @@ interface ExecutionRequest {
     language: SupportedLanguages;
 };
 
+interface CodeHistory {
+    sourceCode: string;
+    language: SupportedLanguages;
+    challenge_id: number;
+};
+
 interface ExecutionResult {
     timeInMs?: string;
     output: string;

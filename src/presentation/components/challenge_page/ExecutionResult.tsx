@@ -11,8 +11,8 @@ interface ExecutionResultProps {
 };
 
 export default function ExecutionResult({ challengeId }: ExecutionResultProps) {
-    const [selectedTab, setSelectedTab] = useState<Tab>('terminal');
-    const { runResult, testCases, getTestCases } = useContext(SubmissionContext);
+    const [selectedTab, setSelectedTab] = useState<Tab>('test-cases');
+    const { testCases, getTestCases } = useContext(SubmissionContext);
 
     useEffect(() => {
         getTestCases(challengeId);
@@ -36,7 +36,7 @@ export default function ExecutionResult({ challengeId }: ExecutionResultProps) {
             <div className="w-full flex flex-col items-center overflow-auto flex-grow">
                 {selectedTab == "test-cases" && <TestCases testCases={testCases} />}
                 {selectedTab == "test-result" && <TestResult testCases={testCases} />}
-                {selectedTab == "terminal" && (
+                {/* {selectedTab == "terminal" && (
                     <div className="w-full text-gray-100 font-medium font-mono text-sm p-2">
                         <div className="w-full flex items-center mb-4">
                             <div className="">Output:</div>
@@ -44,7 +44,7 @@ export default function ExecutionResult({ challengeId }: ExecutionResultProps) {
                         </div>
                         <div className="text-red-500">{runResult.error}</div>
                     </div>
-                )}
+                )} */}
             </div>
         </div>
     )

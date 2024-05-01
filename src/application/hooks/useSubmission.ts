@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { cTemplate, cppTemplate, javascriptTemplate, phpTemplate, pythonTemplate } from "../consts";
+import { CODE_HISTORY_KEY, cTemplate, cppTemplate, javascriptTemplate, phpTemplate, pythonTemplate } from "../consts";
 import { challengesService } from "../services";
 
 export interface useSubmissionReturn {
@@ -68,13 +68,15 @@ export default function useSubmission(): useSubmissionReturn {
             const updatedTestCases = [...oldTestCases];
             const index = updatedTestCases.findIndex(e => e.id == runOperationResult.testCase.id);
             if (index != -1) {
-                if (runOperationResult.executionResult.output.slice(-1) == '\n') {
-                    updatedTestCases[index].output_result = runOperationResult.executionResult.output.slice(0, -1);
-                } else {
-                    updatedTestCases[index].output_result = runOperationResult.executionResult.output;
-                }
+                updatedTestCases[index].output_result = runOperationResult.executionResult.output;
 
-                updatedTestCases[index].run_result = (updatedTestCases[index].output.toString() == updatedTestCases[index].output_result?.toString()) ? 'correct' : 'wrong';
+                try {
+                    const output = JSON.stringify(JSON.parse(updatedTestCases[index].output));
+                    const outputResult = JSON.stringify(JSON.parse(updatedTestCases[index].output_result as string));
+                    updatedTestCases[index].run_result = (output == outputResult) ? 'correct' : 'wrong';
+                } catch (err) {
+                    updatedTestCases[index].run_result = 'wrong';
+                }
             }
 
             return updatedTestCases;
@@ -139,6 +141,9 @@ export default function useSubmission(): useSubmissionReturn {
                     const inputs = testCases[0].inputs;
                     inputs?.forEach((_, index) => {
                         params += `arg${index}`;
+                        if (index != inputs.length - 1) {
+                            params += ', ';
+                        }
                     });
                 }
                 return params;
@@ -151,6 +156,21 @@ export default function useSubmission(): useSubmissionReturn {
                         }
                         if (input.type == "number") {
                             params += `int arg${index}`;
+                        }
+                        if (input.type == "boolean") {
+                            params += `bool arg${index}`;
+                        }
+                        if (input.type == "array_of_numbers") {
+                            params += `int arg${index}[]`;
+                        }
+                        if (input.type == "array_of_strings") {
+                            params += `char* arg${index}[]`;
+                        }
+                        if (input.type == "array_of_booleans") {
+                            params += `bool arg${index}[]`;
+                        }
+                        if (index != inputs.length - 1) {
+                            params += ', ';
                         }
                     });
                 }
@@ -165,6 +185,21 @@ export default function useSubmission(): useSubmissionReturn {
                         if (input.type == "number") {
                             params += `int arg${index}`;
                         }
+                        if (input.type == "boolean") {
+                            params += `bool arg${index}`;
+                        }
+                        if (input.type == "array_of_numbers") {
+                            params += `int arg${index}[]`;
+                        }
+                        if (input.type == "array_of_strings") {
+                            params += `char* arg${index}[]`;
+                        }
+                        if (input.type == "array_of_booleans") {
+                            params += `bool arg${index}[]`;
+                        }
+                        if (index != inputs.length - 1) {
+                            params += ', ';
+                        }
                     });
                 }
                 return params;
@@ -173,6 +208,9 @@ export default function useSubmission(): useSubmissionReturn {
                     const inputs = testCases[0].inputs;
                     inputs?.forEach((_, index) => {
                         params += `$arg${index}`;
+                        if (index != inputs.length - 1) {
+                            params += ', ';
+                        }
                     });
                 }
                 return params;
@@ -181,6 +219,9 @@ export default function useSubmission(): useSubmissionReturn {
                     const inputs = testCases[0].inputs;
                     inputs?.forEach((_, index) => {
                         params += `arg${index}`;
+                        if (index != inputs.length - 1) {
+                            params += ', ';
+                        }
                     });
                 }
                 return params;
@@ -239,6 +280,15 @@ export default function useSubmission(): useSubmissionReturn {
         const response = await challengesService.getTestCasesByChallengeId(challengeId);
         if (response.status == 'success') {
             setTestCases(response.data);
+            const codeHistory = localStorage.getItem(CODE_HISTORY_KEY);
+            if (codeHistory) {
+                const result = JSON.parse(codeHistory) as CodeHistory;
+                if (challengeId == result.challenge_id) {
+                    setSourceCode(result.sourceCode);
+                    setLanguage(result.language);
+                    return;
+                }
+            }
             createStartTemplate(response.data);
         } else {
             // TODO: Handle Error

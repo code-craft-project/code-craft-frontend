@@ -1,5 +1,8 @@
+export const logoSVG = '/images/logo.svg';
 export const userProfilePicture = '/images/profile.jpg';
 export const organizationProfilePicture = '/images/organization-profile.jpg';
+
+export const CODE_HISTORY_KEY = 'code_history';
 
 export const styles = {
     active: "bg-gradient-to-br",
