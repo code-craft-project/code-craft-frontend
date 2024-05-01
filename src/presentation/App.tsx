@@ -27,6 +27,7 @@ import UserSessionContext from '../application/contexts/UserSessionContext';
 import useUserSession from '../application/hooks/useUserSession';
 import ProtectedRoute from './components/ProtectedRoute';
 import UpdateEvent from './pages/UpdateEvent';
+import MyOrganizations from './pages/MyOrganizations';
 
 function App() {
   const toastManager = useToast();
@@ -48,8 +49,8 @@ function App() {
             <Route path="search" element={<Search />} />
             <Route path="single-job-post/:id" element={<SingleJobPost />} />
             <Route path="single-event/:id" element={<SingleEvent />} />
-            <Route path="settings" element={<Settings />} />
-
+            <Route path="settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="my-organizations" element={<ProtectedRoute><MyOrganizations /></ProtectedRoute>} />
           </Route>
 
           <Route path='/organization/:id/dashboard' element={<ProtectedRoute><OrganizationDashboard /></ProtectedRoute>} />

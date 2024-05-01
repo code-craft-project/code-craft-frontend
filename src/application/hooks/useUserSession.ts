@@ -53,7 +53,7 @@ export default function useUserSession(): useUserSessionReturn {
     }
 
     function signIn(userSession: UserSession) {
-        localStorage.setItem(USER_SESSION_KEY, JSON.stringify(userSession.access_token));
+        localStorage.setItem(USER_SESSION_KEY, JSON.stringify(userSession));
         setUserSession(userSession);
         setIsValidSession(true);
         setIsLoading(false);

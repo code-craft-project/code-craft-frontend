@@ -22,10 +22,10 @@ function PersonalDetails() {
     var [last_name,setLast_name] = useState<string>()
     var [email,setEmail] = useState<string>() 
     useEffect(() => {
-        setUsername(userSession.user?.username)
-        setFirst_name(userSession.user?.first_name)
-        setLast_name(userSession.user?.last_name)
-        setEmail(userSession.user?.last_name)
+        setUsername(userSession.userSession.user?.username)
+        setFirst_name(userSession.userSession.user?.first_name)
+        setLast_name(userSession.userSession.user?.last_name)
+        setEmail(userSession.userSession.user?.email)
     },[userSession])
 
     const handleEdit = (field: string) => {
@@ -67,7 +67,7 @@ function PersonalDetails() {
                     alertSuccessHandler("Updating successful");
                 } else {
                     console.error('Updating failed:', response.message);
-                    alertErroreHandler("Updating failed"); 
+                    alertErroreHandler(response.message || 'updating failed'); 
                 }
             } catch (error) {
                 console.log(error);

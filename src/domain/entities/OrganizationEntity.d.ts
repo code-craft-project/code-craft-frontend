@@ -67,3 +67,10 @@ interface useCreateOrganizationReturn {
     createOrganization: () => Promise<void>;
     isLoading: boolean;
 };
+
+interface OrganizationCard {
+    id: number;
+    name: string;
+    logo: string;
+    type: OrganizationType;
+}
