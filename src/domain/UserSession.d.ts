@@ -5,8 +5,11 @@ interface UserSession {
 
 interface useUserSessionReturn {
     userSession: UserSession;
+    userProgress: UserProgress;
     isLoading: boolean;
     isValidSession: boolean;
     signIn: (userSession: UserSession) => void;
     signOut: () => void;
+    getUserProgress: () => void;
 };
+

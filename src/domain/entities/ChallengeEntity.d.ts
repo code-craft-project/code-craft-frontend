@@ -1,10 +1,10 @@
 type ChallengeLevel = 'hard' | 'medium' | 'easy';
-type ChallengeStatus = "Done" | "Not Started"
+type ChallengeStatus = "done" | "not started" | "wrong answer"
 interface ChallengeEntity {
     id?: number;
     title: string;
     description: string;
-    topic: string;
+    topic: ChallengeTopic;
     level: ChallengeLevel;
     is_public: boolean;
     type: "in_out" | "project";
@@ -33,6 +33,21 @@ interface useChallengeReturn {
     likeComment: (commentId: number, didLike: boolean) => void;
 }
 
+interface useChallengesReturn {
+    challenges: ChallengeEntity[];
+    filtredChallenges: ChallengeEntity[];
+    isChallengesLoading: boolean;
+    getChallenges: () => void;
+    getChallengesByTopic: (topic: ChallengeTopic) => void;
+    filterChallenges: (challengeFilters: ChallengeFilters) => void;
+}
+
 type ChallengeLevelColor = {
     [key in ChallengeLevel]: string;
+};
+
+type ChallengeTopic = 'all topics' | 'problem solving' | 'algorithms' | 'data structures' | 'databases';
+
+interface ChallengeFilters {
+    difficulty: ChallengeLevel[];
 };

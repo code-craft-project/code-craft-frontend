@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { userAuthentication } from "../services";
+import { userAuthentication, usersService } from "../services";
 
 const USER_SESSION_KEY = "user_session";
 
@@ -14,6 +14,17 @@ export default function useUserSession(): useUserSessionReturn {
             last_name: "",
             email: ""
         }
+    });
+
+    const [userProgress, setUserProgress] = useState<UserProgress>({
+        correct_easy_submissions: 0,
+        correct_hard_submissions: 0,
+        correct_medium_submissions: 0,
+        total_easy_submissions: 0,
+        total_hard_submissions: 0,
+        total_medium_submissions: 0,
+        total_correct_submissions: 0,
+        total_submissions: 0
     });
 
     useEffect(() => {
@@ -63,11 +74,22 @@ export default function useUserSession(): useUserSessionReturn {
         setIsValidSession(false);
     }
 
+    const getUserProgress = async () => {
+        const response = await usersService.getUserProgress();
+        if (response.status == 'success') {
+            setUserProgress(response.data);
+        } else {
+            // TODO: Handle Errors
+        }
+    }
+
     return {
         isLoading,
         userSession,
         isValidSession,
         signIn,
         signOut,
+        userProgress,
+        getUserProgress
     }
 };

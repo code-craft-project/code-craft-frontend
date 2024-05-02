@@ -12,6 +12,8 @@ export const styles = {
     to_prc: "to-55%",
 };
 
+export const challengesTopics: ChallengeTopic[] = ['all topics', 'problem solving', 'algorithms', 'data structures', 'databases'];
+
 export const supportedLanguages: SupportedLanguages[] = ['c', 'c++', 'javascript', 'php', 'python'];
 export const javascriptTemplate = `/*
 @params
