@@ -26,6 +26,7 @@ export default function useJobPost() {
     const setType = (type: JobType): void => setJobPost(prev => ({ ...prev, type }))
     const setCreatedAt = (created_at: string): void => setJobPost(prev => ({ ...prev, created_at }))
     const setContractType = (contractType: ContractType): void => setJobPost(prev => ({ ...prev, contractType }))
+    const setCreatorId = (organization_id: number): void => setJobPost(prev => ({ ...prev, organization_id }))
 
     const createJobPost = async (ev: any): Promise<void> => {
         ev.preventDefault();
@@ -106,6 +107,7 @@ export default function useJobPost() {
         setLocation,
         setContractType,
         createJobPost,
-        applyJobPost
+        applyJobPost,
+        setCreatorId
     }
 }

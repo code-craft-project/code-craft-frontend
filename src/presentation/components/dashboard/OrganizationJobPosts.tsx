@@ -1,18 +1,25 @@
 import { useContext, useEffect } from "react";
 import OrganizationDashboardContext from "../../../application/contexts/OrganizationDashboardContext";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import usePopup from "../../../application/hooks/usePopup";
 
 export default function OrganizationJobPosts() {
     const { id } = useParams();
     const { jobPosts, isJobPostsLoading, getOrganizationJobPosts } = useContext(OrganizationDashboardContext);
-
+    const popupContentOptions: PopipContent = {title: 'jobPost',method:'create'}
+    const {  onopen, children } = usePopup(popupContentOptions);
+  
     useEffect(() => {
         if (id && isJobPostsLoading) {
             getOrganizationJobPosts(parseInt(id));
         }
     }, [id]);
+
+    const handleOpenPopup = () => {
+        onopen();
+    };
 
     return (
         <div className="w-full h-full flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 py-5">
@@ -21,6 +28,12 @@ export default function OrganizationJobPosts() {
                     <div className="text-3xl font-bold">Job Posts</div>
                     <div className="text-xs text-gray-300">{"Manage Job Posts"}</div>
                 </div>
+                <button
+                    onClick={handleOpenPopup}
+                    className={`font-meduim px-3 py-1 rounded-lg mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap`}
+                    >
+                    Create Job Post
+                </button>
             </div>
             <div className="w-full flex flex-col flex-grow overflow-auto">
                 <div className="w-full flex items-center flex-wrap">
@@ -34,7 +47,7 @@ export default function OrganizationJobPosts() {
                     {
                         jobPosts.map((jobPost, index) => {
                             return (
-                                <div key={index} className="w-1/4 pr-4 mb-4">
+                                <NavLink to={`/single-job-post/${jobPost.id}`} key={index} className="w-1/4 pr-4 mb-4">
                                     <div className="w-full flex flex-col bg-transparent p-4 rounded-xl hover:py-2 hover:px-6 hover:bg-gray-900 duration-300 cursor-pointer">
                                         {/* <div className="w-full flex items-center">
                                             <div>
@@ -57,12 +70,13 @@ export default function OrganizationJobPosts() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </NavLink>
                             )
                         })
                     }
                 </div>
             </div>
+            {children}
         </div>
     )
 }

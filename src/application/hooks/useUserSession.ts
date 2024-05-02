@@ -32,7 +32,6 @@ export default function useUserSession(): useUserSessionReturn {
                 } else {
                     setIsValidSession(false);
                     console.error('Token expired:', response.message);
-
                 }
             } catch (error) {
                 setIsValidSession(false);

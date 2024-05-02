@@ -38,20 +38,39 @@ function SingleEvent() {
       {event && (
         <div className='flex '>
           <div className="w-1/2 pr-5">
-            <h1 className="text-3xl py-5">{event.title}</h1>
-            <p className='pt-5'>{event.description}</p>
-            <div className='py-1'>
-              <span className='opacity-60 mr-2'>Creator:</span>
-              <span>{event.organization_id}</span>
+            <div className="text-3xl py-5">{event.title}</div>
+            <div className='pt-5'>
+              <div className='font-semibold text-lg'>Description:</div>
+              {event.description}
             </div>
-            <div className='py-1'>
-              <span className='opacity-60 mr-2'>Start at:</span>
-              <span>{event.start_at}</span>
+            <div className='py-1 flex items-center gap-2'>
+              <Icon className='opacity-60' icon="icons8:organization" width="18" height="18" />
+              <div className='opacity-60 mr-2'>Creator:</div>
+              <div>{event.organization_id}</div>
             </div>
-            <div className='py-1'>
-              <span className='opacity-60 mr-2'>End at:</span>
-              <span>{event.end_at}</span>
+            <div className='py-1 flex items-center gap-2'>
+              <Icon className='opacity-60' icon="icon-park-solid:stopwatch-start" width="18" height="18" />
+              <div className='opacity-60 mr-2'>Start at:</div>
+              <div>{event.start_at}</div>
             </div>
+            <div className='py-1 flex items-center gap-2'>
+              <Icon className='opacity-60' icon="mdi:clock-end" width="18" height="18" />
+              <div className='opacity-60 mr-2'>End at:</div>
+              <div>{event.end_at}</div>
+            </div>
+            {event.is_team_based && 
+            (<div className='py-1 flex items-center gap-2'>
+              <div className='flex items-center gap-2'>
+                <Icon className='opacity-60' icon="fluent:people-team-16-filled" width="18" height="18" />
+                <div className=' mr-2 opacity-60'>Team based:</div>
+                {/* <div>{event.is_team_based ? 'true' : 'false'},</div> */}
+              </div>
+              <div className='flex items-center gap-2'>
+                <div>Max Team Members:</div>
+                <div>{event.max_team_members}</div>
+              </div>
+            </div>
+            )}
           </div>
           <div className='w-1/2'>
               <img src={event.logo_url ?event.logo_url  :SingleEventImg} alt="" className='rounded-[20px]' />
@@ -59,44 +78,41 @@ function SingleEvent() {
         </div>
       )}
       <div className='my-20 w-full flex flex-col items-center'>
-        <h1 className="text-3xl py-10 text-center">Features</h1>
+        <div className="text-3xl py-10 text-center">Features</div>
         <div className='flex justify-around w-[90%]'>
           <div className={`w-32 h-32 p-5 flex flex-col items-center justify-center rounded-lg ${styles.active}  ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
-            <span className='font-semibold text-lg'>Topics</span>
+            <div className='font-semibold text-lg flex items-center gap-1'><Icon icon="material-symbols:topic" width="18" height="18" />Topics</div>
             <div className='flex flex-col'>
-              <span>-Front End</span>
-              <span>-Back End</span>
+              <div>- Front End</div>
+              <div>- Back End</div>
             </div>
           </div>
           <div className={`w-32 h-32 p-5 flex flex-col items-center justify-center rounded-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
-            <span className='font-semibold text-lg'>{event.is_public? `${<Icon icon="material-symbols:public" width="18" height="18" />} Public`: `${<Icon icon="simple-icons:privateinternetaccess" width="18" height="18" />} Private`}</span>
-            <div className='flex flex-col'>
-              <span>-Front End </span><span>-Back End</span>
-            </div>
+            <div className='font-semibold text-lg flex '>{event.is_public? <div className='flex items-center gap-2'> <Icon icon="ic:baseline-public" width="18" height="18" /> Public </div>: <div className='flex items-center gap-2'> <Icon icon="simple-icons:privateinternetaccess" width="18" height="18" /> Private </div>}</div>
           </div>
           <div className={`w-32 h-32 p-5 flex flex-col items-center justify-center rounded-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
-            <span className='font-semibold text-lg'>Days</span><span>{days} days</span>
+            <div className='font-semibold text-lg flex items-center gap-1'><Icon icon="ci:calendar-days" width="18" height="18" />Days</div><div>{days} days</div>
           </div>
           <div className={`w-32 h-32 p-5 flex flex-col items-center justify-center rounded-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
-            <span className='font-semibold text-lg'>Towards</span>
+            <div className='font-semibold text-lg'>Towards</div>
             <div className='flex flex-col'>
-              <span>-First</span><span>-Second</span><span>-Three</span>
+              <div>- First</div><div>- Second</div><div>- Three</div>
             </div>
           </div>
         </div>
       </div>
       <div className="text-sm mb-20 w-[60%] ml-2 ">
-        <h1 className="text-3xl py-5 text-center">Event Challenges</h1>
+        <div className="text-3xl py-5 text-center">Event Challenges</div>
         <div >
           <div className="flex items-center py-2 w-[80%] gap-16">
             <div className="w-[14rem]">
-              <span className=" px-2">Status</span>
+              <div className=" px-2">Status</div>
             </div>
             <div className=" w-80 text-center">
-              <span>Title</span>
+              <div>Title</div>
             </div>
-            <span className="w-[10rem] text-end">Difficulty</span>
-            <span className="text-nowrap">Maximum Score</span>
+            <div className="w-[10rem] text-end">Difficulty</div>
+            <div className="text-nowrap">Maximum Score</div>
           </div>
           <hr className="w-[80%]" />
           {eventChallenges.map((challenge, index) => (

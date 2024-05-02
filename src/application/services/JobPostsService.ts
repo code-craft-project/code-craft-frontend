@@ -20,7 +20,7 @@ export default class JobPostsService {
     }
 
     async updateJobPost(jobId: number,job:any): Promise<HttpResponse<any>> {
-        return (await this.axiosHttp.get<HttpResponse<any>>(`/api/jobposts/${jobId}/update`,job)).data;
+        return (await this.axiosHttp.post<HttpResponse<any>>(`/api/jobposts/${jobId}/update`,job)).data;
     }
 
     async deleteJobPost(jobId: number): Promise<HttpResponse<any>> {
@@ -28,7 +28,7 @@ export default class JobPostsService {
     }
 
     async createJobPost(job:any): Promise<HttpResponse<JobPostEntity>> {
-        return (await this.axiosHttp.get<HttpResponse<JobPostEntity>>(`/api/jobposts/create`,job)).data;
+        return (await this.axiosHttp.post<HttpResponse<JobPostEntity>>(`/api/jobposts/create`,job)).data;
     }
 
 }

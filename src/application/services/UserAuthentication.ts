@@ -15,6 +15,10 @@ export default class UserAuthentication {
         return (await this.axiosHttp.post<HttpResponse<UserEntity>>('/api/auth/sign_up',user as any)).data
     }
 
+    async signOut(): Promise<HttpResponse<any>> {
+        return (await this.axiosHttp.post<HttpResponse<any>>('/api/auth/sign_out')).data
+    }
+
     async currentUser(): Promise<HttpResponse<UserEntity>> {
         return (await this.axiosHttp.get<HttpResponse<UserEntity>>('/api/users/me')).data
     }

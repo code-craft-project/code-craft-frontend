@@ -94,7 +94,7 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm"
+                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="First name"
                                 value={first_name}
                                 onChange={(ev) => setFirst_name(ev.target.value)}
@@ -106,7 +106,7 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm"
+                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Last name"
                                 value={last_name}
                                 onChange={(ev) => setLast_name(ev.target.value)}
@@ -119,7 +119,7 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm"
+                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Username"
                                 value={username}
                                 onChange={(ev) => setUsername(ev.target.value)}
@@ -132,7 +132,7 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm"
+                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Email"
                                 value={email}
                                 onChange={(ev) => setEmail(ev.target.value)}
@@ -144,7 +144,7 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="password"
-                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm"
+                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(ev) => setPassword(ev.target.value)}

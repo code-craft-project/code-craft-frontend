@@ -1,10 +1,10 @@
 type OrganizationType = 'club' | 'company';
 interface OrganizationEntity {
-    id?: number;
+    id: number;
     name: string;
     creator_id?: number;
     creator?: UserEntity;
-    type?: OrganizationType;
+    type: OrganizationType;
     profile_image_url?: string;
     description: string;
     created_at?: string;

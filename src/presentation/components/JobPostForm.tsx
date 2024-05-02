@@ -5,18 +5,29 @@ import useJobPost from "../../application/hooks/useJobPost";
 
 function JobPostForm(formType: 'create' | 'update') {
     const { styles } = GradientColor()
-    const { jobPost, setTitle, setDescription, createJobPost, updateJobPost,setLocation, getJobPostById, setRole,setType,setContractType } = useJobPost()
+    const { jobPost, setTitle, setDescription, createJobPost, updateJobPost,setLocation, getJobPostById, setCreatorId, setRole,setType,setContractType } = useJobPost()
     const { id } = useParams()
 
     useEffect(() => {
         if ((formType === 'update') && id) {
             getJobPostById(parseInt(id))
         }
+        if(id)
+        setCreatorId(parseInt(id))
     }, [])
+
+    const handleFormSubmit = (event: any) => {
+        event.preventDefault();
+        if (formType === 'create') {
+            updateJobPost()
+        } else {
+            createJobPost(event)
+        }
+    }
 
 
     return (
-        <form onSubmit={formType ? createJobPost : updateJobPost} className="flex flex-col gap-5 w-1/2 items-center">
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-5 w-full items-center">
             <div className="flex flex-col gap-5 w-1/2 items-center">
                 <div className="flex flex-col gap-3 w-full">
                     <h1 className="text-xl font-meduim text-start ">Title</h1>
@@ -26,7 +37,7 @@ function JobPostForm(formType: 'create' | 'update') {
                         placeholder="Enter Job Post Name"
                         value={jobPost.title}
                         onChange={ev => setTitle(ev.target.value)}
-                        />
+                    />
                 </div>
                 <div className="flex flex-col gap-3 w-full">
                     <h1 className="text-xl font-meduim text-start ">Role</h1>
@@ -81,7 +92,7 @@ function JobPostForm(formType: 'create' | 'update') {
                     />
                 </div>
             </div>
-            <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg w-full mt-5 hover:opacity-90 active:scale-105 transition-all duration-300`}>Create</button>
+            <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg w-1/2 mt-5 hover:opacity-90 active:scale-105 transition-all duration-300`}>Create</button>
         </form>
     )
 }

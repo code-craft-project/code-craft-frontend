@@ -5,14 +5,41 @@ import { Icon } from '@iconify/react';
 import { useContext, useState } from 'react';
 import UserSessionContext from '../../application/contexts/UserSessionContext';
 import {  motion } from "framer-motion"
+import useUserSession from '../../application/hooks/useUserSession';
+import { userAuthentication } from '../../application/services';
+import ToastContext from '../../application/contexts/ToastContext';
 
 function Navbar() {
     const userSession = useContext(UserSessionContext)
+    const {signOut} = useUserSession()
     const [activeMenu, setActiveMenu] = useState<boolean>(false); 
     const variants = {
         hidden: { opacity: 0, y: -20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
     };
+
+    const toastManager = useContext(ToastContext);
+    const alertSuccessHandler = (_p0: string) => { toastManager.alertSuccess('Success Message') }
+    const alertErroreHandler = (_p0: string) => { toastManager.alertError("Error Message"); }
+
+    const HandleSignOut = async () => {
+        try{
+        const response = await userAuthentication.signOut()
+        if (response.status == "success") {
+            signOut()
+            alertSuccessHandler("Sign out successful");
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 2000);
+        } else {
+            console.error('Sign out failed:', response.message);
+            alertErroreHandler("Sign out failed");
+        }
+    } catch (error) {
+        console.log(error);
+        alertErroreHandler("Creation failed");
+    }
+    }
 
     return (
     <motion.div 
@@ -65,23 +92,23 @@ function Navbar() {
                 />
                 {activeMenu && (
                     <motion.div 
-                        className="absolute top-14 right-24 bg-white bg-opacity-10 z-50 w-44 h-32 p-5 rounded-lg shadow-sm overflow-hidden" 
+                        className="absolute top-14 right-24 bg-white bg-opacity-10 z-50 w-52 h-44 p-5 rounded-lg shadow-sm overflow-hidden" 
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
                     >
                         <ul>
-                            <li  onClick={() => setActiveMenu(!activeMenu) } className="my-3 text-sm flex hover:bg-white hover:bg-opacity-10 rounded-lg items-center gap-2 text-nowrap">
+                            <li  onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex hover:bg-white hover:bg-opacity-10 rounded-lg items-center gap-2 text-nowrap">
                                 <Icon icon="material-symbols:settings" width="18" height="18" />
                                 <NavLink to="/settings">Settings</NavLink>
                             </li>
-                            <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
+                            <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                 <Icon icon="mdi:company" width="18" height="18" />
                                 <NavLink to="/my-organizations">My Organizations</NavLink>
                             </li>
-                            <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
+                            <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                 <Icon icon="tabler:logout" width="18" height="18" />
-                                <a href="/logout">Logout</a>
+                                <button onClick={HandleSignOut}>Logout</button>
                             </li>
                         </ul>
                     </motion.div>

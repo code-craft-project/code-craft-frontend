@@ -72,7 +72,7 @@ export default function SignIn() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm"
+                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white  ring-offset-1 transition-all duration-200"
                                 placeholder="Email"
                                 value={email}
                                 onChange={(ev) => setEmail(ev.target.value)}
@@ -84,16 +84,15 @@ export default function SignIn() {
                             </div>
                             <input
                                 type="password"
-                                className="border-1.5 outline-none border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm"
+                                className="border-1.5 outline-none border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200 "
                                 placeholder="Password"
                                 value={password}
                                 onChange={(ev) => setPassword(ev.target.value)}
-
                             />
                         </div>
                         <div className="flex  mb-5 justify-end items-center w-64 mx-auto">
                             <div className=" h-6 rounded-sm flex mr-5 justify-center items-center">
-                                <input type="checkbox" />
+                                <input type="checkbox" className="accent-primary-yellow"/>
                                 <p className="ml-1  text-xs">Remember me</p>
                             </div>
                             <a className=" underline font-normal" style={{ fontSize: "10px" }} href="">Forgot password?</a>

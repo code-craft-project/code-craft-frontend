@@ -42,4 +42,8 @@ export default class OrganizationsSerivce {
     async createOrganization(organization: OrganizationEntity): Promise<HttpResponse<OrganizationEntity>> {
         return (await this.axiosHttp.post<HttpResponse<OrganizationEntity>, OrganizationEntity>(`/api/organizations/create`, organization)).data;
     }
+
+    async getMyOrganization(): Promise<HttpResponse<OrganizationEntity[]>> {
+        return (await this.axiosHttp.get<HttpResponse<OrganizationEntity[]>>(`/api/organizations/me`)).data
+    }
 }

@@ -43,6 +43,9 @@ export default function useEvent() {
     const setPassword = (password: string): void => setEvent(prev => ({ ...prev, password }))
     const setStartAt = (start_at: string): void => setEvent(prev => ({ ...prev, start_at }))
     const setEndAt = (end_at: string): void => setEvent(prev => ({ ...prev, end_at }))
+    const setOrganizationId = (organization_id: number): void => setEvent(prev => ({ ...prev, organization_id }))
+    const setIsTeamBased = (is_team_based: boolean): void => setEvent(prev => ({ ...prev, is_team_based }))
+    const setMaxTeamMembers = (max_team_members: number): void => setEvent(prev => ({ ...prev, max_team_members }))
 
     const createEvent = async (ev: any): Promise<void> => {
         ev.preventDefault();
@@ -51,7 +54,7 @@ export default function useEvent() {
             if (response.status == "success") {
                 alertSuccessHandler("Creation event successful");
                 setTimeout(() => {
-                    window.location.href = "/dashboard";
+                    window.location.href = `/organization/${event.organization_id}/dashboard`;
                 }, 2000);
             } else {
                 console.error('Creation event failed:', response.message);
@@ -162,6 +165,9 @@ export default function useEvent() {
         setEndAt,
         getEventById,
         eventChallenges,
-        getEventChallenges
+        getEventChallenges,
+        setOrganizationId,
+        setMaxTeamMembers,
+        setIsTeamBased
     }
 }

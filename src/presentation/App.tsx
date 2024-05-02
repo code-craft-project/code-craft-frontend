@@ -15,7 +15,6 @@ import Search from './pages/Search';
 import SingleJobPost from './pages/SingleJobPost';
 import SingleEvent from './pages/SingleEvent';
 import Settings from './pages/Settings';
-import CreateEvent from './pages/CreateEvent';
 import WithoutFooter from './layout/WithoutFooter';
 import CreateOrganization from './pages/CreatOrganization';
 import ChallengePage from './pages/ChallengePage';
@@ -60,7 +59,6 @@ function App() {
 
           <Route path='/' element={(<WithoutFooter />)}>
             <Route path='/organization/create' element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
-            <Route path="create-event" element={<ProtectedRoute><CreateEvent /></ProtectedRoute>} />
             <Route path="create-challenge" element={<ProtectedRoute><CreateChallenge /></ProtectedRoute>} />
             <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
             <Route path="update-event/:id" element={<UpdateEvent />} />
