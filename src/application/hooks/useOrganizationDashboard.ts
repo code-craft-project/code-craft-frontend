@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { organizationsService } from "../services";
+import { useEffect, useState } from "react";
+import { filesUploadServices, organizationsService } from "../services";
 
 const initOrganization: OrganizationEntity = {
     name: '',
@@ -24,12 +24,22 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
     const [isMemberLoading, setIsMemberLoading] = useState(true);
     const [jobPosts, setJobPosts] = useState<JobPostEntity[]>([]);
     const [isJobPostsLoading, setIsJobPostsLoading] = useState(true);
-    
+    const [image, setImage] = useState<File | null>(null);
+    const [imageUrl, setImageUrl] = useState<string | undefined>('');
+
+    useEffect(() => {
+        if (image) {
+            const url = URL.createObjectURL(image);
+            setImageUrl(url);
+        }
+    }, [image]);
+
     const getOrganizationById = async (organizationId: number): Promise<void> => {
         const response = await organizationsService.getOrganizationById(organizationId);
         setIsLoading(false);
         if (response.status == 'success') {
             setOrganization(response.data);
+            setImageUrl(response.data.profile_image_url);
             setEditOrganization(response.data);
         } else {
             // TODO: Handle Error
@@ -105,9 +115,17 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
     }
 
     const updateOrganization = async (): Promise<void> => {
-        const response = await organizationsService.updateOrganization(organization.id || 0, { name: editOrganization.name, description: editOrganization.description });
+        let profile_image_url = undefined;
+        if (image) {
+            const uploadImageResponse = await filesUploadServices.uploadImage(image);
+            if (uploadImageResponse.status == 'success') {
+                profile_image_url = uploadImageResponse.data;
+            }
+        }
+
+        const response = await organizationsService.updateOrganization(organization.id || 0, { name: editOrganization.name, description: editOrganization.description, profile_image_url });
         if (response.status == 'success') {
-            setOrganization(state => ({ ...state, ...editOrganization }));
+            setOrganization(state => ({ ...state, ...editOrganization, profile_image_url: imageUrl }));
         } else {
             // TODO: Handle Error
         }
@@ -139,6 +157,10 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         isEventsLoading, isMembersLoading,
         isDashboardStatsLoading, isMemberLoading,
         isJobPostsLoading,
-        isMember
+        isMember,
+        image,
+        imageUrl,
+        setImage,
+        setImageUrl
     };
 }

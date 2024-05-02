@@ -6,6 +6,7 @@ import UserAuthentication from "./services/UserAuthentication";
 import EventsService from "./services/EventsService";
 import JobPostsService from "./services/JobPostsService";
 import UsersService from "./services/UsersService";
+import FilesUploadServices from "./services/FilesUploadServices";
 
 export const axiosHttp = new AxiosHttp(axios, localStorage, true);
 
@@ -15,3 +16,4 @@ export const eventsService = new EventsService(axiosHttp);
 export const organizationsService = new OrganizationsSerivce(axiosHttp);
 export const jobPostsService = new JobPostsService(axiosHttp);
 export const usersService = new UsersService(axiosHttp);
+export const filesUploadServices = new FilesUploadServices(axiosHttp);

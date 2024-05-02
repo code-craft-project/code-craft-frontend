@@ -1,10 +1,10 @@
 type OrganizationType = 'club' | 'company';
 interface OrganizationEntity {
-    id: number;
+    id?: number;
     name: string;
     creator_id?: number;
     creator?: UserEntity;
-    type: OrganizationType;
+    type?: OrganizationType;
     profile_image_url?: string;
     description: string;
     created_at?: string;
@@ -49,6 +49,10 @@ interface useOrganizationDashboardReturn {
     getCurrentMember: (organizationId: number) => void;
     hasPermissions: (role: MemberRole) => boolean;
     setEditOrganization: React.Dispatch<React.SetStateAction<OrganizationEntity>>;
+    image: File | null;
+    setImage: React.Dispatch<React.SetStateAction<File | null>>;
+    imageUrl: string | undefined;
+    setImageUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 interface OrganizationDashboardStats {
@@ -66,6 +70,10 @@ interface useCreateOrganizationReturn {
     setOrganization: React.Dispatch<React.SetStateAction<OrganizationEntity>>;
     createOrganization: () => Promise<void>;
     isLoading: boolean;
+    image: File | null;
+    setImage: React.Dispatch<React.SetStateAction<File | null>>;
+    imageUrl: string;
+    setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 };
 
 interface OrganizationCard {

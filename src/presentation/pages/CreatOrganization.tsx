@@ -1,20 +1,46 @@
-import { useState } from "react";
+import { useRef } from "react";
 import upload from '../../assets/Icons/upload.svg';
 import { styles } from "../../application/consts";
 import useCreateOrganization from "../../application/hooks/useCreateOrganization";
 import LoadingIndicator from "../components/LoadingIndicator";
 
 function CreateOrganization() {
-    const { organization, setOrganization, createOrganization, isLoading } = useCreateOrganization();
-    const [files, setFiles] = useState([]);
+    const { organization, setOrganization, createOrganization, isLoading, image, imageUrl, setImage } = useCreateOrganization();
+    const imageRef = useRef<HTMLInputElement>(null);
 
     const onDragOver: React.DragEventHandler<HTMLDivElement> = (event: React.DragEvent) => {
         event.preventDefault();
     };
 
-    const onDrop = (event: any) => {
-        setFiles(event.dataTransfer.files);
+    const onDrop = (ev: React.DragEvent) => {
+        ev.preventDefault();
+        if (ev.dataTransfer.items) {
+            // Use DataTransferItemList interface to access the file(s)
+            [...ev.dataTransfer.items].forEach((item) => {
+                // If dropped items aren't files, reject them
+                if (item.kind === "file") {
+                    const file = item.getAsFile();
+                    setImage(file);
+                }
+            });
+        } else {
+            // Use DataTransfer interface to access the file(s)
+            [...ev.dataTransfer.files].forEach((file) => {
+                setImage(file);
+            });
+        }
+
     };
+
+    const selectImage = () => {
+        imageRef.current?.click();
+    }
+
+    const onFileSelected = async () => {
+        if (imageRef.current && imageRef.current.files && imageRef.current.files.length > 0) {
+            setImage(imageRef.current.files[0]);
+        }
+    }
 
     return (
         <div className="my-16 ">
@@ -54,21 +80,32 @@ function CreateOrganization() {
                             value={organization.description}
                         />
                     </div>
-                    <div className="flex flex-col gap-3 w-full">
-                        <div>Logo:</div>
-                        <div
-                            className="flex flex-col items-center justify-center p-16 border-dashed border-2 border-gray-400 rounded-lg cursor-pointer"
-                            onDragOver={onDragOver}
-                            onDrop={onDrop}
-                        >
-                            <img src={upload} />
-                            <p className="text-sm text-gray-500">
-                                Click or drag file to this area to upload
-                            </p>
-                            <p className="text-xs text-gray-400">(Support for a single or bulk upload)</p>
-                            {files.length > 0 && <p>Uploaded files: {files.length}</p>}
-                        </div>
-                    </div>
+                    <input ref={imageRef} onChange={onFileSelected} type="file" accept="images/*" hidden />
+                    {
+                        image ? (
+                            <div className="w-full flex flex-col items-center">
+                                <div className="py-2 text-gray-200 font-medium">Click on image to update</div>
+                                <img onClick={selectImage} src={imageUrl} title={imageUrl} className="w-96 h-96 bg-white object-cover rounded-xl cursor-pointer" />
+                            </div>
+                        ) : (
+                            <div className="flex flex-col gap-3 w-full">
+                                <div>Logo:</div>
+                                <div
+                                    className="flex flex-col items-center justify-center p-16 border-dashed border-2 border-gray-400 rounded-lg cursor-pointer"
+                                    onDragOver={onDragOver}
+                                    onDrop={onDrop}
+                                    onClick={selectImage}
+                                >
+                                    <img src={upload} />
+                                    <p className="text-sm text-gray-500">
+                                        Click or drag file to this area to upload
+                                    </p>
+                                    <p className="text-xs text-gray-400">(Support for a single or bulk upload)</p>
+                                </div>
+                            </div>
+                        )
+                    }
+
                 </div>
                 <button
                     className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} font-meduim px-3 py-1 rounded-lg w-1/2 hover:opacity-90 active:scale-105 transition-all duration-300 flex items-center justify-center`}
