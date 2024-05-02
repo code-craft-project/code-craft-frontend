@@ -39,7 +39,7 @@ Follow-up: Can you come up with an algorithm that is less than O(n2) time comple
 `,
     is_public: true,
     level: "easy",
-    topic: "Problem Solving",
+    topic: "problem solving",
     type: "in_out"
 };
 

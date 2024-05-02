@@ -34,4 +34,12 @@ export default class ChallengesService {
     async toggleLikeComment(challengeId: number, commentId: number): Promise<HttpResponse<any>> {
         return (await this.axiosHttp.post<HttpResponse<any>>(`/api/challenges/${challengeId}/comments/${commentId}/toggle_like`)).data;
     }
+
+    async getChallenges(): Promise<HttpResponse<ChallengeEntity[]>> {
+        return (await this.axiosHttp.get<HttpResponse<ChallengeEntity[]>>("/api/challenges/")).data;
+    }
+
+    async getChallengesByTopic(topic: ChallengeTopic): Promise<HttpResponse<ChallengeEntity[]>> {
+        return (await this.axiosHttp.get<HttpResponse<ChallengeEntity[]>>(`/api/challenges/topic/${topic}`)).data;
+    }
 }
