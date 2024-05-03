@@ -10,6 +10,7 @@ const eventFormat: EventEntity = {
     start_at: '',
     end_at: '',
     organization_id: 0,
+    organization:{id: 0, name: '', description:'',type: 'club'},
     is_team_based: false,
     max_team_members: 0,
 }
@@ -18,7 +19,7 @@ const challengeFormat: ChallengeEntity = {
         id: 0,
         title: '',
         description: '',
-        topic: '',
+        topic: 'algorithms',
         level: 'easy',
         is_public: false,
         type: "in_out",
@@ -27,7 +28,7 @@ const challengeFormat: ChallengeEntity = {
         ,comments: 0,
         submissions: 0,
         score: 0,
-        status: 'Not Started',
+        status: 'done',
     }
 
 export default function useEvent() {
@@ -68,11 +69,12 @@ export default function useEvent() {
 
     const updateEvent = async (): Promise<void> => {
         try {
-            const response = await eventsService.updateEvent(event.id as number, event)
+            const {id,password,logo_url,organization_id,organization,...rest} = event
+            const response = await eventsService.updateEvent(event.id as number, rest)
             if (response.status == "success") {
                 alertSuccessHandler("Updating event successful");
                 setTimeout(() => {
-                    window.location.href = "/dashboard";
+                    window.location.href = `/organization/${event.id}/dashboard`;
                 }, 2000);
             } else {
                 console.error('Updating event failed:', response.message);

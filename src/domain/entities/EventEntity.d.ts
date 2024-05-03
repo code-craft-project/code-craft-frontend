@@ -8,11 +8,13 @@ interface EventEntity {
     start_at: timestamp;
     end_at: timestamp;
     organization_id: number;
+    organization: OrganizationEntity
     is_team_based: boolean;
     max_team_members?: number;
 };
 
 type eventDataCard = {
+    id: number;
     logo_url?: string;
     title:string,
     start_at:string,

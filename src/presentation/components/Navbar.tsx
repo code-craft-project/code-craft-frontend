@@ -8,15 +8,12 @@ import {  motion } from "framer-motion"
 import useUserSession from '../../application/hooks/useUserSession';
 import { userAuthentication } from '../../application/services';
 import ToastContext from '../../application/contexts/ToastContext';
+import { navbarVariants } from '../../application/data/FramerVariants';
 
 function Navbar() {
     const userSession = useContext(UserSessionContext)
     const {signOut} = useUserSession()
     const [activeMenu, setActiveMenu] = useState<boolean>(false); 
-    const variants = {
-        hidden: { opacity: 0, y: -20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
-    };
 
     const toastManager = useContext(ToastContext);
     const alertSuccessHandler = (_p0: string) => { toastManager.alertSuccess('Success Message') }
@@ -46,7 +43,7 @@ function Navbar() {
         className={`w-full absolute gap-20 bg-black top-0 left-0 z-50 shadow-xl py-3 ${styles.container_cen}`}
         initial="hidden"
         animate="visible"
-        variants={variants}
+        variants={navbarVariants}
         transition={{ duration: 0.5 }}
     >
         <NavLink to='/' className="flex items-center w-[15%]">
@@ -92,20 +89,20 @@ function Navbar() {
                 />
                 {activeMenu && (
                     <motion.div 
-                        className="absolute top-14 right-24 bg-white bg-opacity-10 z-50 w-52 h-44 p-5 rounded-lg shadow-sm overflow-hidden" 
+                        className="absolute border-2  border-opacity-50 border-blue-900 border-t-yellow-600 border-r-yellow-600 top-14 right-24 bg-white bg-opacity-10 z-50 w-52 h-44 p-5 rounded-lg shadow-sm overflow-hidden" 
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
                     >
                         <ul>
-                            <li  onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex hover:bg-white hover:bg-opacity-10 rounded-lg items-center gap-2 text-nowrap">
+                            <NavLink to="/settings"  onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex hover:bg-white hover:bg-opacity-10 rounded-lg items-center gap-2 text-nowrap">
                                 <Icon icon="material-symbols:settings" width="18" height="18" />
-                                <NavLink to="/settings">Settings</NavLink>
-                            </li>
-                            <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
+                                <div>Settings</div>
+                            </NavLink>
+                            <NavLink to="/my-organizations" onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                 <Icon icon="mdi:company" width="18" height="18" />
-                                <NavLink to="/my-organizations">My Organizations</NavLink>
-                            </li>
+                                <div>My Organizations</div>
+                            </NavLink>
                             <li onClick={() => setActiveMenu(!activeMenu) } className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                 <Icon icon="tabler:logout" width="18" height="18" />
                                 <button onClick={HandleSignOut}>Logout</button>

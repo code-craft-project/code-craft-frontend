@@ -7,9 +7,10 @@ import { useParams } from "react-router-dom";
 
 interface EventFormProps {
     formType: 'create' | 'update';
+    eventId?: number;
 }
 
-function EventForm({formType }: EventFormProps) {
+function EventForm({formType,eventId }: EventFormProps) {
     const { styles } = GradientColor()
     const [files, setFiles] = useState([]);
 
@@ -19,6 +20,8 @@ function EventForm({formType }: EventFormProps) {
     const onDrop = (event: any) => {
         setFiles(event.dataTransfer.files);
     };
+
+    const {id} = useParams()
 
     const { event, setOrganizationId, setTitle, createEvent, updateEvent, getEventById, setStartAt, setEndAt, setDescription, setPassword, setIs_public, setMaxTeamMembers, setIsTeamBased } = useEvent()
     const changeVisibility = (event: any) => {
@@ -39,13 +42,12 @@ function EventForm({formType }: EventFormProps) {
         }
     }
 
-    const { id } = useParams()
 
     useEffect(() => {
-        if ((formType === 'update') && id) {
-            getEventById(parseInt(id))
+        if ((formType === 'update') && eventId) {
+            getEventById(eventId)
         }
-        if(id)
+        if (id)
         setOrganizationId(parseInt(id))
     }, [])
 
@@ -112,7 +114,7 @@ return (
             <div className="flex flex-col gap-2 w-[49%]">
                 <h1 className="text-xl font-meduim text-start">Visibility</h1>
                 <select onChange={changeVisibility} className="w-full bg-white font-meduim py-1 px-3 rounded-lg text-black" required>
-                    <option disabled>Select Visibility</option>
+                    <option disabled selected>Select Visibility</option>
                     <option value="public">Public</option>
                     <option value="private">Private</option>
                 </select>
@@ -137,7 +139,7 @@ return (
             <div className="flex flex-col gap-2 w-[49%]">
                 <h1 className="text-xl font-meduim text-start">Is Team Based</h1>
                 <select onChange={changeTeamCondition} className="w-full bg-white font-meduim py-1 px-3 rounded-lg text-black">
-                    <option disabled>Select Condition</option>
+                    <option disabled selected>Select Condition</option>
                     <option value="true">True</option>
                     <option value="false">False</option>
                 </select>
@@ -187,7 +189,7 @@ return (
                 {files.length > 0 && <p>Uploaded files: {files.length}</p>}
             </div>
         </div>
-        <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg w-full mt-5 hover:opacity-90 active:scale-105 transition-all duration-300`}>Create</button>
+        <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg w-full mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 capitalize`}>{formType}</button>
     </form>
 )
 }

@@ -28,8 +28,7 @@ export default function useJobPost() {
     const setContractType = (contractType: ContractType): void => setJobPost(prev => ({ ...prev, contractType }))
     const setCreatorId = (organization_id: number): void => setJobPost(prev => ({ ...prev, organization_id }))
 
-    const createJobPost = async (ev: any): Promise<void> => {
-        ev.preventDefault();
+    const createJobPost = async (): Promise<void> => {
         try {
             const currentDate = new Date()
             setCreatedAt(currentDate.getDay().toString())
@@ -37,11 +36,11 @@ export default function useJobPost() {
             if (response.status == "success") {
                 alertSuccessHandler("Creation job post successful");
                 setTimeout(() => {
-                    window.location.href = "/dashboard";
+                    window.location.href = `/organization/${jobPost.organization_id}/dashboard`;
                 }, 2000);
             } else {
                 console.error('Creation job post failed:', response.message);
-                alertErroreHandler("Creation job post failed");
+                alertErroreHandler('Creation job post failed:'+ response.message);
             }
         } catch (error) {
             console.log(error);
@@ -53,19 +52,38 @@ export default function useJobPost() {
         try {
             const currentDate = new Date()
             setCreatedAt(currentDate.getDay().toString())
-            const response = await jobPostsService.updateJobPost(jobPost.id as number, jobPost)
+            const {id,created_at,organization_id,organization,updated_at,...rest} = jobPost
+            const response = await jobPostsService.updateJobPost(jobPost.id as number, rest)
             if (response.status == "success") {
                 alertSuccessHandler("Updating job post successful");
                 setTimeout(() => {
-                    window.location.href = "/dashboard";
+                    window.location.href = `/organization/${jobPost.organization_id}/dashboard`;
                 }, 2000);
             } else {
                 console.error('Updating job post failed:', response.message);
-                alertErroreHandler("Updating job post failed");
+                alertErroreHandler('Updating job post failed:'+ response.message);
             }
         } catch (error) {
             console.log(error);
             alertErroreHandler("Creation failed");
+        }
+    }
+
+    const deleteJobPost = async (jobPostId:number): Promise<void> => {
+        try {
+            const response = await jobPostsService.deleteJobPost(jobPostId)
+            if (response.status == "success") {
+                alertSuccessHandler("Delete job post successful");
+                setTimeout(() => {
+                    window.location.href = `/organization/${jobPost.organization_id}/dashboard`;
+                }, 2000);
+            } else {
+                console.error('Delete job post failed:', response.message);
+                alertErroreHandler('Delete job post failed:' + response.message);
+            }
+        } catch (error) {
+            console.log(error);
+            alertErroreHandler("Delete failed");
         }
     }
 
@@ -108,6 +126,7 @@ export default function useJobPost() {
         setContractType,
         createJobPost,
         applyJobPost,
-        setCreatorId
+        setCreatorId,
+        deleteJobPost,
     }
 }

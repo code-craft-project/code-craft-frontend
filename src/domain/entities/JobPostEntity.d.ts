@@ -12,4 +12,5 @@ interface JobPostEntity {
     organization_id: number;
     organization?: OrganizationEntity;
     created_at?: string;
+    updated_at?: string;
 };

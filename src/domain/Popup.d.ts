@@ -5,9 +5,10 @@ interface PopupProps {
     open?: boolean; 
 }
 
-interface PopipContent {
+interface PopupContent {
     title: contentTitle;
     method: type;
+    id?: number
 }
 
 type type = 'create' | 'update'

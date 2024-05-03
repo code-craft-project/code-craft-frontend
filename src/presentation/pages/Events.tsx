@@ -27,7 +27,7 @@ function Events() {
             <div className='flex flex-wrap w-[100%] px-10'>
                 {events && events.map((event, index) => (
                     <div key={index}>
-                        <OneEventCard eventData={{ logo_url: OneEventImg, title: event.title, start_at: event.start_at, end_at: event.end_at }} />
+                        <OneEventCard eventData={{id:event.id as number, logo_url: OneEventImg, title: event.title, start_at: event.start_at, end_at: event.end_at }} />
                     </div>
                 ))}
             </div>

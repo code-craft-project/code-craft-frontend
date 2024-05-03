@@ -46,7 +46,7 @@ function SingleEvent() {
             <div className='py-1 flex items-center gap-2'>
               <Icon className='opacity-60' icon="icons8:organization" width="18" height="18" />
               <div className='opacity-60 mr-2'>Creator:</div>
-              <div>{event.organization_id}</div>
+              <div>{event.organization.creator?.first_name }</div>
             </div>
             <div className='py-1 flex items-center gap-2'>
               <Icon className='opacity-60' icon="icon-park-solid:stopwatch-start" width="18" height="18" />

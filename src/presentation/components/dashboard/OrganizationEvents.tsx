@@ -8,7 +8,7 @@ import usePopup from "../../../application/hooks/usePopup";
 export default function OrganizationEvents() {
   const { id } = useParams();
   const { events, isEventsLoading, getOrganizationEvents } = useContext(OrganizationDashboardContext);
-  const popupContentOptions: PopipContent = {title: 'event',method:'create'}
+  const popupContentOptions: PopupContent = {title: 'event',method:'create'}
   const {  onopen, children } = usePopup(popupContentOptions);
 
   useEffect(() => {

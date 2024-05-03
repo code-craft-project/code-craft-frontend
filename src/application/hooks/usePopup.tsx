@@ -5,15 +5,15 @@ import EventForm from "../../presentation/components/EventForm";
 import JobPostForm from "../../presentation/components/JobPostForm";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-const usePopup = ( popupContentOptions : PopipContent ): PopupProps => {
+const usePopup = ( popupContentOptions : PopupContent ): PopupProps => {
   const [isOpen, setIsOpen] = useState(false);
   
   const openPopup = () => setIsOpen(true);
   const closePopup = () => setIsOpen(false);
 
   const ElementChoosedToRender = {
-    event:<EventForm formType={popupContentOptions?.method}/>,
-    jobPost :<JobPostForm formType={popupContentOptions?.method}/>
+    event:<EventForm eventId={popupContentOptions.id} formType={popupContentOptions?.method}/>,
+    jobPost :<JobPostForm jobPostId={popupContentOptions.id} formType={popupContentOptions?.method}/>
   }
   return {
     children: (

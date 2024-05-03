@@ -11,7 +11,7 @@ function OrganizationCard ({ organization }: { organization: OrganizationCard })
                 <span className='opacity-75'>{organization.type}</span>
             </div>
         </div>
-        <NavLink to={`/organization/${organization.id}/dashboard`} className={`bg-primary-yellow font-meduim px-3 py-1 rounded-lg  mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 `}>Go TO DASHBOARD</NavLink>
+        <NavLink to={`/organization/${organization.id}/dashboard`} className={`bg-primary-yellow font-meduim px-3 py-1 rounded-lg  mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 `}>GO TO DASHBOARD</NavLink>
     </div>
   )
 }

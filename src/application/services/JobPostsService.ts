@@ -24,7 +24,7 @@ export default class JobPostsService {
     }
 
     async deleteJobPost(jobId: number): Promise<HttpResponse<any>> {
-        return (await this.axiosHttp.get<HttpResponse<any>>(`/api/jobposts/${jobId}/delete`)).data;
+        return (await this.axiosHttp.post<HttpResponse<any>>(`/api/jobposts/${jobId}/delete`)).data;
     }
 
     async createJobPost(job:any): Promise<HttpResponse<JobPostEntity>> {

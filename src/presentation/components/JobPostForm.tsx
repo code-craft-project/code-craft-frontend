@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import GradientColor from "../../application/data/GradientColor"
-import { useParams } from "react-router-dom";
 import useJobPost from "../../application/hooks/useJobPost";
+import { useParams } from "react-router-dom";
 
-function JobPostForm(formType: 'create' | 'update') {
+function JobPostForm({formType,jobPostId }: any) {
     const { styles } = GradientColor()
     const { jobPost, setTitle, setDescription, createJobPost, updateJobPost,setLocation, getJobPostById, setCreatorId, setRole,setType,setContractType } = useJobPost()
-    const { id } = useParams()
-
+    const {id} = useParams()
     useEffect(() => {
-        if ((formType === 'update') && id) {
-            getJobPostById(parseInt(id))
+        console.log(id)
+        if ((formType === 'update') && jobPostId) {
+            getJobPostById(parseInt(jobPostId))
         }
         if(id)
         setCreatorId(parseInt(id))
@@ -19,9 +19,9 @@ function JobPostForm(formType: 'create' | 'update') {
     const handleFormSubmit = (event: any) => {
         event.preventDefault();
         if (formType === 'create') {
-            updateJobPost()
+            createJobPost()
         } else {
-            createJobPost(event)
+            updateJobPost()
         }
     }
 
@@ -92,7 +92,7 @@ function JobPostForm(formType: 'create' | 'update') {
                     />
                 </div>
             </div>
-            <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg w-1/2 mt-5 hover:opacity-90 active:scale-105 transition-all duration-300`}>Create</button>
+            <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg w-1/2 mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 capitalize `}>{formType}</button>
         </form>
     )
 }
