@@ -39,7 +39,7 @@ function OneEventCard({ eventData }: { eventData: eventDataCard }) {
             </div>
             <div className={`flex items-end justify-between `}>
                 <div className='flex flex-col items-start'>
-                    <NavLink to={`/single-event/${eventData.id}`} className='font-semibold cursor-pointer hover:text-primary-blue transition-color duration-200'>{eventData.title}</NavLink>
+                    <NavLink to={`/events/${eventData.id}`} className='font-semibold cursor-pointer hover:text-primary-blue transition-color duration-200'>{eventData.title}</NavLink>
                     <p className='text-xs opacity-75 ext-nowrap'>{startDate.getDate()}-{(startDate.getMonth() + 1).toString().padStart(2, '0')}-{startDate.getFullYear()} {startDate.getHours().toString().padStart(2, '0')}:{startDate.getMinutes().toString().padStart(2, '0')} AM</p>
                 </div>
                 <button className='bg-white text-nowrap bg-opacity-30 rounded-md px-2 text-sm hover:bg-opacity-50 transition-color duration-100'>Learn More</button>

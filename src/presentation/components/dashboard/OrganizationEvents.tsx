@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import EventCard from "../EventCard";
+import DashboardEventCard from "../DashboardEventCard";
 import OrganizationDashboardContext from "../../../application/contexts/OrganizationDashboardContext";
 import { useParams } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
@@ -36,7 +36,7 @@ export default function OrganizationEvents() {
         </button>
       </div>
       <div className="w-full flex flex-col flex-grow overflow-auto">
-        <div className="w-full flex items-center flex-wrap">
+        <div className="w-full flex flex-wrap">
           {isEventsLoading && (
             <div className="w-full flex flex-col items-center">
               <LoadingIndicator />
@@ -44,8 +44,8 @@ export default function OrganizationEvents() {
           )}
           {events.map((event, index) => {
             return (
-              <div key={index} className="w-1/6 h-full pr-4 mb-8">
-                <EventCard event={event} />
+              <div key={index} className="w-1/6 pr-4 mb-8">
+                <DashboardEventCard event={event} />
               </div>
             );
           })}
