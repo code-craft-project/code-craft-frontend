@@ -47,8 +47,8 @@ function App() {
             <Route path="challenges" element={<Challenges />} />
             <Route path="search" element={<Search />} />
             <Route path="single-job-post/:id" element={<SingleJobPost />} />
-            <Route path="single-event/:id" element={<SingleEvent />} />
             <Route path="settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="events/:id" element={<SingleEvent />} />
             <Route path="my-organizations" element={<ProtectedRoute><MyOrganizations /></ProtectedRoute>} />
           </Route>
 

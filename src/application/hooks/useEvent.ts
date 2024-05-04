@@ -1,43 +1,23 @@
 import { useContext, useState } from "react"
 import ToastContext from "../contexts/ToastContext";
 import { eventsService } from "../services";
-const eventFormat: EventEntity = {
+const initEvent: EventEntity = {
     title: '',
     description: '',
-    is_public: false,
-    password: '',
-    logo_url: '',
-    start_at: '',
     end_at: '',
-    organization_id: 0,
-    organization:{id: 0, name: '', description:'',type: 'club'},
-    is_team_based: false,
-    max_team_members: 0,
-}
-
-const challengeFormat: ChallengeEntity = {
-        id: 0,
-        title: '',
-        description: '',
-        topic: 'algorithms',
-        level: 'easy',
-        is_public: false,
-        type: "in_out",
-        creator_id: 0,
-        creator: {id: 0,username: '',first_name: '',last_name: '',email: '',password: '',created_at: '',updated_at: '',profile_image_url: ''}
-        ,comments: 0,
-        submissions: 0,
-        score: 0,
-        status: 'done',
-    }
+    is_public: true,
+    is_team_based: true,
+    organization_id: 1,
+    start_at: ''
+};
 
 export default function useEvent() {
-
-    const [event, setEvent] = useState<EventEntity>(eventFormat)
-    const [eventChallenges, setEventChallenges] = useState<ChallengeEntity[]>([challengeFormat])
+    const [event, setEvent] = useState<EventEntity>(initEvent);
+    const [teams, setTeams] = useState<TeamEntity[]>([]);
+    const [eventChallenges, setEventChallenges] = useState<ChallengeEntity[]>([]);
     const toastManager = useContext(ToastContext);
-    const alertSuccessHandler = (_p0: string) => { toastManager.alertSuccess('Success Message') }
-    const alertErroreHandler = (_p0: string) => { toastManager.alertError("Error Message"); }
+    const alertSuccessHandler = (message: string) => { toastManager.alertSuccess(message) }
+    const alertErroreHandler = (message: string) => { toastManager.alertError(message); }
     const setTitle = (title: string): void => setEvent(prev => ({ ...prev, title }))
     const setDescription = (description: string): void => setEvent(prev => ({ ...prev, description }))
     const setIs_public = (is_public: boolean): void => setEvent(prev => ({ ...prev, is_public }))
@@ -47,6 +27,8 @@ export default function useEvent() {
     const setOrganizationId = (organization_id: number): void => setEvent(prev => ({ ...prev, organization_id }))
     const setIsTeamBased = (is_team_based: boolean): void => setEvent(prev => ({ ...prev, is_team_based }))
     const setMaxTeamMembers = (max_team_members: number): void => setEvent(prev => ({ ...prev, max_team_members }))
+    const [isChallengesLoading, setIsChallengesLoading] = useState(false);
+    const [isTeamsLoading, setIsTeamsLoading] = useState(false);
 
     const createEvent = async (ev: any): Promise<void> => {
         ev.preventDefault();
@@ -69,7 +51,7 @@ export default function useEvent() {
 
     const updateEvent = async (): Promise<void> => {
         try {
-            const {id,password,logo_url,organization_id,organization,...rest} = event
+            const { id, password, logo_url, organization_id, organization, ...rest } = event
             const response = await eventsService.updateEvent(event.id as number, rest)
             if (response.status == "success") {
                 alertSuccessHandler("Updating event successful");
@@ -99,19 +81,15 @@ export default function useEvent() {
         }
     }
 
-    const joinEvent = async (ev: any): Promise<void> => {
-        ev.preventDefault();
+    const joinEvent = async (eventId: number): Promise<void> => {
         try {
-            const eventId = ev.target.value
             const response = await eventsService.joinEvent(eventId, event.password)
             if (response.status == "success") {
-                alertSuccessHandler("Joining event successful");
-                setTimeout(() => {
-                    window.location.href = "/dashboard";
-                }, 2000);
+                alertSuccessHandler("Success! You've successfully joined the event. Get ready for an exciting experience. See you there!");
+                setEvent(state => ({ ...state, didJoin: true }));
             } else {
                 console.error('Joining event failed:', response.message);
-                alertErroreHandler("Joining event failed");
+                alertErroreHandler(response.message || "Something went wrong");
             }
         } catch (error) {
             console.log(error);
@@ -119,19 +97,15 @@ export default function useEvent() {
         }
     }
 
-    const leaveEvent = async (ev: any): Promise<void> => {
-        ev.preventDefault();
+    const leaveEvent = async (eventId: number): Promise<void> => {
         try {
-            const eventId = ev.target.value
             const response = await eventsService.leaveEvent(eventId)
             if (response.status == "success") {
-                alertSuccessHandler("leaving event successful");
-                setTimeout(() => {
-                    window.location.href = "/dashboard";
-                }, 2000);
+                alertSuccessHandler("Confirmation: You've successfully left the event. We hope to see you at future events");
+                setEvent(state => ({ ...state, didJoin: false }));
             } else {
                 console.error('leaving event failed:', response.message);
-                alertErroreHandler("leaving event failed");
+                alertErroreHandler(response.message || "Something went wrong");
             }
         } catch (error) {
             console.log(error);
@@ -139,37 +113,56 @@ export default function useEvent() {
         }
     }
 
-    const getEventChallenges = async (eventId:number) => {
-        try{
+    const getEventChallenges = async (eventId: number) => {
+        setIsChallengesLoading(true);
+        try {
             const response = await eventsService.getEventChallenges(eventId)
-            if(response.status == "success") {
-                setEventChallenges(response.data)
-            }else{
+            if (response.status == "success") {
+                setEventChallenges(response.data);
+            } else {
                 console.log(response.message);
             }
-        }catch(e){
+        } catch (e) {
             console.log(e)
         }
+        setIsChallengesLoading(false);
     }
 
+    const getEventChallengesByTopic = async (eventId: number, topic: ChallengeTopic) => {
+        setIsChallengesLoading(true);
+        const response = await eventsService.getEventChallengesByTopic(eventId, topic);
+        if (response.status == 'success') {
+            setEventChallenges(response.data);
+        } else {
+            // TODO: Handle Error
+            return;
+        }
+        setIsChallengesLoading(false);
+    }
+
+    const getTeams = async (eventId: number) => {
+        setIsTeamsLoading(true);
+        try {
+            const response = await eventsService.getEventTeams(eventId)
+            if (response.status == "success") {
+                setTeams(response.data);
+            } else {
+                console.log(response.message);
+            }
+        } catch (e) {
+            console.log(e)
+        }
+        setIsTeamsLoading(false);
+    }
+
+
+
     return {
-        event,
-        setEvent,
-        setPassword,
-        setTitle,
-        setDescription,
-        setIs_public,
-        createEvent,
-        updateEvent,
-        joinEvent,
-        leaveEvent,
-        setStartAt,
-        setEndAt,
-        getEventById,
-        eventChallenges,
-        getEventChallenges,
-        setOrganizationId,
-        setMaxTeamMembers,
-        setIsTeamBased
+        event, setEvent,
+        setPassword, setTitle, setDescription, setIs_public,
+        createEvent, updateEvent, joinEvent, leaveEvent, setStartAt, setEndAt,
+        getEventById, eventChallenges, getEventChallenges, setOrganizationId,
+        setMaxTeamMembers, setIsTeamBased, isChallengesLoading, getTeams, isTeamsLoading,
+        teams, setTeams, getEventChallengesByTopic
     }
 }
