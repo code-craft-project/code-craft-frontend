@@ -62,7 +62,7 @@ function OrganizationDashboard() {
 
     return (
         <OrganizationDashboardContext.Provider value={useOrganizationDashboardState}>
-            <div className="w-full h-screen overflow-auto bg-black flex items-center">
+            <div className="w-full h-screen bg-black flex items-center overflow-auto">
                 <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
                     <div onClick={() => setSelectedTab('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
                     {
@@ -91,7 +91,7 @@ function OrganizationDashboard() {
                         )
                     }
                 </div>
-                <div className="flex-grow h-full flex flex-col items-center p-8 overflow-auto">
+                <div className="flex-grow h-full flex flex-col items-center p-8">
                     {selectedTab == 'dashboard' && (<DashboardComponent />)}
                     {selectedTab == 'members' && (<OrganizationMembers />)}
                     {selectedTab == 'events' && (<OrganizationEvents />)}
@@ -116,7 +116,7 @@ function DashboardComponent() {
     }, [id]);
 
     return (
-        <div className="w-full h-full flex flex-col">
+        <div className="w-full flex flex-col pb-8">
             <div className="w-full flex">
                 <div className="font-bold text-gray-50 text-3xl">Welcome to Dashboard</div>
             </div>
@@ -173,10 +173,10 @@ function DashboardComponent() {
                 </div>
 
             </div>
-            <div className="mt-8 w-full flex flex-grow overflow-auto">
-                <div className="w-1/2 flex flex-col bg-gray-950 rounded-3xl overflow-auto">
+            <div className="mt-8 w-full flex flex-grow">
+                <div className="w-1/2 flex flex-col bg-gray-950 rounded-3xl">
                     <div className="px-4 py-3 text-gray-50 text-xl font-semibold">Latest Challenges</div>
-                    <div className="w-full flex flex-col px-4 overflow-auto">
+                    <div className="w-full flex flex-col px-4">
                         <div className="p-2 w-full flex items-center">
                             <div className="flex-1 text-gray-200 text-sm font-medium">Title</div>
                             <div className="flex-1 text-gray-200 text-sm font-medium">Topic</div>
@@ -184,7 +184,7 @@ function DashboardComponent() {
                             <div className="flex-1"></div>
                         </div>
                         <div className="w-4/5 h-px bg-gray-500 rounded-lg"></div>
-                        <div className="w-full overflow-auto px-2">
+                        <div className="w-full px-2">
                             {
                                 dashboardStats.latest_challenges.map((challenge, index) => {
                                     return (
@@ -215,7 +215,7 @@ function DashboardComponent() {
                             <div className="flex-1 text-sm font-semibold text-gray-200">Role</div>
                             <div className="flex-1 text-sm font-semibold text-gray-200">Joined At</div>
                         </div>
-                        <div className="w-full flex-grow overflow-auto">
+                        <div className="w-full flex-grow">
                             {
                                 isDashboardStatsLoading && (
                                     <div className="w-full flex flex-col items-center">
