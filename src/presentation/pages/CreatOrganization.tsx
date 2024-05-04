@@ -43,7 +43,7 @@ function CreateOrganization() {
     }
 
     return (
-        <div className="my-16 ">
+        <div className="my-16 w-full">
             <div className="flex flex-col gap-10 items-center">
                 <h1 className="text-center font-bold text-3xl">Create Organization</h1>
                 <div className="flex flex-col gap-5 w-1/2 items-center">

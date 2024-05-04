@@ -26,7 +26,7 @@ function Settings() {
         },
         ] 
     return (
-        <div className="w-screen flex mt-14 pb-5" >
+        <div className="w-full flex mt-14 pb-5" >
             <div className="flex w-1/5 flex-col gap-60 py-5 px-10 border-r border-white">
                 <div className="flex flex-col gap-8">
                     <h1 className="opacity-90 pl-8">Profile Settings</h1>

@@ -120,9 +120,9 @@ function SingleEvent() {
   }
 
   return (
-    <div className="w-full flex flex-col items-center mt-24">
+    <div className="w-full flex flex-col items-center mt-12">
       {event && (
-        <div className='w-11/12 flex'>
+        <div className='w-full flex'>
           <div className="w-1/2 pr-8">
             <div className="text-gray-50 text-2xl font-semibold py-4">{event.title}</div>
             <div className='text-gray-300 text-sm'>{event.description}</div>
@@ -184,7 +184,7 @@ function SingleEvent() {
 
       {
         (!!event.is_team_based) && (!!event.didJoin) && (
-          <div className='py-10 w-11/12 flex flex-col'>
+          <div className='py-10 w-full flex flex-col'>
             <div className='text-lg text-gray-50 font-semibold mb-6'>Teams:</div>
             <div className='w-full flex'>
               <div className='w-2/3 flex flex-col h-fit max-h-96 overflow-auto border-4 border-gray-800 rounded-xl duration-300'>
@@ -346,7 +346,7 @@ function SingleEvent() {
 
       {
         (!!event.didJoin) && (!isComming()) && (
-          <div className="w-11/12 mt-10">
+          <div className="w-full mt-10">
             <div className="scroll-container w-full scrollbar-none ">
               <div className="flex py-2 gap-2 relative  items-center flex-wrap">
                 {
