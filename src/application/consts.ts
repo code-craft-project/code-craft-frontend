@@ -2,6 +2,7 @@ export const logoSVG = '/images/logo.svg';
 export const userProfilePicture = '/images/profile.jpg';
 export const organizationProfilePicture = '/images/organization-profile.jpg';
 export const eventLogoPicture = '/images/event-picture.jpg';
+export const arrowShapeImage = '/images/arrow-shape-image.png'
 
 export const CODE_HISTORY_KEY = 'code_history';
 
