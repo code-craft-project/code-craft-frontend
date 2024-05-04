@@ -14,7 +14,7 @@ function Challenges() {
         startScroll();
     }
   return (
-    <div className='p-10 mt-20 mx-[4.5rem]'>
+    <div className='w-full mt-20'>
         <h1 className="opacity-60 pt-8 mb-2">All Challenges</h1>
         <div className="flex flex-wrap gap-16 pb-16  w-[100%]">
             <div className="w-[66%]">

@@ -7,9 +7,9 @@ import useEvents from '../../application/hooks/useEvents';
 function Events() {
     const {events} = useEvents();
     return (
-        <div className="mt-20 p-16 mx-3">
-            <div className='flex '>
-                <div className='p-10 flex flex-col items-start'>
+        <div className="w-full mt-20">
+            <div className='w-full flex justify-between'>
+                <div className='py-10 flex flex-col items-start'>
                     <h1 className='text-3xl'>Get ready to showcase your <br /> skills and compete in <br /> thrilling events challenges!</h1>
                     <div className='flex justify-start mt-16'>
                         <div className='flex '>
@@ -23,8 +23,8 @@ function Events() {
                     <img src={Event} alt="" className='scale-125 ' />
                 </div>
             </div>
-            <h2 className="font-semibold text-2xl p-10">Public Events</h2>
-            <div className='flex flex-wrap w-[100%] px-10'>
+            <h2 className="w-full font-semibold text-2xl py-6">Public Events</h2>
+            <div className='flex flex-wrap w-full'>
                 {events && events.map((event, index) => (
                     <div key={index}>
                         <OneEventCard eventData={{id:event.id as number, logo_url: OneEventImg, title: event.title, start_at: event.start_at, end_at: event.end_at }} />

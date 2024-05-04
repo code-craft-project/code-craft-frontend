@@ -44,7 +44,7 @@ export default function SignIn() {
 
 
     return (
-        <div className="container relative bg-black w-screen h-screen flex flex-col justify-center items-center">
+        <div className="w-full relative bg-black h-screen flex flex-col justify-center items-center">
             <div className='mb-2'>
                 <NavLink to='/'>
                     <div className="flex justify-center items-center  p-5">
@@ -92,7 +92,7 @@ export default function SignIn() {
                         </div>
                         <div className="flex  mb-5 justify-end items-center w-64 mx-auto">
                             <div className=" h-6 rounded-sm flex mr-5 justify-center items-center">
-                                <input type="checkbox" className="accent-primary-yellow"/>
+                                <input type="checkbox" className="accent-primary-yellow" />
                                 <p className="ml-1  text-xs">Remember me</p>
                             </div>
                             <a className=" underline font-normal" style={{ fontSize: "10px" }} href="">Forgot password?</a>

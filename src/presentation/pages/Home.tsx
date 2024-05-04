@@ -90,7 +90,7 @@ function Home() {
     }
 
     return (
-        <div className="mt-20 p-16 mx-12 ">
+        <div className="w-full py-16">
             <div>
                 <h3 className="text-gray-400">Welcome to</h3>
                 <h2 className="font-semibold text-2xl mt-2">Challenger  Mentality Home</h2>
