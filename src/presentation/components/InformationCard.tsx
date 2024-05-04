@@ -1,19 +1,21 @@
 import GradientColor from "../../application/data/GradientColor.ts";
 
-interface Props {
-    title: string;
-    text: string;
+interface InformationCardProps {
+    feature: FeatureCard;
 }
 
-function InformationCard({ title, text }: Props) {
+export default function InformationCard({ feature }: InformationCardProps) {
     const { styles } = GradientColor();
     return (
-        <div className='w-[15rem] text-center h-40 py-5 px-5 bg-opacity-60 bg-primary-blue flex flex-col items-center justify-around relative rounded-md hover:shadow-sm hover:scale-105 transition-all duration-500 hover:shadow-primary-blue'>
-            <div className={`w-10 h-10 rounded-full ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} absolute bottom-36 left-24`}></div>
-            <h1>{title}</h1>
-            <h2 className='text-sm'>{text}</h2>
+        <div className='w-full text-center flex flex-col items-center relative py-10'>
+            <div className={`w-20 h-20 z-10 rounded-full flex flex-col items-center justify-center text-3xl absolute top-0 ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
+                {feature.icon}
+            </div>
+            <div className="w-full flex-col items-center bg-opacity-60 bg-primary-blue rounded-md hover:shadow-sm hover:scale-105 transition-all duration-500 hover:shadow-primary-blue pt-16 pb-8 px-8">
+                <div className="text-gray-50 text-lg font-medium">{feature.title}</div>
+                <div className='text-gray-300 text-sm mt-2'>{feature.description}</div>
+                {/* <div className="mt-8 px-16 py-2 rounded-xl underline text-sm text-yellow-600 font-semibold">{feature.call_to_action}</div> */}
+            </div>
         </div>
     )
 }
-
-export default InformationCard;

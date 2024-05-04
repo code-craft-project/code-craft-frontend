@@ -12,6 +12,7 @@ import logo from '../../assets/Images/Logo.svg';
 import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { arrowShapeImage } from '../../application/consts.ts';
 
 export default function LandingPage() {
     const { styles } = GradientColor();
@@ -63,46 +64,78 @@ export default function LandingPage() {
 
     return (
         <div className="w-full flex flex-col items-center">
-            <div className="w-full flex mt-14">
+            <div className="w-full flex">
                 <div className="w-1/2 py-10">
-                    <div>
-                        <h1 className="font-semibold text-2xl mt-8">Talk is cheap. Show me the code</h1>
-                        <h2 className="font-normal text-lg opacity-75 mb-8">Take your code to the next level through quality <br /> code review by our expert engineers. Learn <br /> problem solving with our coding world</h2>
+                    <div className='mt-8 mb-4 w-2/3'>
+                        <h1 className="text-gray-50 font-semibold text-2xl leading-8">
+                            Start Your Coding Adventure Open Challenges, Limitless Growth
+                        </h1>
+                        <h2 className="text-sm text-gray-400 py-2 leading-5">
+                            Begin your coding journey with our open challenges,
+                            offering endless opportunities for skill
+                            enhancement and career advancement.
+                        </h2>
                     </div>
-                    <div className="flex justify-around items-center mb-8 bg-white bg-opacity-20 w-[30rem] py-4 ">
-                        <img src={profiles} alt="" className="w-28 h-11 " />
-                        <p className="text-xs font-medium">Join 780,900 developers building projects, <br /> reviewing code, and helping each other improve.</p>
+                    <div className="w-fit flex items-center mb-4 py-4 rounded-lg">
+                        <img src={profiles} alt="" className="h-8" />
+                        <p className="ml-4 text-xs text-gray-400">
+                            Join 780,900 Developers Engaged in Learning,<br />
+                            Collaboration, and Growth
+                        </p>
                     </div>
-                    <div className="flex justify-between w-[30rem]">
-                        <div className="flex relative rounded-sm">
-                            <input type="text" placeholder="Quick Search" className=" bg-white rounded-sm px-8 w-[22rem] py-2 text-black outline-primary-yellow" />
-                            <NavLink to='/search' className=' cursor-pointer absolute right-0 rounded-sm'>
-                                <Icon icon="iconoir:search" className=" h-11 w-11 px-3 text-primary-yellow rounded-sm" />
+                    {/* <div className="w-full flex items-center">
+                        <div className="flex-grow flex items-center rounded-xl bg-white mr-2 outline-primary-yellow">
+                            <input type="text" placeholder="Quick Search" className="flex-grow bg-transparent px-8 py-2 text-black outline-none" />
+                            <NavLink to='/search' className='cursor-pointer px-4 text-lg'>
+                                <Icon icon="iconoir:search" className="text-primary-yellow" />
                             </NavLink>
                         </div>
-                        <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-medium px-4 py-2 rounded-sm">Get Started</NavLink>
-                    </div>
+                        <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-medium px-4 py-2 rounded-xl">Get Started</NavLink>
+                    </div> */}
+                    <NavLink to="/sign-up" className="w-fit">
+                        <div className="w-fit select-none bg-primary-yellow bg-opacity-80 font-medium px-16 py-2 rounded-lg hover:bg-yellow-700 duration-300 active:scale-105">Join Us Today</div>
+                    </NavLink>
                 </div>
-                <div className="flex flex-col justify-start items-center w-1/2 py-10">
-                    <div className="w-1/2 relative mt-16" >
-                        <button className={`absolute bottom-48 z-10 left-8 ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} p-2 opacity-70 rounded-md`}><Icon icon="ph:code-duotone" style={{ color: "white" }} /></button>
-                        <button className={`absolute top-60 z-10 left-32  bg-gradient-to-b from-white from-50% to-transparent to-90% text-slate-400 font-semibold  p-1 opacity-70 rounded-md`}>Explore</button>
-                        <img src={Landimg1} alt="" className=" scale-80 " />
-                        <img src={Landimg2} alt="" className="absolute top-1/2 left-1/4 scale-60    " />
+                <div className="flex flex-col items-end w-1/2">
+                    <div className="w-full h-full flex flex-col items-end justify-end" >
+                        <div className='w-fit relative'>
+                            <div className="w-80 absolute bottom-1/3 right-1/2">
+                                <button className={`absolute z-10 -top-4 left-4 ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} p-2 opacity-70 rounded-md`}><Icon icon="ph:code-duotone" style={{ color: "white" }} /></button>
+                                <img src={Landimg1} className="w-full" />
+                            </div>
+                            <img src={Landimg2} className="w-80" />
+
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="py-28 w-full flex items-center justify-between mt-32 relative">
-                <div className="absolute top-0 left-[49.95%] h-2 w-80 bg-primary-yellow bg-opacity-60 z-50"></div>
-                <div className="absolute bottom-96 left-[77%] h-36 w-2 bg-primary-yellow bg-opacity-60 "></div>
-                <div className="absolute bottom-[21.3rem] left-[74%] rounded-full h-20 w-20 bg-primary-yellow opacity-30 flex justify-center items-center"></div>
-                <div className="absolute bottom-[22.8rem] left-[75.5%] h-10 w-10 rounded-full bg-primary-yellow opacity-100 flex justify-center items-center"></div>
-                <div className="absolute bottom-[23.4rem] left-[76.5%] h-4 w-4 rounded-full bg-primary-yellow" style={{ boxShadow: "0px 2px 10px 1px rgb(0,0,0,.8)" }}></div>
-                <Icon icon="formkit:arrowdown" width='120' height='120' className="absolute bottom-[17.9rem]   left-[44.5%] text-primary-yellow opacity-60" />
-                <InformationCard title="Code Review" text="Online IDE and professional reviewers." />
-                <InformationCard title="Job Opportunities" text="Every company is a tech company. We’re here " />
-                <InformationCard title="Real-time Discussion" text="Discuss anytime with our community" />
+            <div className='w-full flex flex-col items-center'>
+                <img src={arrowShapeImage} className='w-full' />
             </div>
+            {
+                /* <div className="py-28 w-full flex items-center justify-between mt-32 relative">
+                    <div className="absolute top-0 left-[49.95%] h-2 w-80 bg-primary-yellow bg-opacity-60 z-50"></div>
+                    <div className="absolute bottom-96 left-[77%] h-36 w-2 bg-primary-yellow bg-opacity-60 "></div>
+                    <div className="absolute bottom-[21.3rem] left-[74%] rounded-full h-20 w-20 bg-primary-yellow opacity-30 flex justify-center items-center"></div>
+                    <div className="absolute bottom-[22.8rem] left-[75.5%] h-10 w-10 rounded-full bg-primary-yellow opacity-100 flex justify-center items-center"></div>
+                    <div className="absolute bottom-[23.4rem] left-[76.5%] h-4 w-4 rounded-full bg-primary-yellow" style={{ boxShadow: "0px 2px 10px 1px rgb(0,0,0,.8)" }}></div>
+                    <Icon icon="formkit:arrowdown" width='120' height='120' className="absolute bottom-[17.9rem]   left-[44.5%] text-primary-yellow opacity-60" />
+                 </div> */
+            }
+            <div className='w-full flex items-center justify-center flex-wrap'>
+                {
+                    features.map((feature, index) => {
+                        return (
+                            <div className='w-1/3 flex flex-col items-center mb-4'>
+                                <div className='w-11/12 flex flex-col items-center'>
+                                    <InformationCard key={index} feature={feature} />
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+
             <div className="w-full flex flex-col items-center mt-10">
                 <motion.h1
                     ref={ref1}
@@ -194,3 +227,36 @@ export default function LandingPage() {
         </div>
     )
 }
+
+const features: FeatureCard[] = [
+    {
+        title: "Host Your Coding Events",
+        description: "Empower your company or club to organize engaging coding challenges and events. Reach talented individuals and foster a vibrant tech community.",
+        call_to_action: "Host an Event",
+        icon: <Icon icon="mdi:event-star" />
+    },
+    {
+        title: "Join Public Coding Challenges",
+        description: "Participate in exciting coding challenges open to everyone. Collaborate, compete, and learn from fellow enthusiasts in our vibrant challenge community.",
+        call_to_action: "Explore Challenges",
+        icon: <Icon icon="ph:code-fill" />
+    },
+    {
+        title: "Engage in Discussions",
+        description: "Discuss solutions, share insights, and connect with peers in our dynamic challenge comments section. Amplify your learning and expand your network.",
+        call_to_action: "Join the Discussion",
+        icon: <Icon icon="mdi:discussion" />
+    },
+    {
+        title: "Discover Job Opportunities",
+        description: "Explore a wide range of job postings from top companies. Take the next step in your career journey and find your dream tech job.",
+        call_to_action: "Browse Jobs",
+        icon: <Icon icon="material-symbols:work" />
+    },
+    {
+        title: "Build Your Tech Community",
+        description: "Connect with like-minded individuals, expand your network, and stay updated on the latest trends and opportunities in the tech industry.",
+        call_to_action: "Join the Community",
+        icon: <Icon icon="fluent:people-community-16-filled" />
+    }
+];
