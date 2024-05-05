@@ -82,3 +82,15 @@ interface OrganizationCard {
     logo: string;
     type: OrganizationType;
 }
+
+interface useOrganizationChallengeReturn {
+    createOrganizationChallenge: (organization_id: number) => Promise<void>;
+    challenge: ChallengeEntity | null,
+    setChallenge: React.Dispatch<React.SetStateAction<ChallengeEntity | null>>
+    isLoading: boolean;
+    file: File | null;
+    setFile: React.Dispatch<React.SetStateAction<File | null>>;
+    fileUrl: string;
+    setFileUrl: React.Dispatch<React.SetStateAction<string>>;
+
+}

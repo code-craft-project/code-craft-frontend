@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
 import OrganizationDashboardContext from "../../../application/contexts/OrganizationDashboardContext";
 
@@ -21,11 +21,12 @@ export default function OrganizationChallenges() {
 
     return (
         <div className="w-full h-full flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 py-5">
-            <div className="w-full flex mb-8">
+            <div className="w-full flex mb-8 items-end">
                 <div className="w-full flex flex-col items-start">
                     <div className="text-3xl font-bold">Challenges</div>
                     <div className="mt-2 text-sm text-gray-300">{"Manage your challenges"}</div>
                 </div>
+                <NavLink to={`/organization/${id}/create-challenge`} className={`font-meduim px-3 py-1 rounded-lg mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap`}>Create Challenge</NavLink>
             </div>
             <div className="w-full flex flex-col flex-grow overflow-auto">
                 <div className="w-full flex items-center bg-gray-900 px-4 py-2 rounded-lg">

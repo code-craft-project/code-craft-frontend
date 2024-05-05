@@ -46,4 +46,8 @@ export default class OrganizationsSerivce {
     async getMyOrganization(): Promise<HttpResponse<OrganizationEntity[]>> {
         return (await this.axiosHttp.get<HttpResponse<OrganizationEntity[]>>(`/api/organizations/me`)).data
     }
+
+    async createOrganizationChallenge(organization_id: number,challenge: any): Promise<HttpResponse<ChallengeEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity>>(`/api/organizations/${organization_id}/challenges/create`,challenge)).data;
+    }
 }

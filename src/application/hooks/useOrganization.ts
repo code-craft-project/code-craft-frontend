@@ -11,9 +11,8 @@ export default function useOrganization(): useOrganizationReturn {
     const [organization, setOrganization] = useState<OrganizationEntity>(initOrganization);
     const [events, setEvents] = useState<EventEntity[]>([]);
     const [challenges, setChallenges] = useState<ChallengeEntity[]>([]);
-    const [isChallengesLoading, setIsChallengesLoading] = useState(true);
-    const [isLoading, setIsLoading] = useState(true);
-
+    const [isChallengesLoading, setIsChallengesLoading] = useState(true);    
+    const [isLoading, setIsLoading] = useState(false);
     const getOrganizationById = async (organizationId: number): Promise<void> => {
         const response = await organizationsService.getOrganizationById(organizationId);
         setIsLoading(false);
@@ -44,10 +43,12 @@ export default function useOrganization(): useOrganizationReturn {
         }
     }
 
+   
+
     return {
         organization, getOrganizationById,
         events, getOrganizationEvents,
         challenges, getOrganizationChallenges,
-        isLoading, isChallengesLoading
+        isLoading, isChallengesLoading,
     };
 }

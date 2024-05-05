@@ -10,3 +10,15 @@ interface TestCaseEntity {
     run_result?: TestCaseRunResult;
     output_result?: string;
 };
+
+interface useTestCasesReturn {
+    testCases: TestCaseEntity[];
+    setTestCases: React.Dispatch<React.SetStateAction<TestCaseEntity[]>>
+    createTestCases: (challenge_id: number) => Promise<CreateTestCasesResponse>
+}
+
+interface CreateTestCasesResponse {
+    data?: TestCaseEntity[]
+    status?: 'success' | 'error'
+    message?: string
+}
