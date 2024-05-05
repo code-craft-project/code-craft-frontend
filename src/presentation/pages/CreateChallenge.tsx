@@ -1,9 +1,13 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import BasicInformation from "../components/create_challenge/BasicInformation"
 import ChallengeDescription from "../components/create_challenge/ChallengeDescription"
 import TestCasesAndFiles from "../components/create_challenge/TestCasesAndFiles"
 import GradientColor from "../../application/data/GradientColor"
 import { Icon } from "@iconify/react/dist/iconify.js"
+import { useParams } from "react-router-dom"
+import { CreateChallengeContext } from "../../application/contexts/CreateChallengeContext"
+import LoadingIndicator from "../components/LoadingIndicator";
+import useOrganizationChallenge from "../../application/hooks/useOrganizationChallenge"
 
 function CreateChallenge() {
     const [changeComponent,setChangeComponent] =useState<number>(0)
@@ -22,8 +26,19 @@ function CreateChallenge() {
             content: <TestCasesAndFiles/>,
         },
         ] 
+    const {id} = useParams()
+    const {createOrganizationChallenge,isLoading} = useOrganizationChallenge()
+   
+    const {  description, title, topic, level, is_public, type, testCases,} = useContext(CreateChallengeContext)
     const {styles} = GradientColor()
-
+    const handleCreateChallenge = () => {
+        if(id){
+            createOrganizationChallenge(parseInt(id))     
+            console.log(description,title,topic,level,is_public,type,testCases)
+        }
+        console.log(description,title,topic,level,is_public,type,testCases)
+        // createOrganizationChallenge(parseInt(id))
+    }
     return (
         <div className="w-full my-16 flex flex-col gap-32 items-center">
             <div className="flex flex-col gap-10 items-center w-full">
@@ -65,7 +80,10 @@ function CreateChallenge() {
                 {components[changeComponent].content}
                 {changeComponent !== 2
                     ? <button onClick={() => { setChangeComponent(changeComponent+1)}} className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 font-semibold py-1 rounded-lg w-full hover:opacity-90 active:scale-105 transition-all duration-300`}>Next</button>
-                    : <button  className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg font-semibold w-full hover:opacity-90 active:scale-105 transition-all duration-300`}>Create</button>
+                    : <button onClick={() => {if (!isLoading) handleCreateChallenge()}}  className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-meduim px-3 py-1 rounded-lg font-semibold w-full hover:opacity-90 active:scale-105 transition-all duration-300`}>
+                            {isLoading && (<LoadingIndicator />)}
+                            {!isLoading && "Create"}
+                        </button>
                 }
             </div>
         </div>
