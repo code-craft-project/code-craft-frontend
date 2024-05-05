@@ -40,7 +40,7 @@ function CreateChallenge() {
         // createOrganizationChallenge(parseInt(id))
     }
     return (
-        <div className="my-16 flex flex-col gap-32 items-center">
+        <div className="w-full my-16 flex flex-col gap-32 items-center">
             <div className="flex flex-col gap-10 items-center w-full">
                 <h1 className="text-center font-semibold text-2xl">Create Organization</h1>
                 <div className="flex items-center justify-around w-[90%] mx-auto">

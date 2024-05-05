@@ -66,7 +66,7 @@ export default function SignUp() {
     }
 
     return (
-        <div className="container bg-black w-screen h-screen flex flex-col justify-center items-center">
+        <div className="bg-black w-full h-screen flex flex-col justify-center items-center">
             <div className='mb-2'>
                 <NavLink to='/'>
                     <div className="flex justify-center items-center  p-5">

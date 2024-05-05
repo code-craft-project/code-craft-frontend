@@ -19,7 +19,7 @@ function OrganizationPage() {
     }, [id]);
 
     return (
-        <div className="mt-24 px-24">
+        <div className="mt-24 w-full">
             <div className='flex justify-between'>
                 <div className="w-2/3 pr-16">
                     <h1 className="text-3xl">{organization.name}</h1>

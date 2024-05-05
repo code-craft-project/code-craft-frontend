@@ -5,15 +5,18 @@ interface TeamEntity {
     is_private: boolean;
     password?: string;
     leader_id?: number;
+    leader?: UserEntity;
     event_id?: number;
+    score?: number;
+    members?: number;
 };
 
 interface JoinTeamRequest {
-    team_id:string,
-    password:string
+    team_id: string,
+    password: string
 }
 
-interface CreateTeam{
+interface CreateTeam {
     name: string,
     description: string,
     is_private: true,
@@ -21,3 +24,8 @@ interface CreateTeam{
     leader_id: 0,
     event_id: 0
 }
+
+interface JoinTeam {
+    team_id: number;
+    password?: string;
+};
