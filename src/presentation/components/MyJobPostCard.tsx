@@ -30,7 +30,7 @@ function MyJobPostCard({ jobPost }: { jobPost: JobPostEntity }) {
     </div> */}
             <div className="w-full flex flex-col mt-2">
                 {/* <div className="font-semibo ld text-sm text-gray-50">{jobPost.organization?.name}</div> */}
-                <NavLink to={`/single-job-post/${jobPost.id}`} className="text-lg text-gray-50">{jobPost.role}</NavLink>
+                <NavLink to={`/job-posts/${jobPost.id}`} className="text-lg text-gray-50">{jobPost.role}</NavLink>
                 <div className="text-xs text-gray-400">{jobPost.location}</div>
             </div>
             <div className="w-full flex items-center mt-2">

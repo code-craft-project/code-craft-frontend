@@ -42,12 +42,12 @@ function App() {
           <Route path="/challenges/:id" element={<ChallengePage />} />
           <Route path='/' element={(<Root />)}>
             <Route path="" element={<LandingPage />} />
-            <Route path="jobs-post" element={<JobPost />} />
+            <Route path="job-posts" element={<JobPost />} />
             <Route path="home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path="events" element={<Events />} />
             <Route path="challenges" element={<Challenges />} />
             <Route path="search" element={<Search />} />
-            <Route path="single-job-post/:id" element={<SingleJobPost />} />
+            <Route path="job-posts/:id" element={<SingleJobPost />} />
             <Route path="settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="events/:id" element={<SingleEvent />} />
             <Route path="my-organizations" element={<ProtectedRoute><MyOrganizations /></ProtectedRoute>} />

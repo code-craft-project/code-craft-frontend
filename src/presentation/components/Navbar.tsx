@@ -58,7 +58,7 @@ function Navbar() {
                 <motion.div className={`${styles.container}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
                     <NavLink to='/home' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Home</NavLink>
                     <NavLink to='/challenges' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Challenges</NavLink>
-                    <NavLink to='/jobs-post' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</NavLink>
+                    <NavLink to='/job-posts' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</NavLink>
                     <NavLink to='/events' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Events</NavLink>
                     {
                         (!userSession.isValidSession) && (
