@@ -18,7 +18,6 @@ import Settings from './pages/Settings';
 import WithoutFooter from './layout/WithoutFooter';
 import CreateOrganization from './pages/CreatOrganization';
 import ChallengePage from './pages/ChallengePage';
-import CreateChallenge from './pages/CreateChallenge';
 import CreateJobPost from './pages/CreateJobPost';
 import OrganizationDashboard from './pages/OrganizationDashboard';
 import OrganizationPage from './pages/SingleOrganization';
@@ -59,8 +58,8 @@ function App() {
           </Route>
 
           <Route path='/' element={(<WithoutFooter />)}>
-            <Route path='/organization/create' element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
-            <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
+            <Route path='/organization/create' element={<ProtectedAuthenticatedRoute><CreateOrganization /></ProtectedAuthenticatedRoute>} />
+            <Route path="create-job-post" element={<ProtectedAuthenticatedRoute><CreateJobPost /></ProtectedAuthenticatedRoute>} />
             <Route path="update-event/:id" element={<UpdateEvent />} />
           </Route>
         </Routes>
