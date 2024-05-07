@@ -48,7 +48,7 @@ function SingleJobPost() {
             <div className="flex my-10 gap-16 min-w-full">
             {jobPost && jobPosts && jobPosts.map((job, index) => (
               <div key={index} >
-                {jobPost.title == job.title && (<JobPostCard cardStyle={'Small'}  jobData={{"logo":'https://w7.pngwing.com/pngs/606/802/png-transparent-meta-meta-logo-facebook-fb-logo-meta-icon-meta-symbol-facebook-logo-thumbnail.png', "company":'Meta', "skill":"Fluter", 'location':'medea', 'tag':"App development", date_posted:"2 days ago", tag_color:'green-700'}}/>)
+                {jobPost.title == job.title && (<JobPostCard cardStyle={'Small'}  jobData={{id:job.id as number,"logo":'https://w7.pngwing.com/pngs/606/802/png-transparent-meta-meta-logo-facebook-fb-logo-meta-icon-meta-symbol-facebook-logo-thumbnail.png', "company":'Meta', "skill":"Fluter", 'location':'medea', 'tag':"App development", date_posted:"2 days ago", tag_color:'green-700'}}/>)
                 }
               </div>
             ))}

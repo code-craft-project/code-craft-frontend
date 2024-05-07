@@ -131,7 +131,7 @@ function Home() {
                             </div>
                             <p className="text-sm opacity-75">{"Explore a wide range of tech jobs tailored to your expertise. Find the perfect fit and kickstart your career journey."}</p>
                         </div>
-                        <NavLink to="/jobs-post" className="mt-6 bg-primary-yellow bg-opacity-80 font-semibold py-1 px-16 text-sm rounded-lg flex items-center active:scale-105 hover:opacity-90 transition-all">Explore Jobs</NavLink>
+                        <NavLink to="/job-posts" className="mt-6 bg-primary-yellow bg-opacity-80 font-semibold py-1 px-16 text-sm rounded-lg flex items-center active:scale-105 hover:opacity-90 transition-all">Explore Jobs</NavLink>
                     </div>
                 </div>
             </div>

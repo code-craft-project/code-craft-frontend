@@ -3,33 +3,12 @@ import { NavLink } from 'react-router-dom';
 import JobImg from '../../assets/Images/JobImg.png';
 import GradientColor from '../../application/data/GradientColor.ts'
 import JobPostCard from '../components/JobPostCard';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import useJobPosts from '../../application/hooks/useJobPosts.ts';
 
 function JobsPost() {
   const { styles } = GradientColor()
   const { jobPosts } = useJobPosts()
-  useEffect(() => {
-    const scrollContainer: any = document.querySelector('.scroll-container');
-    let scrollInterval: any;
-    const startScroll = () => {
-      scrollInterval = setInterval(() => {
-        scrollContainer.scrollLeft += 2;
-      }, 20);
-    };
-    const stopScroll = () => {
-      clearInterval(scrollInterval);
-    };
-    scrollContainer.addEventListener('mouseover', stopScroll);
-    scrollContainer.addEventListener('mouseout', startScroll);
-    startScroll();
-    // Clean up event listeners and scroll interval on component unmount
-    return () => {
-      scrollContainer.removeEventListener('mouseover', stopScroll);
-      scrollContainer.removeEventListener('mouseout', startScroll);
-      clearInterval(scrollInterval);
-    };
-  }, []);
 
   const getTimeDifferenceString = (dateString: string) => {
     if (!dateString) {
@@ -119,7 +98,7 @@ function JobsPost() {
         <div className="scroll-content flex gap-16 min-w-full">
           {jobPosts.map((job, index) => (
             <div key={index} >
-              <JobPostCard cardStyle={'Large'} jobData={{ "logo": 'https://w7.pngwing.com/pngs/606/802/png-transparent-meta-meta-logo-facebook-fb-logo-meta-icon-meta-symbol-facebook-logo-thumbnail.png', "company": job.organization_id.toString() as string, "skill": job.role, 'location': job.location, 'tag': "App development", date_posted: getTimeDifferenceString(job.created_at as string), tag_color: 'green-700' }} />
+              <JobPostCard cardStyle={'Large'} jobData={{ id:job.id as number,"logo": 'https://w7.pngwing.com/pngs/606/802/png-transparent-meta-meta-logo-facebook-fb-logo-meta-icon-meta-symbol-facebook-logo-thumbnail.png', "company": job.organization_id.toString() as string, "skill": job.role, 'location': job.location, 'tag': "App development", date_posted: getTimeDifferenceString(job.created_at as string), tag_color: 'green-700' }} />
             </div>
           ))}
         </div>
@@ -128,8 +107,8 @@ function JobsPost() {
         <h1 className=' text-4xl font-semibold p-5 mr-3'>Explore the job</h1>
         <p className='text-center opacity-60 font-semibold'>Choose your favorite job</p>
       </div>
-      <div className='w-full mx-auto flex justify-around items-center my-20'>
-        <div className='p-2 bg-white w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+      <div className='w-full mx-auto flex flex-wrap h-52 my-20 justify-center'>
+        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon
               icon="clarity:mobile-line"
@@ -137,10 +116,10 @@ function JobsPost() {
               height="32"
               className='text-primary-blue'
             />
-            <h1>Mobile Development</h1>
+            <h1>Mobile App Developer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon
               icon="simple-icons:frontendmentor"
@@ -148,10 +127,10 @@ function JobsPost() {
               height="32"
               className='text-primary-blue'
             />
-            <h1>Front End</h1>
+            <h1>Front End Developer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon
               icon="iconoir:pc-firewall"
@@ -159,13 +138,37 @@ function JobsPost() {
               height="32"
               className='text-primary-blue'
             />
-            <h1>Back End</h1>
+            <h1>Back End Developer</h1>
           </div>
         </div>
-        <div className={`p-2 bg-white w-32 h-32 rounded-xl cursor-pointer flex items-center justify-center ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
+        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+          <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
+            <Icon icon="material-symbols:full-stacked-bar-chart" width="32" height="32" className='text-primary-blue'/>
+            <h1>Full Stack Developer</h1>
+          </div>
+        </div>
+        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+          <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
+            <Icon icon="carbon:concept" width="32" height="32" className='text-primary-blue'/>
+            <h1>Software Engineer</h1>
+          </div>
+        </div>
+        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+          <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
+            <Icon icon="codicon:azure-devops" width="32" height="32" className='text-primary-blue'/>
+            <h1>DevOps Engineer</h1>
+          </div>
+        </div>
+        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+          <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
+            <Icon icon="basil:adobe-experince-design-outline" width="36" height="36" className='text-primary-blue'/> 
+            <h1 className='mr-2'> UI/UX   Designer</h1>
+          </div>
+        </div>
+        <div className={`p-2 bg-white mx-10 mb-8 w-32 h-32 rounded-xl cursor-pointer flex items-center justify-center  ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
           <div >
             <Icon icon="material-symbols:add" width="32" height="32" className=' text-white' />
-            <h1>Explore More</h1>
+            <h1 className='mb-5'>Explore More</h1>
           </div>
         </div>
       </div>

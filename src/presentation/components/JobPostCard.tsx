@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 type JobData = {
+    id: number
     logo: string;
     company: string;
     skill: string;
@@ -50,7 +51,7 @@ const JobPostCard: React.FC<JobPostCardProps> = ({ jobData, cardStyle }) => {
         tag:'text-[0.5rem]'
     }
     return (
-        <NavLink to='/single-job-post/2' className={`flex flex-col justify-around cursor-pointer bg-white ${cardStyle == 'Large' ? LargeSize.card : SmallSize.card}  shadow-white text-black `}>
+        <NavLink to={`/job-posts/${jobData.id}`} className={`flex flex-col justify-around cursor-pointer bg-white ${cardStyle == 'Large' ? LargeSize.card : SmallSize.card}  shadow-white text-black `}>
             <div className={`flex justify-start items-center gap-3 `}>
                 <img src={jobData.logo} alt="" className={`rounded-full ${cardStyle == 'Large' ? LargeSize.logo : SmallSize.logo}  `}/>
                 <p className={`font-semibold text-xs ${cardStyle == 'Large' ? LargeSize.div1_text : SmallSize.div1_text}  `}>{jobData.company}</p>

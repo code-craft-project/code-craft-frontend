@@ -58,7 +58,7 @@ function Navbar() {
                 <motion.div className={`${styles.container}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
                     <NavLink to='/home' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Home</NavLink>
                     <NavLink to='/challenges' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Challenges</NavLink>
-                    <NavLink to='/jobs-post' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</NavLink>
+                    <NavLink to='/job-posts' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Job Posts</NavLink>
                     <NavLink to='/events' className='mr-8 cursor-pointer opacity-60 hover:opacity-80 transition-all duration-500 menu__link'>Events</NavLink>
                     {
                         (!userSession.isValidSession) && (
@@ -96,15 +96,19 @@ function Navbar() {
                             />
                             {activeMenu && (
                                 <motion.div
-                                    className="absolute border-2  border-opacity-50 border-blue-900 border-t-yellow-600 border-r-yellow-600 top-14 right-24 bg-white bg-opacity-10 z-50 w-52 h-44 p-5 rounded-lg shadow-sm overflow-hidden"
+                                    className="absolute border-2  border-opacity-50 border-blue-900 border-t-yellow-600 border-r-yellow-600 top-16 right-20 bg-black z-50 w-52 h-52 flex items-center justify-center rounded-lg shadow-sm overflow-hidden"
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <ul>
+                                    <ul className='p-5 bg-white bg-opacity-10 w-full'>
                                         <NavLink to="/settings" onClick={() => setActiveMenu(!activeMenu)} className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex hover:bg-white hover:bg-opacity-10 rounded-lg items-center gap-2 text-nowrap">
                                             <Icon icon="material-symbols:settings" width="18" height="18" />
                                             <div>Settings</div>
+                                        </NavLink>
+                                        <NavLink to="/organization/create" onClick={() => setActiveMenu(!activeMenu)} className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
+                                            <Icon icon="ion:create" width="18" height="18" />
+                                            <div>Create Organization</div>
                                         </NavLink>
                                         <NavLink to="/my-organizations" onClick={() => setActiveMenu(!activeMenu)} className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                             <Icon icon="mdi:company" width="18" height="18" />
