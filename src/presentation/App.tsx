@@ -27,7 +27,6 @@ import useUserSession from '../application/hooks/useUserSession';
 import ProtectedRoute from './components/ProtectedRoute';
 import UpdateEvent from './pages/UpdateEvent';
 import MyOrganizations from './pages/MyOrganizations';
-import { CreateChallengeProvider } from '../application/contexts/CreateChallengeContext';
 
 function App() {
   const toastManager = useToast();
@@ -60,8 +59,6 @@ function App() {
 
           <Route path='/' element={(<WithoutFooter />)}>
             <Route path='/organization/create' element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
-            <Route path="create-challenge" element={<ProtectedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider></ProtectedRoute>} />
-            <Route path="organization/:id/create-challenge" element={<ProtectedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider ></ProtectedRoute>} />
             <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
             <Route path="update-event/:id" element={<UpdateEvent />} />
           </Route>

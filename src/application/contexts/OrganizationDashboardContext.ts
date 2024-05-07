@@ -34,7 +34,15 @@ const initialValue: useOrganizationDashboardReturn = {
         type: 'company',
     },
     setEditOrganization: (org: any) => { org; },
-    updateOrganization: async () => { }
+    updateOrganization: async () => { },
+    deleteOrganizationChallenge: async (orgId: number, challengeId: number) => { orgId; challengeId; },
+    image: null,
+    imageUrl: '',
+    setImage: () => { },
+    setImageUrl: () => { },
+    updateOrganizationChallenge: async (orgId: number, challenge: ChallengeEntity) => { orgId; challenge; },
+    appendNewChallenge: () => { },
+    updateOrganizationChallengeTestCases: async (orgId: number, challengeId: number, testCases: TestCaseEntity[]) => { orgId; challengeId; testCases; }
 };
 
 export default createContext<useOrganizationDashboardReturn>(initialValue);

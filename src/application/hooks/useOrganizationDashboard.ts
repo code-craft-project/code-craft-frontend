@@ -142,6 +142,50 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         }
     }
 
+    const updateOrganizationChallenge = async (organization_id: number, challenge: ChallengeEntity) => {
+        const response = await organizationsService.updateOrganizationChallenge(organization_id, challenge);
+        if (response.status == 'success') {
+            setChallenges(state => {
+                const list = [...state];
+                const index = list.findIndex(e => e.id == challenge.id);
+                if (index != -1) {
+                    list[index] = challenge;
+                }
+
+                return list;
+            });
+        }
+    }
+
+    const updateOrganizationChallengeTestCases = async (organization_id: number, challenge_id: number, testCases: TestCaseEntity[]) => {
+        const response = await organizationsService.updateOrganizationChallengeTestCases(organization_id, challenge_id, testCases);
+        if (response.status == 'success') {
+
+        } else {
+            // TODO: Handle Error
+        }
+    }
+
+    const deleteOrganizationChallenge = async (organizationId: number, challengeId: number) => {
+        const response = await organizationsService.deleteChallenge(organizationId, challengeId);
+        if (response.status == 'success') {
+            setChallenges(state => {
+                let list: ChallengeEntity[] = [];
+                state.forEach(i => {
+                    if (i.id != challengeId) {
+                        list.push(i);
+                    }
+                });
+
+                return list;
+            });
+        }
+    }
+
+    const appendNewChallenge = (challenge: ChallengeEntity) => {
+        setChallenges(state => [...state, challenge]);
+    }
+
     return {
         organization, getOrganizationById,
         events, getOrganizationEvents,
@@ -151,6 +195,7 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         member, getCurrentMember,
         jobPosts, getOrganizationJobPosts,
         editOrganization, setEditOrganization,
+        updateOrganizationChallenge, deleteOrganizationChallenge,
         hasPermissions,
         updateOrganization,
         isLoading, isChallengesLoading,
@@ -161,6 +206,8 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         image,
         imageUrl,
         setImage,
-        setImageUrl
+        setImageUrl,
+        appendNewChallenge,
+        updateOrganizationChallengeTestCases
     };
 }

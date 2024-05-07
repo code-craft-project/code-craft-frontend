@@ -1,5 +1,7 @@
 type ChallengeLevel = 'hard' | 'medium' | 'easy';
-type ChallengeStatus = "done" | "not started" | "wrong answer"
+type ChallengeStatus = "done" | "not started" | "wrong answer";
+type ChallengeType = 'in_out' | 'project';
+
 interface ChallengeEntity {
     id?: number;
     title: string;
@@ -7,7 +9,7 @@ interface ChallengeEntity {
     topic: ChallengeTopic;
     level: ChallengeLevel;
     is_public: boolean;
-    type: "in_out" | "project";
+    type: ChallengeType;
     creator_id?: number;
     creator?: UserEntity;
     comments?: number;
@@ -50,4 +52,15 @@ type ChallengeTopic = 'all topics' | 'problem solving' | 'algorithms' | 'data st
 
 interface ChallengeFilters {
     difficulty: ChallengeLevel[];
+};
+
+interface useCreateChallengeReturn {
+    challenge: ChallengeEntity;
+    setChallenge: React.Dispatch<React.SetStateAction<ChallengeEntity>>;
+    createOrganizationChallenge: (organizationId: number) => Promise<ChallengeEntity | null>;
+    testCases: TestCaseEntity[];
+    setTestCases: React.Dispatch<React.SetStateAction<TestCaseEntity[]>>;
+    getTestCases: (challengeId: number) => Promise<void>;
+    testCaseFile: File | null;
+    setTestCaseFile: React.Dispatch<React.SetStateAction<File | null>>;
 };

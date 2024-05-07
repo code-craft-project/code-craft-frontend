@@ -1,97 +1,153 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import upload from '../../../assets/Icons/upload.svg';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { CreateChallengeContext } from '../../../application/contexts/CreateChallengeContext';
 import useOrganizationChallenge from '../../../application/hooks/useOrganizationChallenge';
+import { testCaseInputTypes } from '../../../application/consts';
 
 export default function TestCasesAndFiles() {
-    const {type, setType} = useContext(CreateChallengeContext)
+    const { challenge, setChallenge } = useContext(CreateChallengeContext)
     return (
-    <div className="flex flex-col gap-8 items-center w-full">
-        <div className="flex flex-col gap-3 w-full">
-            <h1 className="text-xl font-semibold text-start ">Challenge Type</h1>
-            <select 
-                className="w-full bg-white font-meduim py-1 px-3 rounded-lg text-black"
-                value={type }
-                onChange={ev => { setType(ev.target.value as "project" | "in_out")}}
-            >
-            <option value="">Select Type</option>
-                <option value="in_out">in_out</option>
-                <option value="project">project</option>
-            </select>
-        </div>
-        {type === "in_out" 
-        ? <InOut />
-        : (type === "project") 
-            ? <Project />
-            : <div className='font-meduim'>Please Choose Challenge Type To Continue!</div>
-        }
-    </div>
+        <div className="w-full flex flex-col items-center">
+            <div className="w-full flex flex-col">
+                <h1 className="font-semibold text-gray-50 mb-2">Challenge Type:</h1>
+                <select
+                    className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
+                    value={challenge.type}
+                    onChange={ev => { setChallenge(state => ({ ...state, type: ev.target.value as ChallengeType })) }}
+                >
+                    <option value="" selected disabled>Select Type</option>
+                    <option value="in_out">in_out</option>
+                    <option value="project">project</option>
+                </select>
+            </div>
+
+            {challenge.type == "in_out" && (<InOut />)}
+            {challenge.type == "project" && (<Project />)}
+            {!challenge.type && (<div className='font-meduim'>Please Choose Challenge Type To Continue!</div>)}
+        </div >
     )
 }
 
-function InOut(){
-    const [files, setFiles] = useState([]);
-    const {testCases, setTestCases} = useContext(CreateChallengeContext)
-    const handleAddTestCase = () => {
-        setTestCases([...testCases, { inputs: [{ input: '', type: 'boolean', index: 0 }], output: '' }]);
+function InOut() {
+    const { testCases, setTestCases, testCaseFile, setTestCaseFile } = useContext(CreateChallengeContext)
+    const fileRef = useRef<HTMLInputElement>(null);
+
+    const onDrop = (ev: React.DragEvent) => {
+        ev.preventDefault();
+        if (ev.dataTransfer.items) {
+            // Use DataTransferItemList interface to access the file(s)
+            [...ev.dataTransfer.items].forEach((item) => {
+                // If dropped items aren't files, reject them
+                if (item.kind === "file") {
+                    const file = item.getAsFile();
+                    setTestCaseFile(file);
+                }
+            });
+        } else {
+            // Use DataTransfer interface to access the file(s)
+            [...ev.dataTransfer.files].forEach((file) => {
+                setTestCaseFile(file);
+            });
+        }
+
     };
 
-    const handleInputChange = (testCaseIndex:any, inputIndex:any, field:any, value:any) => {
-        const updatedTestCases:any = [...testCases];
-        updatedTestCases[testCaseIndex].inputs[inputIndex][field] = value;
-        setTestCases(updatedTestCases);
-    };
+    const selectFile = () => {
+        fileRef.current?.click();
+    }
 
-    const handleOutputChange = (index:any, value:any) => {
-        const updatedTestCases:any = [...testCases];
-        updatedTestCases[index].output = value;
-        setTestCases(updatedTestCases);
-    };
+    const onFileSelected = async () => {
+        if (fileRef.current && fileRef.current.files && fileRef.current.files.length > 0) {
+            setTestCaseFile(fileRef.current.files[0]);
+        }
+    }
 
-    const onDragOver = (event: any) => {
-        event.preventDefault();
-    };
-    const onDrop = (event:any) => {
-        setFiles(event.dataTransfer.files);
-    };
-    
+    const removeFile = () => {
+        setTestCaseFile(null);
+        if (fileRef.current) {
+            fileRef.current.value = '';
+        }
+    }
 
-    return  (
-        <div className='w-full flex flex-col gap-8 items-center'>
-            <h1 className="text-xl font-semibold text-start w-full">Test Cases</h1>
-            {testCases.map((testCase, index) => (
-                <div key={index} className='flex flex-col w-full gap-3'>
-                    <div className="flex w-full gap-3 items-end">
-                        <div className="flex flex-col gap-2 w-[69%]">
-                            <h1 className="text-xl font-medium text-start mb-3">#{index + 1} Test Case</h1>
-                            {testCase.inputs?.map((input, inputIndex) => (
-                                <div key={inputIndex} className="flex gap-3">
-                                    <input
-                                        type="text"
-                                        className="bg-white text-black placeholder-medium font-medium px-8 py-1 rounded-lg w-full"
-                                        placeholder='Input'
-                                        value={input.input}
-                                        onChange={(e) => handleInputChange(index, inputIndex, 'input', e.target.value)}
-                                    />
-                                    <select
-                                        className="bg-white font-medium py-1 px-3 rounded-lg text-black"
-                                        value={input.type}
-                                        onChange={(e) => handleInputChange(index, inputIndex, 'type', e.target.value)}
-                                    >
-                                        <option value="" selected>Type</option>
-                                        <option value="String">String</option>
-                                        <option value="Boolean">Boolean</option>
-                                        <option value="Array">Array</option>
-                                        <option value="Number">Number</option>
-                                    </select>
-                                </div>
-                            ))}
+    return (
+        <div className='w-full flex flex-col items-center mt-8'>
+            <h1 className="w-full font-semibold text-gray-50 mb-2">Test Cases:</h1>
+            {
+                !testCaseFile && testCases.map((testCase, index) => (
+                    <div key={index} className='w-full flex flex-col'>
+                        <div className="w-full flex flex-col">
+                            <div className='w-full flex items-center justify-between'>
+                                <h1 className="text-gray-100 font-medium text-start mb-3"># Test Case {(index + 1).toLocaleString("en-us", { minimumIntegerDigits: 2 })}:</h1>
+                                <div
+                                    onClick={() => {
+                                        setTestCases(state => state.filter((_, j) => index != j))
+                                    }}
+                                    className='text-red-600 hover:text-red-700 text-xs font-semibold cursor-pointer'>Remove</div>
+                            </div>
+                            {
+                                testCase.inputs?.map((input, inputIndex) => (
+                                    <div key={inputIndex} className="flex items-center mb-2">
+                                        <input
+                                            type="text"
+                                            className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 flex-grow mr-2"
+                                            placeholder='Input'
+                                            value={input.input}
+                                            onChange={
+                                                (ev) => {
+                                                    setTestCases(state => {
+                                                        const list = [...state];
+                                                        list[index].inputs![inputIndex].input = ev.target.value;
+                                                        return list;
+                                                    });
+                                                }
+                                            }
+                                        />
+                                        <select
+                                            className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
+                                            value={input.type}
+                                            onChange={
+                                                (ev) => {
+                                                    setTestCases(state => {
+                                                        const list = [...state];
+                                                        list[index].inputs![inputIndex].type = ev.target.value as TestCaseInputType;
+                                                        return list;
+                                                    });
+                                                }
+                                            }
+                                        >
+                                            <option value="" selected disabled>Type</option>
+                                            {
+                                                testCaseInputTypes.map((_type, index) => {
+                                                    return (
+                                                        <option key={index} className='capitalize' value={_type}>{_type.split("_").join(" ")}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                        <div
+                                            onClick={() => {
+                                                console.log({ inputIndex });
+                                                setTestCases(state => {
+                                                    const list = [...state];
+                                                    list[index].inputs = list[index].inputs!.filter((_, j) => inputIndex != j);
+                                                    console.log("list[index].inputs:", list[index].inputs);
+                                                    for (let j = 0; j < (list[index].inputs!.length || 0); j++) {
+                                                        list[index].inputs![j].index = j;
+                                                    }
+                                                    return list;
+                                                });
+                                            }}
+                                            className='text-yellow-600 hover:text-yellow-700 text-xs font-semibold cursor-pointer ml-2'>Remove Input</div>
+                                    </div>
+                                ))}
                             <div className="flex flex-col gap-2 w-full">
                                 <button
-                                    onClick={() => setTestCases(prevState => {
-                                        prevState[index].inputs?.push({ input: '', type: 'boolean',index:index });
-                                        return [...prevState];
+                                    onClick={() => setTestCases(state => {
+                                        const list = [...state];
+                                        list[index].inputs = [...(list[index].inputs || []), { input: '', index: list[index].inputs?.length || 0, type: 'string' }];
+                                        console.log("list[index]:", list[index]);
+                                        return list;
                                     })}
                                     className="font-semibold bg-opacity-90 px-8 py-1 rounded-lg w-full active:scale-105 transition-all duration-200 hover:opacity-90 bg-primary-blue gap-2 flex items-center justify-center"
                                 >
@@ -100,51 +156,79 @@ function InOut(){
                                 </button>
                             </div>
                         </div>
-                        <div className="w-[29%]">
+                        <div className="w-full flex mt-2 mb-8">
                             <input
                                 type="text"
-                                className="bg-white text-black placeholder-medium font-medium px-8 py-1 rounded-lg w-full"
+                                className="w-full bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300"
                                 placeholder='Output'
                                 value={testCase.output}
-                                onChange={(e) => handleOutputChange(index, e.target.value)}
+                                onChange={
+                                    (ev) => {
+                                        setTestCases(state => {
+                                            const list = [...state];
+                                            list[index].output = ev.target.value;
+                                            return list;
+                                        });
+                                    }
+                                }
                             />
                         </div>
                     </div>
-                </div>
-            ))}
-            <div className="flex flex-col gap-2 w-full">
-                <button
-                    onClick={handleAddTestCase}
-                    className="font-semibold bg-opacity-90 px-8 py-1 rounded-lg w-full active:scale-105 transition-all duration-200 hover:opacity-90 bg-primary-yellow "
-                >
-                    Add Another Test Case
-                </button>
-            </div>
-            <div className="flex flex-col gap-3 w-full">
-                <h1 className="text-xl font-semibold text-center">Or</h1>
-                <h1 className="text-sm font-medium">If you have multiple tests, you can compress them to a zip file, and upload it directly.</h1>
-                <div className='text-sm font-medium'>ZIP file content example: <span className='text-primary-yellow'>Download</span></div>
-                <div
-                    className="flex flex-col items-center justify-center p-16 border-dashed border-2 border-gray-400 rounded-lg cursor-pointer"
-                    onDragOver={onDragOver}
-                    onDrop={onDrop}
-                >
-                    <img src={upload} alt="upload icon" />
-                    <p className="text-sm text-gray-500">
-                        Click or drag file to this area to upload
-                    </p>
-                    <p className="text-xs text-gray-400">(Support for a single or bulk upload)</p>
-                    {/* Display number of uploaded files */}
-                    {files.length > 0 && <p>Uploaded files: {files.length}</p>}
-                </div>
-            </div>
-        </div>
+                ))
+            }
+            {
+                !testCaseFile && (<div className="w-full flex flex-col mb-8">
+                    <button
+                        onClick={() => {
+                            setTestCases(s => [...s, { output: '', inputs: [{ index: 0, input: '', type: 'string' }] }])
+                        }}
+                        className="font-semibold bg-opacity-90 px-8 py-1 rounded-lg w-full active:scale-105 transition-all duration-200 hover:opacity-90 bg-primary-yellow"
+                    >
+                        Add Another Test Case
+                    </button>
+                </div>)
+            }
+            <input ref={fileRef} onChange={onFileSelected} type="file" accept=".zip, .rar" hidden />
+            {
+                !testCaseFile && (
+                    <div className="flex flex-col gap-3 w-full">
+                        <h1 className="text-xl font-semibold text-center">Or</h1>
+                        <h1 className="text-sm font-medium">If you have multiple tests, you can compress them to a zip file, and upload it directly.</h1>
+                        <div className='text-sm font-medium'>ZIP file content example: <a href="/files/test-cases-example.zip" download className='inline-block text-primary-yellow cursor-pointer hover:text-yellow-600 duration-300 active:scale-110 select-none'>Download</a></div>
+                        <div
+                            className="flex flex-col items-center justify-center p-16 border-dashed border-2 border-gray-400 rounded-lg cursor-pointer"
+                            onDrop={onDrop}
+                            onClick={selectFile}
+                        >
+                            <img src={upload} alt="upload icon" />
+                            <p className="text-sm text-gray-500">
+                                Click or drag file to this area to upload
+                            </p>
+                            <p className="text-xs text-gray-400">(Support for a single or bulk upload)</p>
+                        </div>
+                    </div>
+                )
+            }
+            {
+                testCaseFile && (
+                    <div onClick={selectFile} className='w-full flex flex-col py-4 cursor-pointer text-gray-50 hover:text-gray-300 duration-300 active:scale-105'>
+                        <Icon icon="formkit:zip" className='text-9xl' />
+                        <div className='mt-4 text-gray-500 text-sm font-semibold'>Click to Change the file</div>
+                    </div>
+                )
+            }
+            {
+                testCaseFile && (
+                    <div onClick={() => { removeFile(); }} className='w-full text-red-600 hover:text-red-700 font-semibold cursor-pointer ml-2'>X Remove File</div>
+                )
+            }
+        </div >
     )
 }
 
-function Project(){
+function Project() {
     const fileRef = useRef<HTMLInputElement>(null);
-    const {file, fileUrl, setFile} = useOrganizationChallenge()
+    const { file, fileUrl, setFile } = useOrganizationChallenge()
     const onDragOver: React.DragEventHandler<HTMLDivElement> = (event: React.DragEvent) => {
         event.preventDefault();
     };
@@ -179,33 +263,33 @@ function Project(){
         }
     }
 
-    return(
+    return (
         <>
-        <input ref={fileRef} onChange={onFileSelected} type="file" accept="*" hidden />
-        {
-            file ? (
-                <div className="w-full flex flex-col items-center">
-                    <div className="py-2 text-gray-200 font-medium">Click on image to update</div>
-                    <img onClick={selectFile} src={fileUrl} title={fileUrl} className="w-96 h-96 bg-white object-cover rounded-xl cursor-pointer" />
-                </div>
-            ) : (
-                <div className="flex flex-col gap-3 w-full">
-                    <div>Files:</div>
-                    <div
-                        className="flex flex-col items-center justify-center p-16 border-dashed border-2 border-blue-900 border-t-yellow-600 border-r-yellow-600 rounded-lg cursor-pointer"
-                        onDragOver={onDragOver}
-                        onDrop={onDrop}
-                        onClick={selectFile}
-                    >
-                        <img src={upload} />
-                        <p className="text-sm text-gray-500">
-                            Click or drag file to this area to upload
-                        </p>
-                        <p className="text-xs text-gray-400">(Support for a single or bulk upload)</p>
+            <input ref={fileRef} onChange={onFileSelected} type="file" accept="*" hidden />
+            {
+                file ? (
+                    <div className="w-full flex flex-col items-center">
+                        <div className="py-2 text-gray-200 font-medium">Click on image to update</div>
+                        <img onClick={selectFile} src={fileUrl} title={fileUrl} className="w-96 h-96 bg-white object-cover rounded-xl cursor-pointer" />
                     </div>
-                </div>
-            )
-        }
+                ) : (
+                    <div className="flex flex-col gap-3 w-full">
+                        <div>Files:</div>
+                        <div
+                            className="flex flex-col items-center justify-center p-16 border-dashed border-2 border-blue-900 border-t-yellow-600 border-r-yellow-600 rounded-lg cursor-pointer"
+                            onDragOver={onDragOver}
+                            onDrop={onDrop}
+                            onClick={selectFile}
+                        >
+                            <img src={upload} />
+                            <p className="text-sm text-gray-500">
+                                Click or drag file to this area to upload
+                            </p>
+                            <p className="text-xs text-gray-400">(Support for a single or bulk upload)</p>
+                        </div>
+                    </div>
+                )
+            }
         </>
     )
 }

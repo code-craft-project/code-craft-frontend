@@ -53,6 +53,10 @@ interface useOrganizationDashboardReturn {
     setImage: React.Dispatch<React.SetStateAction<File | null>>;
     imageUrl: string | undefined;
     setImageUrl: React.Dispatch<React.SetStateAction<string | undefined>>;
+    updateOrganizationChallenge: (organizationId: number, challenge: ChallengeEntity) => Promise<void>;
+    deleteOrganizationChallenge: (organizationId: number, challengeId: number) => Promise<void>;
+    appendNewChallenge: (challenge: ChallengeEntity) => void;
+    updateOrganizationChallengeTestCases: (organization_id: number, challenge_id: number, testCases: TestCaseEntity[]) => Promise<void>;
 }
 
 interface OrganizationDashboardStats {
