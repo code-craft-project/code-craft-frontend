@@ -58,9 +58,11 @@ interface useCreateChallengeReturn {
     challenge: ChallengeEntity;
     setChallenge: React.Dispatch<React.SetStateAction<ChallengeEntity>>;
     createOrganizationChallenge: (organizationId: number) => Promise<ChallengeEntity | null>;
+    createEventChallenge: (eventId: number) => Promise<ChallengeEntity | null>;
     testCases: TestCaseEntity[];
     setTestCases: React.Dispatch<React.SetStateAction<TestCaseEntity[]>>;
     getTestCases: (challengeId: number) => Promise<void>;
     testCaseFile: File | null;
     setTestCaseFile: React.Dispatch<React.SetStateAction<File | null>>;
+    resetChallenge: () => void;
 };

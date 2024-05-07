@@ -19,10 +19,20 @@ function DashboardEventCard({ event }: DashboardEventCardProps) {
         setActiveEventMenu(!activeEventMenu)
         onopen()
     }
+
+    const goToEventChallenges = () => {
+        var url = new URL(window.location.href);
+
+        url.searchParams.set('tab', 'challenges');
+        url.searchParams.set('event_id', event.id?.toString() || '1');
+
+        window.location.href = url.toString();
+    }
+
     return (
         <div className='w-full flex flex-col'>
             <div className="flex relative flex-col w-full h-full">
-                <div className='rounded-lg overflow-hidden '>
+                <div className='rounded-lg'>
                     <img src={event.logo_url || eventLogoPicture} alt={event.title} className='w-full object-contain rounded-lg hover:scale-110 transition-all duration-300 cursor-pointer' />
 
                     <Icon
@@ -34,7 +44,7 @@ function DashboardEventCard({ event }: DashboardEventCardProps) {
                     />
                     {activeEventMenu && (
                         <motion.div
-                            className="absolute top-5 right-3 bg-black border-2  border-opacity-50 border-blue-900 border-t-yellow-600 border-r-yellow-600 z-50 w-36 h-24 p-3 rounded-lg shadow-sm overflow-hidden"
+                            className="absolute top-5 right-3 bg-black border-2  border-opacity-50 border-blue-900 border-t-yellow-600 border-r-yellow-600 z-50 p-3 rounded-lg shadow-sm"
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
@@ -47,6 +57,10 @@ function DashboardEventCard({ event }: DashboardEventCardProps) {
                                 <li onClick={() => setActiveEventMenu(!activeEventMenu)} className="my-1 cursor-pointer p-1 transition-all duration-200 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                     <Icon icon="icons8:cancel" width="18" height="18" />
                                     <NavLink to="/my-organizations">Delete Event</NavLink>
+                                </li>
+                                <li onClick={goToEventChallenges} className="my-1 cursor-pointer transition-all p-1 duration-200 text-sm flex hover:bg-white hover:bg-opacity-10 rounded-lg items-center gap-2 text-nowrap">
+                                    <Icon icon="jam:code" width="18" height="18" />
+                                    <div>View Challenges</div>
                                 </li>
                             </ul>
                         </motion.div>

@@ -36,6 +36,15 @@ function OrganizationDashboard() {
     }, [id]);
 
     useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const tab = urlParams.get('tab');
+        if (tab) {
+            setSelectedTab(tab as OrganizationTabs);
+        }
+    }, []);
+
+    useEffect(() => {
         if (!useOrganizationDashboardState.isMember) {
             setTimeout(() => {
                 navigate("/home")
@@ -60,6 +69,14 @@ function OrganizationDashboard() {
             </div>);
     }
 
+    const goTo = (tab: OrganizationTabs) => {
+        var url = new URL(window.location.href);
+        url.search = '';
+        url.searchParams.set('tab', tab);
+
+        window.location.href = url.toString();
+    }
+
     return (
         <OrganizationDashboardContext.Provider value={useOrganizationDashboardState}>
             <div className="w-full h-screen bg-black flex items-center overflow-auto">
@@ -77,7 +94,7 @@ function OrganizationDashboard() {
                     }
                     {
                         useOrganizationDashboardState.hasPermissions('challenges_manager') && (
-                            <div onClick={() => setSelectedTab('challenges')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'challenges' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="jam:code" /></div>
+                            <div onClick={() => goTo('challenges')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'challenges' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="jam:code" /></div>
                         )
                     }
                     {

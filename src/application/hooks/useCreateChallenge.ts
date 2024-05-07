@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { challengesService, organizationsService } from "../services";
+import { challengesService, eventsService, organizationsService } from "../services";
 
 const initChallenge: ChallengeEntity = {
     title: '',
@@ -29,7 +29,17 @@ export default function useCreateChallenge(): useCreateChallengeReturn {
 
         return null;
     }
-    
+
+    const createEventChallenge = async (eventId: number): Promise<ChallengeEntity | null> => {
+        const res = await eventsService.createEventChallenge(eventId, challenge);
+        if (res.status == 'success') {
+            await challengesService.createTestCases(res.data.id!, testCases);
+            return res.data;
+        }
+
+        return null;
+    }
+
     // FIXME: This must not be here. we must Refactor the update Challenge code.
     const getTestCases = async (challengeId: number): Promise<void> => {
         const response = await challengesService.getTestCasesByChallengeId(challengeId);
@@ -40,9 +50,14 @@ export default function useCreateChallenge(): useCreateChallengeReturn {
         }
     }
 
+    const resetChallenge = () => {
+        setChallenge(initChallenge);
+        setTestCases([initTestCase]);
+    }
+
     return {
-        challenge, setChallenge, createOrganizationChallenge,
+        challenge, setChallenge, createOrganizationChallenge, createEventChallenge,
         testCases, setTestCases, getTestCases,
-        testCaseFile, setTestCaseFile
+        testCaseFile, setTestCaseFile, resetChallenge
     }
 }

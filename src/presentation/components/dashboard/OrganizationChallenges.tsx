@@ -7,6 +7,7 @@ import DashboardModel from "./DashboardModel";
 import CreateOrganizationChallenge from "../CreateOrganizationChallenge";
 import { userProfilePicture } from "../../../application/consts";
 import useDashboardModel from "../../../application/hooks/useDashboardModel";
+import useEvent from "../../../application/hooks/useEvent";
 
 const challengeLevelColor: ChallengeLevelColor = {
     easy: 'text-green-500',
@@ -22,13 +23,39 @@ const challengeLevelBgColor: ChallengeLevelColor = {
 
 export default function OrganizationChallenges() {
     const { id } = useParams();
-    const { challenges, isChallengesLoading, getOrganizationChallenges, deleteOrganizationChallenge } = useContext(OrganizationDashboardContext);
+    const { challenges, isChallengesLoading, getOrganizationChallenges, getEventChallenges, deleteOrganizationChallenge, deleteEventChallenge } = useContext(OrganizationDashboardContext);
     const useDashboardModelValue = useDashboardModel();
     const [editChallenge, setEditChallenge] = useState<ChallengeEntity | undefined>(undefined);
+    const { event, getEventById } = useEvent();
+
+    const isForEvent = (): boolean => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const eventId = urlParams.get('event_id');
+
+        return eventId != undefined;
+    }
+
+    const getEventId = (): number | null => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const eventId = urlParams.get('event_id');
+        if (eventId) {
+            return parseInt(eventId);
+        }
+
+        return null;
+    }
 
     useEffect(() => {
         if (id && isChallengesLoading) {
-            getOrganizationChallenges(parseInt(id));
+            const eventId = getEventId();
+            if (eventId) {
+                getEventById(eventId);
+                getEventChallenges(eventId);
+            } else {
+                getOrganizationChallenges(parseInt(id));
+            }
         }
     }, [id]);
 
@@ -36,14 +63,20 @@ export default function OrganizationChallenges() {
         <div className="w-full flex-grow flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 py-5">
             <div className="w-full flex items-center mb-8">
                 <div className="w-full flex flex-col items-start">
-                    <div className="text-3xl font-bold">Challenges</div>
-                    <div className="mt-2 text-sm text-gray-300">{"Manage your challenges"}</div>
+                    {
+                        isForEvent() ? (
+                            <div className="text-3xl font-bold">{event.title}</div>
+                        ) : (
+                            <div className="text-3xl font-bold">{"Challenges"}</div>
+                        )
+                    }
+                    <div className="mt-2 text-sm text-gray-300">{isForEvent() ? "Manage your event challenges" : "Manage your challenges"}</div>
                 </div>
             </div>
             <div className="w-full flex items-center mb-4">
                 <div onClick={() => useDashboardModelValue.open()} className="flex items-center active:scale-105 text-gray-50  duration-300 px-8 py-1 rounded-lg bg-yellow-600 cursor-pointer select-none">
                     <Icon icon="icon-park-outline:source-code" />
-                    <div className="ml-2 font-meduim ">Create New Challenge</div>
+                    <div className="ml-2 font-meduim ">{isForEvent() ? "Create New Challenge For This Event" : "Create New Challenge"}</div>
                 </div>
             </div>
             <div className="w-full flex flex-col">
@@ -123,11 +156,11 @@ export default function OrganizationChallenges() {
                                             <div className="flex items-center justify-between mt-8">
                                                 <div onClick={editChallenge} className="bg-yellow-700 w-1/2 py-2 rounded-xl flex items-center justify-center mr-1 active:scale-110 duration-300 cursor-pointer hover:bg-yellow-800 select-none">
                                                     <Icon icon="lucide:edit" />
-                                                    <div className="text-gray-300 text-xl ml-2 font-semibold" title="Edit">Edit</div>
+                                                    <div className="text-gray-300 text-xl ml-2 font-semibold">Edit</div>
                                                 </div>
-                                                <div onClick={() => { deleteOrganizationChallenge(parseInt(id || '0'), challenge.id!) }} className="bg-red-700 w-1/2 py-2 rounded-xl flex items-center justify-center ml-1 active:scale-110 duration-300 cursor-pointer hover:bg-red-800 select-none">
+                                                <div onClick={() => { isForEvent() ? deleteEventChallenge(event.id!, challenge.id!) : deleteOrganizationChallenge(parseInt(id || '0'), challenge.id!) }} className="bg-red-700 w-1/2 py-2 rounded-xl flex items-center justify-center ml-1 active:scale-110 duration-300 cursor-pointer hover:bg-red-800 select-none">
                                                     <Icon icon="material-symbols:delete" />
-                                                    <div className="text-gray-300 text-xl ml-2 font-semibold" title="Edit">Delete</div>
+                                                    <div className="text-gray-300 text-xl ml-2 font-semibold">Delete</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -139,7 +172,7 @@ export default function OrganizationChallenges() {
                 </div>
             </div>
             <DashboardModel useDashboardModel={useDashboardModelValue} >
-                <CreateOrganizationChallenge editChallenge={editChallenge} />
+                <CreateOrganizationChallenge useEditChallenge={[editChallenge, setEditChallenge]} />
             </DashboardModel>
         </div>
     )

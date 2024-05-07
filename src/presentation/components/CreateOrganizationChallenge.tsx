@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import BasicInfo from "./create_challenge/BasicInfo";
-import ChallengeDescription from "../components/create_challenge/ChallengeDescription";
-import TestCasesAndFiles from "../components/create_challenge/TestCasesAndFiles";
+import ChallengeDescription from "./create_challenge/ChallengeDescription";
+import TestCasesAndFiles from "./create_challenge/TestCasesAndFiles";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useParams } from "react-router-dom";
 import { AnimatePresence, AnimationControls, motion } from 'framer-motion';
@@ -13,12 +13,14 @@ import OrganizationDashboardContext from "../../application/contexts/Organizatio
 import { DashboardModelContext } from "../../application/contexts/DashboardModelContext";
 
 interface CreateOrganizationChallengeProps {
-    editChallenge?: ChallengeEntity;
+    useEditChallenge: [ChallengeEntity | undefined, React.Dispatch<React.SetStateAction<ChallengeEntity | undefined>>];
 };
 
-export default function CreateOrganizationChallenge({ editChallenge }: CreateOrganizationChallengeProps) {
+export default function CreateOrganizationChallenge({ useEditChallenge }: CreateOrganizationChallengeProps) {
+    const [editChallenge, setEditChallenge] = useEditChallenge;
+
     const { id } = useParams();
-    const { updateOrganizationChallenge, updateOrganizationChallengeTestCases, appendNewChallenge } = useContext(OrganizationDashboardContext);
+    const { updateOrganizationChallenge, updateEventChallenge, updateEventChallengeTestCases, updateOrganizationChallengeTestCases, appendNewChallenge } = useContext(OrganizationDashboardContext);
     const { close } = useContext(DashboardModelContext);
 
     const useCreateChallengeValue = useCreateChallenge();
@@ -29,6 +31,17 @@ export default function CreateOrganizationChallenge({ editChallenge }: CreateOrg
     const useSlideInOutValue2 = useSlideInOut();
 
     const toastManager = useContext(ToastContext);
+
+    const getEventId = (): number | null => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const eventId = urlParams.get('event_id');
+        if (eventId) {
+            return parseInt(eventId);
+        }
+
+        return null;
+    }
 
     useEffect(() => {
         if (editChallenge) {
@@ -129,18 +142,35 @@ export default function CreateOrganizationChallenge({ editChallenge }: CreateOrg
         setCurrentStep(3);
         useSlideInOutValue2.close();
         if (id) {
+            const eventId = getEventId();
             if (editChallenge) {
-                await updateOrganizationChallenge(parseInt(id), useCreateChallengeValue.challenge);
-                await updateOrganizationChallengeTestCases(parseInt(id), useCreateChallengeValue.challenge.id!, useCreateChallengeValue.testCases);
+                if (eventId) {
+                    await updateEventChallenge(eventId, useCreateChallengeValue.challenge)
+                    await updateEventChallengeTestCases(eventId, useCreateChallengeValue.challenge.id!, useCreateChallengeValue.testCases);
+                } else {
+                    await updateOrganizationChallenge(parseInt(id), useCreateChallengeValue.challenge);
+                    await updateOrganizationChallengeTestCases(parseInt(id), useCreateChallengeValue.challenge.id!, useCreateChallengeValue.testCases);
+                }
             } else {
-                const newChallenge = await useCreateChallengeValue.createOrganizationChallenge(parseInt(id));
-                if (newChallenge) {
-                    appendNewChallenge(newChallenge);
+                if (eventId) {
+                    const newChallenge = await useCreateChallengeValue.createEventChallenge(eventId);
+                    if (newChallenge) {
+                        appendNewChallenge(newChallenge);
+                    }
+                } else {
+                    const newChallenge = await useCreateChallengeValue.createOrganizationChallenge(parseInt(id));
+                    if (newChallenge) {
+                        appendNewChallenge(newChallenge);
+                    }
                 }
             }
         }
 
-        setTimeout(() => { close(); }, 500);
+        setTimeout(() => {
+            close();
+            useCreateChallengeValue.resetChallenge();
+            setEditChallenge(undefined);
+        }, 500);
     }
 
     return (

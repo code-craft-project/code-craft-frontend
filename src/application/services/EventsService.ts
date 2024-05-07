@@ -63,8 +63,8 @@ export default class EventsService {
         return (await this.axiosHttp.get<HttpResponse<ChallengeEntity[]>>(`/api/events/${eventId}/challenges/topic/${topic}`)).data;
     }
 
-    async createEventChallenges(eventId: number, eventChallenge: any): Promise<HttpResponse<ChallengeEntity[]>> {
-        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity[]>>(`/api/events/${eventId}/challenges`, eventChallenge)).data;
+    async createEventChallenge(eventId: number, eventChallenge: ChallengeEntity): Promise<HttpResponse<ChallengeEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity>, ChallengeEntity>(`/api/events/${eventId}/challenges/create`, eventChallenge)).data;
     }
 
     async getEventTeams(eventId: number): Promise<HttpResponse<TeamEntity[]>> {
@@ -73,5 +73,26 @@ export default class EventsService {
 
     async getUserTeam(eventId: number): Promise<HttpResponse<TeamEntity | null>> {
         return (await this.axiosHttp.get<HttpResponse<TeamEntity | null>>(`/api/events/${eventId}/teams/me`)).data;
+    }
+
+    async deleteChallenge(eventId: number, challenge_id: number): Promise<HttpResponse<undefined>> {
+        return (await this.axiosHttp.post<HttpResponse<undefined>>(`/api/events/${eventId}/challenges/${challenge_id}/delete`)).data;
+    }
+
+    async updateEventChallenge(event_id: number, challenge: ChallengeEntity): Promise<HttpResponse<ChallengeEntity>> {
+        const updateChallenge: ChallengeEntity = {
+            title: challenge.title,
+            description: challenge.description,
+            is_public: challenge.is_public,
+            topic: challenge.topic,
+            level: challenge.level,
+            type: challenge.type
+        };
+
+        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity>, ChallengeEntity>(`/api/events/${event_id}/challenges/${challenge.id}/update`, updateChallenge)).data;
+    }
+
+    async updateEventChallengeTestCases(event_id: number, challenge_id: number, testCases: TestCaseEntity[]): Promise<HttpResponse<undefined>> {
+        return (await this.axiosHttp.post<HttpResponse<undefined>, { test_cases: TestCaseEntity[] }>(`/api/events/${event_id}/challenges/${challenge_id}/update_test_cases`, { test_cases: testCases })).data;
     }
 }

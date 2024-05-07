@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { filesUploadServices, organizationsService } from "../services";
+import { eventsService, filesUploadServices, organizationsService } from "../services";
 
 const initOrganization: OrganizationEntity = {
     name: '',
@@ -66,6 +66,21 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         } else {
             // TODO: Handle Error
         }
+    }
+
+    const getEventChallenges = async (eventId: number) => {
+        setIsChallengesLoading(true);
+        try {
+            const response = await eventsService.getEventChallenges(eventId)
+            if (response.status == "success") {
+                setChallenges(response.data);
+            } else {
+                console.log(response.message);
+            }
+        } catch (e) {
+            console.log(e)
+        }
+        setIsChallengesLoading(false);
     }
 
     const getOrganizationMembers = async (organizationId: number): Promise<void> => {
@@ -157,6 +172,21 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         }
     }
 
+    const updateEventChallenge = async (event_id: number, challenge: ChallengeEntity) => {
+        const response = await eventsService.updateEventChallenge(event_id, challenge);
+        if (response.status == 'success') {
+            setChallenges(state => {
+                const list = [...state];
+                const index = list.findIndex(e => e.id == challenge.id);
+                if (index != -1) {
+                    list[index] = challenge;
+                }
+
+                return list;
+            });
+        }
+    }
+
     const updateOrganizationChallengeTestCases = async (organization_id: number, challenge_id: number, testCases: TestCaseEntity[]) => {
         const response = await organizationsService.updateOrganizationChallengeTestCases(organization_id, challenge_id, testCases);
         if (response.status == 'success') {
@@ -166,8 +196,33 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         }
     }
 
+    const updateEventChallengeTestCases = async (event_id: number, challenge_id: number, testCases: TestCaseEntity[]) => {
+        const response = await eventsService.updateEventChallengeTestCases(event_id, challenge_id, testCases);
+        if (response.status == 'success') {
+
+        } else {
+            // TODO: Handle Error
+        }
+    }
+
     const deleteOrganizationChallenge = async (organizationId: number, challengeId: number) => {
         const response = await organizationsService.deleteChallenge(organizationId, challengeId);
+        if (response.status == 'success') {
+            setChallenges(state => {
+                let list: ChallengeEntity[] = [];
+                state.forEach(i => {
+                    if (i.id != challengeId) {
+                        list.push(i);
+                    }
+                });
+
+                return list;
+            });
+        }
+    }
+
+    const deleteEventChallenge = async (eventId: number, challengeId: number) => {
+        const response = await eventsService.deleteChallenge(eventId, challengeId);
         if (response.status == 'success') {
             setChallenges(state => {
                 let list: ChallengeEntity[] = [];
@@ -208,6 +263,10 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         setImage,
         setImageUrl,
         appendNewChallenge,
-        updateOrganizationChallengeTestCases
+        updateOrganizationChallengeTestCases,
+        updateEventChallengeTestCases,
+        getEventChallenges,
+        deleteEventChallenge,
+        updateEventChallenge
     };
 }
