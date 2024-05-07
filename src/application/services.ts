@@ -7,6 +7,7 @@ import EventsService from "./services/EventsService";
 import JobPostsService from "./services/JobPostsService";
 import UsersService from "./services/UsersService";
 import FilesUploadServices from "./services/FilesUploadServices";
+import SeachService from "./services/SearchService";
 
 export const axiosHttp = new AxiosHttp(axios, localStorage, true);
 
@@ -17,3 +18,4 @@ export const organizationsService = new OrganizationsSerivce(axiosHttp);
 export const jobPostsService = new JobPostsService(axiosHttp);
 export const usersService = new UsersService(axiosHttp);
 export const filesUploadServices = new FilesUploadServices(axiosHttp);
+export const searchService = new SeachService(axiosHttp);
