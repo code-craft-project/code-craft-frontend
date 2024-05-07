@@ -24,7 +24,7 @@ export default class ChallengesService {
     }
 
     async createComment(challengeId: number, comment: ChallengeCommentEntity): Promise<HttpResponse<ChallengeCommentEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<ChallengeCommentEntity>, ChallengeCommentEntity>(`/api/challenges/${challengeId}/comments/create`, comment)).data;
+        return (await this.axiosHttp.post<HttpResponse<ChallengeCommentEntity>, ChallengeCommentEntity>(`/api/challenges/${challengeId}/comments/create`, { ...comment, is_reply: false })).data;
     }
 
     async replyTOComment(challengeId: number, commentId: number, comment: ChallengeCommentEntity): Promise<HttpResponse<ChallengeCommentEntity>> {

@@ -88,7 +88,7 @@ export default function useChallenge(): useChallengeReturn {
                 return list;
             });
         } else {
-            setComments(state => ([...state, comment]));
+            setComments(state => ([comment, ...state]));
         }
     }
 
