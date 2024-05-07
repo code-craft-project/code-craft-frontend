@@ -24,10 +24,11 @@ import OrganizationDashboard from './pages/OrganizationDashboard';
 import OrganizationPage from './pages/SingleOrganization';
 import UserSessionContext from '../application/contexts/UserSessionContext';
 import useUserSession from '../application/hooks/useUserSession';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedAuthenticatedRoute from './components/ProtectedAuthenticatedRoute';
 import UpdateEvent from './pages/UpdateEvent';
 import MyOrganizations from './pages/MyOrganizations';
 import { CreateChallengeProvider } from '../application/contexts/CreateChallengeContext';
+import ProtectedUnauthenticatedRoute from './components/ProtectedUnauthenticatedRoute';
 
 function App() {
   const toastManager = useToast();
@@ -37,32 +38,32 @@ function App() {
     <ToastContext.Provider value={toastManager}>
       <UserSessionContext.Provider value={useUserSessionValue}>
         <Routes>
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<ProtectedUnauthenticatedRoute><SignUp /></ProtectedUnauthenticatedRoute>} />
+          <Route path="/sign-in" element={<ProtectedUnauthenticatedRoute><SignIn /></ProtectedUnauthenticatedRoute>} />
           <Route path="/challenges/:id" element={<ChallengePage />} />
           <Route path='/' element={(<Root />)}>
             <Route path="" element={<LandingPage />} />
             <Route path="job-posts" element={<JobPost />} />
-            <Route path="home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="home" element={<ProtectedAuthenticatedRoute><Home /></ProtectedAuthenticatedRoute>} />
             <Route path="events" element={<Events />} />
             <Route path="challenges" element={<Challenges />} />
             <Route path="search" element={<Search />} />
             <Route path="job-posts/:id" element={<SingleJobPost />} />
-            <Route path="settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="settings" element={<ProtectedAuthenticatedRoute><Settings /></ProtectedAuthenticatedRoute>} />
             <Route path="events/:id" element={<SingleEvent />} />
-            <Route path="my-organizations" element={<ProtectedRoute><MyOrganizations /></ProtectedRoute>} />
+            <Route path="my-organizations" element={<ProtectedAuthenticatedRoute><MyOrganizations /></ProtectedAuthenticatedRoute>} />
           </Route>
 
-          <Route path='/organization/:id/dashboard' element={<ProtectedRoute><OrganizationDashboard /></ProtectedRoute>} />
+          <Route path='/organization/:id/dashboard' element={<ProtectedAuthenticatedRoute><OrganizationDashboard /></ProtectedAuthenticatedRoute>} />
           <Route path='/organization/:id' element={(<Root />)}>
             <Route index element={<OrganizationPage />} />
           </Route>
 
           <Route path='/' element={(<WithoutFooter />)}>
-            <Route path='/organization/create' element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
-            <Route path="create-challenge" element={<ProtectedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider></ProtectedRoute>} />
-            <Route path="organization/:id/create-challenge" element={<ProtectedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider ></ProtectedRoute>} />
-            <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
+            <Route path='/organization/create' element={<ProtectedAuthenticatedRoute><CreateOrganization /></ProtectedAuthenticatedRoute>} />
+            <Route path="create-challenge" element={<ProtectedAuthenticatedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider></ProtectedAuthenticatedRoute>} />
+            <Route path="organization/:id/create-challenge" element={<ProtectedAuthenticatedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider ></ProtectedAuthenticatedRoute>} />
+            <Route path="create-job-post" element={<ProtectedAuthenticatedRoute><CreateJobPost /></ProtectedAuthenticatedRoute>} />
             <Route path="update-event/:id" element={<UpdateEvent />} />
           </Route>
         </Routes>
