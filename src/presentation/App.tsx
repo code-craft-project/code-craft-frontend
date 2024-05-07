@@ -27,7 +27,6 @@ import useUserSession from '../application/hooks/useUserSession';
 import ProtectedAuthenticatedRoute from './components/ProtectedAuthenticatedRoute';
 import UpdateEvent from './pages/UpdateEvent';
 import MyOrganizations from './pages/MyOrganizations';
-import { CreateChallengeProvider } from '../application/contexts/CreateChallengeContext';
 import ProtectedUnauthenticatedRoute from './components/ProtectedUnauthenticatedRoute';
 
 function App() {
@@ -60,10 +59,8 @@ function App() {
           </Route>
 
           <Route path='/' element={(<WithoutFooter />)}>
-            <Route path='/organization/create' element={<ProtectedAuthenticatedRoute><CreateOrganization /></ProtectedAuthenticatedRoute>} />
-            <Route path="create-challenge" element={<ProtectedAuthenticatedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider></ProtectedAuthenticatedRoute>} />
-            <Route path="organization/:id/create-challenge" element={<ProtectedAuthenticatedRoute><CreateChallengeProvider ><CreateChallenge /></CreateChallengeProvider ></ProtectedAuthenticatedRoute>} />
-            <Route path="create-job-post" element={<ProtectedAuthenticatedRoute><CreateJobPost /></ProtectedAuthenticatedRoute>} />
+            <Route path='/organization/create' element={<ProtectedRoute><CreateOrganization /></ProtectedRoute>} />
+            <Route path="create-job-post" element={<ProtectedRoute><CreateJobPost /></ProtectedRoute>} />
             <Route path="update-event/:id" element={<UpdateEvent />} />
           </Route>
         </Routes>

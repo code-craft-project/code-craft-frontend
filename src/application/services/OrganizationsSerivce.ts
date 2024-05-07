@@ -47,7 +47,28 @@ export default class OrganizationsSerivce {
         return (await this.axiosHttp.get<HttpResponse<OrganizationEntity[]>>(`/api/organizations/me`)).data
     }
 
-    async createOrganizationChallenge(organization_id: number,challenge: any): Promise<HttpResponse<ChallengeEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity>>(`/api/organizations/${organization_id}/challenges/create`,challenge)).data;
+    async createOrganizationChallenge(organization_id: number, challenge: ChallengeEntity): Promise<HttpResponse<ChallengeEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity>, ChallengeEntity>(`/api/organizations/${organization_id}/challenges/create`, challenge)).data;
+    }
+
+    async updateOrganizationChallenge(organization_id: number, challenge: ChallengeEntity): Promise<HttpResponse<ChallengeEntity>> {
+        const updateChallenge: ChallengeEntity = {
+            title: challenge.title,
+            description: challenge.description,
+            is_public: challenge.is_public,
+            topic: challenge.topic,
+            level: challenge.level,
+            type: challenge.type
+        };
+
+        return (await this.axiosHttp.post<HttpResponse<ChallengeEntity>, ChallengeEntity>(`/api/organizations/${organization_id}/challenges/${challenge.id}/update`, updateChallenge)).data;
+    }
+
+    async updateOrganizationChallengeTestCases(organization_id: number, challenge_id: number, testCases: TestCaseEntity[]): Promise<HttpResponse<undefined>> {
+        return (await this.axiosHttp.post<HttpResponse<undefined>, { test_cases: TestCaseEntity[] }>(`/api/organizations/${organization_id}/challenges/${challenge_id}/update_test_cases`, { test_cases: testCases })).data;
+    }
+
+    async deleteChallenge(organization_id: number, challenge_id: number): Promise<HttpResponse<undefined>> {
+        return (await this.axiosHttp.post<HttpResponse<undefined>>(`/api/organizations/${organization_id}/challenges/${challenge_id}/delete`)).data;
     }
 }

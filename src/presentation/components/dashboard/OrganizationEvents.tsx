@@ -44,7 +44,7 @@ export default function OrganizationEvents() {
           )}
           {events.map((event, index) => {
             return (
-              <div key={index} className="w-1/6 pr-4 mb-8">
+              <div key={index} className="w-1/4 pr-4 mb-8">
                 <DashboardEventCard event={event} />
               </div>
             );

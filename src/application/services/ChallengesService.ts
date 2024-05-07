@@ -43,7 +43,7 @@ export default class ChallengesService {
         return (await this.axiosHttp.get<HttpResponse<ChallengeEntity[]>>(`/api/challenges/topic/${topic}`)).data;
     }
 
-    async createTestCases(challenge_id: number, testCases: any): Promise<HttpResponse<TestCaseEntity[]>> {
-        return (await this.axiosHttp.post<HttpResponse<TestCaseEntity[]>>(`/api/challenges/${challenge_id}/test_cases/create`,testCases)).data;
+    async createTestCases(challenge_id: number, test_cases: TestCaseEntity[]): Promise<HttpResponse<TestCaseEntity[]>> {
+        return (await this.axiosHttp.post<HttpResponse<TestCaseEntity[]>, { test_cases: TestCaseEntity[] }>(`/api/challenges/${challenge_id}/test_cases/create`, { test_cases })).data;
     }
 }

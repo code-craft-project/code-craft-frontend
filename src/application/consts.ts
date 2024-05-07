@@ -15,6 +15,8 @@ export const styles = {
 };
 
 export const challengesTopics: ChallengeTopic[] = ['all topics', 'problem solving', 'algorithms', 'data structures', 'databases'];
+export const challengeLevels: ChallengeLevel[] = ["easy", "medium", "hard"];
+export const testCaseInputTypes: TestCaseInputType[] = ["string", "number", "boolean", "array_of_strings", "array_of_numbers", "array_of_booleans"];
 
 export const supportedLanguages: SupportedLanguages[] = ['c', 'c++', 'javascript', 'php', 'python'];
 export const javascriptTemplate = `/*
