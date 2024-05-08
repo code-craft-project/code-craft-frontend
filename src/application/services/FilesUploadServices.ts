@@ -14,4 +14,10 @@ export default class FilesUploadServices {
         return (await this.axiosHttp.post<HttpResponse<string>, FormData>(`/api/upload/image`, formData)).data;
     }
 
+    async uploadFile(image: File): Promise<HttpResponse<string>> {
+        const formData = new FormData();
+        formData.append('file', image);
+
+        return (await this.axiosHttp.post<HttpResponse<string>, FormData>(`/api/upload/file`, formData)).data;
+    }
 }

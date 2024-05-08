@@ -5,21 +5,26 @@ import { useState } from "react";
 import usePopup from "../../application/hooks/usePopup";
 import useJobPost from "../../application/hooks/useJobPost";
 
-function MyJobPostCard({ jobPost }: { jobPost: JobPostEntity }) {
-    const popupContentOptions: PopupContent = {title: 'jobPost',method:'update',id:jobPost.id}
-    const {  onopen, children } = usePopup(popupContentOptions);
-    const [activeJobPostMenu, setActiveJobPostMenu] = useState<boolean>(false); 
+interface MyJobPostCardProps {
+    jobPost: JobPostEntity;
+    viewJobApplications: () => void;
+};
+
+function MyJobPostCard({ jobPost, viewJobApplications }: MyJobPostCardProps) {
+    const popupContentOptions: PopupContent = { title: 'jobPost', method: 'update', id: jobPost.id }
+    const { onopen, children } = usePopup(popupContentOptions);
+    const [activeJobPostMenu, setActiveJobPostMenu] = useState<boolean>(false);
     const handleJobPostUpdate = () => {
-        setActiveJobPostMenu(!activeJobPostMenu) 
+        setActiveJobPostMenu(!activeJobPostMenu)
         onopen()
     }
-    const {deleteJobPost} = useJobPost()
-    
-    const handleJobPostDelete  = () => {
+    const { deleteJobPost } = useJobPost()
+
+    const handleJobPostDelete = () => {
         setActiveJobPostMenu(!activeJobPostMenu)
         console.log("first")
-        if(jobPost.id)
-        deleteJobPost(jobPost.id)
+        if (jobPost.id)
+            deleteJobPost(jobPost.id)
     }
     return (
         <div className="w-full flex flex-col relative bg-transparent p-4 rounded-xl hover:py-2 hover:px-6 hover:bg-gray-900 duration-300 cursor-pointer">
@@ -44,7 +49,7 @@ function MyJobPostCard({ jobPost }: { jobPost: JobPostEntity }) {
                 </div>
             </div>
             <Icon
-                className='absolute top-2 right-0 z-50 cursor-pointer hover:bg-white/20 rounded-md p-1'
+                className='absolute top-2 right-0 cursor-pointer hover:bg-white/20 rounded-md p-1'
                 icon="charm:menu-kebab"
                 width="24"
                 height="24"
@@ -52,7 +57,7 @@ function MyJobPostCard({ jobPost }: { jobPost: JobPostEntity }) {
             />
             {activeJobPostMenu && (
                 <motion.div
-                    className="border-2  border-opacity-50 border-blue-900 border-t-yellow-600 border-r-yellow-600 absolute top-5 right-3 bg-black z-50 w-40 h-24 p-3 rounded-lg shadow-sm overflow-hidden"
+                    className="border-2  border-opacity-50 border-blue-900 border-t-yellow-600 border-r-yellow-600 absolute top-5 right-3 bg-black p-3 rounded-lg shadow-sm overflow-hidden"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
@@ -62,15 +67,20 @@ function MyJobPostCard({ jobPost }: { jobPost: JobPostEntity }) {
                             <Icon icon="material-symbols:update" width="18" height="18" />
                             <div>Update Job Post</div>
                         </li>
-                        <li onClick={ handleJobPostDelete } className="my-1 cursor-pointer p-1 transition-all duration-200 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
+                        <li onClick={handleJobPostDelete} className="my-1 cursor-pointer p-1 transition-all duration-200 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                             <Icon icon="icons8:cancel" width="18" height="18" />
                             <div>Delete Job Post</div>
+                        </li>
+                        <li onClick={() => { viewJobApplications(); setActiveJobPostMenu(false); }} className="my-1 cursor-pointer p-1 transition-all duration-200 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
+                            <Icon icon="mdi:resume" width="18" height="18" />
+                            <div>View Job Applications</div>
                         </li>
                     </ul>
                 </motion.div>
             )}
             {children}
-        </div>)
+        </div>
+    )
 }
 
 export default MyJobPostCard

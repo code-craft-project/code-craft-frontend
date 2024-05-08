@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import ToastContext from "../contexts/ToastContext";
-import { jobPostsService } from "../services";
+import { filesUploadServices, jobPostsService } from "../services";
 const jobPostsFormat: JobPostEntity = {
     title: '',
     description: '',
@@ -14,11 +14,12 @@ const jobPostsFormat: JobPostEntity = {
 }
 
 export default function useJobPost() {
-
-    const [jobPost, setJobPost] = useState<JobPostEntity>(jobPostsFormat)
+    const [jobPost, setJobPost] = useState<JobPostEntity>(jobPostsFormat);
+    const [jobApplication, setJobApplication] = useState<JobApplicationEntity>({ cover_message: '', job_post_id: 0, resume_url: '', user_id: 0 });
+    const [resumeFile, setResumeFile] = useState<File | null>(null);
     const toastManager = useContext(ToastContext);
-    const alertSuccessHandler = (_p0: string) => { toastManager.alertSuccess('Success Message') }
-    const alertErroreHandler = (_p0: string) => { toastManager.alertError("Error Message"); }
+    const alertSuccessHandler = (message: string) => { toastManager.alertSuccess(message); }
+    const alertErroreHandler = (message: string) => { toastManager.alertError(message); }
     const setTitle = (title: string): void => setJobPost(prev => ({ ...prev, title }))
     const setDescription = (description: string): void => setJobPost(prev => ({ ...prev, description }))
     const setRole = (role: string): void => setJobPost(prev => ({ ...prev, role }))
@@ -40,7 +41,7 @@ export default function useJobPost() {
                 }, 2000);
             } else {
                 console.error('Creation job post failed:', response.message);
-                alertErroreHandler('Creation job post failed:'+ response.message);
+                alertErroreHandler('Creation job post failed:' + response.message);
             }
         } catch (error) {
             console.log(error);
@@ -52,7 +53,7 @@ export default function useJobPost() {
         try {
             const currentDate = new Date()
             setCreatedAt(currentDate.getDay().toString())
-            const {id,created_at,organization_id,organization,updated_at,...rest} = jobPost
+            const { id, created_at, organization_id, organization, updated_at, ...rest } = jobPost
             const response = await jobPostsService.updateJobPost(jobPost.id as number, rest)
             if (response.status == "success") {
                 alertSuccessHandler("Updating job post successful");
@@ -61,7 +62,7 @@ export default function useJobPost() {
                 }, 2000);
             } else {
                 console.error('Updating job post failed:', response.message);
-                alertErroreHandler('Updating job post failed:'+ response.message);
+                alertErroreHandler('Updating job post failed:' + response.message);
             }
         } catch (error) {
             console.log(error);
@@ -69,7 +70,7 @@ export default function useJobPost() {
         }
     }
 
-    const deleteJobPost = async (jobPostId:number): Promise<void> => {
+    const deleteJobPost = async (jobPostId: number): Promise<void> => {
         try {
             const response = await jobPostsService.deleteJobPost(jobPostId)
             if (response.status == "success") {
@@ -101,14 +102,30 @@ export default function useJobPost() {
     }
 
     const applyJobPost = async (jobPostId: number): Promise<void> => {
+        if (!resumeFile) {
+            alertErroreHandler("You must add a Resume");
+            return;
+        }
+
         try {
-            const response = await jobPostsService.applyJobPost(jobPostId)
-            if (response.status == "success") {
-                alertSuccessHandler("applying job post successful");
+            const fileUploadResponse = await filesUploadServices.uploadFile(resumeFile);
+            if (fileUploadResponse.status == 'success') {
+                let resumeUrl = fileUploadResponse.data;
+                const response = await jobPostsService.applyJobPost(jobPostId, { resume_url: resumeUrl, cover_message: jobApplication.cover_message })
+                if (response.status == "success") {
+                    alertSuccessHandler("Applied Successfully");
+                    setJobApplication({ cover_message: '', resume_url: '' });
+                    setResumeFile(null);
+                    setJobPost(s => ({ ...s, didApply: true }));
+                } else {
+                    console.error('applying job post failed:', response.message);
+                    alertErroreHandler("applying job post failed");
+                }
             } else {
-                console.error('applying job post failed:', response.message);
-                alertErroreHandler("applying job post failed");
+                console.error('fileUploadResponse Failed:', fileUploadResponse.message);
+                alertErroreHandler("Uploading Resume failed.");
             }
+
         } catch (error) {
             console.log(error);
         }
@@ -128,5 +145,7 @@ export default function useJobPost() {
         applyJobPost,
         setCreatorId,
         deleteJobPost,
+        jobApplication, setJobApplication,
+        resumeFile, setResumeFile
     }
 }

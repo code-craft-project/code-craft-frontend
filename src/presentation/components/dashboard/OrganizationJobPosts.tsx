@@ -1,16 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import OrganizationDashboardContext from "../../../application/contexts/OrganizationDashboardContext";
 import { useParams } from "react-router-dom";
 import LoadingIndicator from "../LoadingIndicator";
 import usePopup from "../../../application/hooks/usePopup";
 import MyJobPostCard from "../MyJobPostCard";
+import DashboardModel from "./DashboardModel";
+import JobApplications from "./JobApplications";
+import useDashboardModel from "../../../application/hooks/useDashboardModel";
 
 export default function OrganizationJobPosts() {
     const { id } = useParams();
     const { jobPosts, isJobPostsLoading, getOrganizationJobPosts } = useContext(OrganizationDashboardContext);
-    const popupContentOptions: PopupContent = {title: 'jobPost',method:'create'}
-    const {  onopen, children } = usePopup(popupContentOptions);
-  
+    const popupContentOptions: PopupContent = { title: 'jobPost', method: 'create' }
+    const { onopen, children } = usePopup(popupContentOptions);
+
+    const useDashboardModelValue = useDashboardModel();
+    const [selectedJobPost, setSelectedJobPost] = useState<JobPostEntity>({ title: '', contractType: 'full-time', description: '', location: '', organization_id: 0, role: '', type: 'remote' });
+
     useEffect(() => {
         if (id && isJobPostsLoading) {
             getOrganizationJobPosts(parseInt(id));
@@ -29,7 +35,7 @@ export default function OrganizationJobPosts() {
                 <button
                     onClick={onopen}
                     className={`font-meduim px-3 py-1 rounded-lg mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap`}
-                    >
+                >
                     Create Job Post
                 </button>
             </div>
@@ -44,9 +50,14 @@ export default function OrganizationJobPosts() {
                     }
                     {
                         jobPosts.map((jobPost, index) => {
+                            const viewJobApplications = () => {
+                                setSelectedJobPost(jobPost);
+                                useDashboardModelValue.open();
+                            }
+
                             return (
                                 <div key={index} className="w-1/4 pr-4 mb-4">
-                                    <MyJobPostCard jobPost={jobPost}/>
+                                    <MyJobPostCard jobPost={jobPost} viewJobApplications={viewJobApplications} />
                                 </div>
                             )
                         })
@@ -54,6 +65,9 @@ export default function OrganizationJobPosts() {
                 </div>
             </div>
             {children}
+            <DashboardModel useDashboardModel={useDashboardModelValue} >
+                <JobApplications jobPost={selectedJobPost} />
+            </DashboardModel>
         </div>
     )
 }

@@ -8,27 +8,27 @@ export default class JobPostsService {
     }
 
     async getJobPosts(pagesNbr: number): Promise<HttpResponse<JobPostEntity[]>> {
-        return (await this.axiosHttp.get<HttpResponse<JobPostEntity[]>>(`api/jobposts/?page=${pagesNbr}`)).data
-    }   
-    
+        return (await this.axiosHttp.get<HttpResponse<JobPostEntity[]>>(`/api/jobposts/?page=${pagesNbr}`)).data
+    }
+
     async getJobPostById(jobId: number): Promise<HttpResponse<JobPostEntity>> {
         return (await this.axiosHttp.get<HttpResponse<JobPostEntity>>(`/api/jobposts/${jobId}`)).data;
     }
 
-    async applyJobPost(jobId: number): Promise<HttpResponse<JobApplicationEntity>> {
-        return (await this.axiosHttp.get<HttpResponse<JobApplicationEntity>>(`/api/jobposts/${jobId}/apply`)).data;
+    async applyJobPost(jobId: number, jobApplication: JobApplicationEntity): Promise<HttpResponse<JobApplicationEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<JobApplicationEntity>, JobApplicationEntity>(`/api/jobposts/${jobId}/apply`, { cover_message: jobApplication.cover_message, resume_url: jobApplication.resume_url })).data;
     }
 
-    async updateJobPost(jobId: number,job:any): Promise<HttpResponse<any>> {
-        return (await this.axiosHttp.post<HttpResponse<any>>(`/api/jobposts/${jobId}/update`,job)).data;
+    async updateJobPost(jobId: number, job: any): Promise<HttpResponse<any>> {
+        return (await this.axiosHttp.post<HttpResponse<any>>(`/api/jobposts/${jobId}/update`, job)).data;
     }
 
     async deleteJobPost(jobId: number): Promise<HttpResponse<any>> {
         return (await this.axiosHttp.post<HttpResponse<any>>(`/api/jobposts/${jobId}/delete`)).data;
     }
 
-    async createJobPost(job:any): Promise<HttpResponse<JobPostEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<JobPostEntity>>(`/api/jobposts/create`,job)).data;
+    async createJobPost(job: any): Promise<HttpResponse<JobPostEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<JobPostEntity>>(`/api/jobposts/create`, job)).data;
     }
 
 }
