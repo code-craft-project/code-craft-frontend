@@ -89,6 +89,7 @@ interface OrganizationCard {
     name: string;
     logo: string;
     type: OrganizationType;
+    creator?: UserEntity  | undefined
 }
 
 interface useOrganizationChallengeReturn {
