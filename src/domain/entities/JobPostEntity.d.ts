@@ -13,4 +13,5 @@ interface JobPostEntity {
     organization?: OrganizationEntity;
     created_at?: string;
     updated_at?: string;
+    didApply?: boolean;
 };
