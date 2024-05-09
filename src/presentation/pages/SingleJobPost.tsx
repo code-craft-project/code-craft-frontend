@@ -3,7 +3,7 @@ import { NavLink, useParams } from 'react-router-dom'
 import useJobPost from '../../application/hooks/useJobPost.ts'
 import { useEffect, useRef } from 'react'
 import useJobPosts from '../../application/hooks/useJobPosts.ts'
-import { organizationProfilePicture } from '../../application/consts.ts'
+import { organizationProfilePicture, styles } from '../../application/consts.ts'
 import JobPostCardForSearchResult from '../components/JobPostCardForSearchResult.tsx'
 
 function SingleJobPost() {
@@ -41,9 +41,9 @@ function SingleJobPost() {
 
   return (
     <div className='w-full flex flex-col items-center'>
-      <div className='w-2/3 flex flex-col my-10'>
-        <div className='w-full flex mb-8'>
-          <div className='w-1/2 flex flex-col items-start'>
+      <div className='w-full flex my-10'>
+        <div className='w-1/2 flex flex-col mb-8 pr-8'>
+          <div className='w-full flex flex-col items-start'>
             <img src={jobPost.organization?.profile_image_url || organizationProfilePicture} alt="Company Image" className='w-20 rounded-lg mb-2' />
             <div className='flex flex-col items-start mb-4'>
               <h1 className='font-semibold text-xl'>{jobPost.title}</h1>
@@ -67,13 +67,13 @@ function SingleJobPost() {
           </div>
           {
             !jobPost.didApply ? (
-              <div className='w-1/2 flex flex-col pl-2'>
+              <div className='w-full flex flex-col'>
                 <div className='text-gray-50 font-medium mb-2'>Cover Message:</div>
                 <textarea
                   onChange={(ev: any) => { setJobApplication(state => ({ ...state, cover_message: ev.target.value })); }}
                   value={jobApplication.cover_message}
                   placeholder='Type your cover message...'
-                  className='bg-gray-900 rounded-lg px-4 py-2 flex-grow outline-none focus:bg-gray-800'
+                  className='w-2/3 bg-gray-900 rounded-lg px-4 py-2 h-40 outline-none focus:bg-gray-800 mb-4'
                 />
                 <div className='text-gray-50 font-medium mb-2'>Upload Your Resume:</div>
                 {
@@ -87,18 +87,18 @@ function SingleJobPost() {
                   )
                 }
                 <input onChange={onSelectFile} ref={fileInputRef} type='file' accept='.pdf, .docs' hidden />
-                <div className='w-full flex flex-col items-end'>
-                  <div onClick={() => { applyJobPost(jobPost.id!); }} className='w-fit bg-green-500 px-8 py-1 rounded-lg mt-4 cursor-pointer hover:bg-green-600 duration-300 active:scale-110 select-none'>Submit Application</div>
+                <div className='w-full flex flex-col mt-8'>
+                  <div onClick={() => { applyJobPost(jobPost.id!); }} className={`w-fit ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} px-8 py-1 rounded-lg mt-4 cursor-pointer hover:bg-green-600 duration-300 active:scale-110 select-none`}>Submit Application</div>
                 </div>
               </div>
             ) : (
-              <div className='w-full flex flex-col items-end'>
+              <div className='w-full flex flex-col'>
                 <div className='w-fit bg-green-500 px-8 py-1 rounded-lg flex items-center select-none'><Icon icon="bx:file" className='mr-2' /> Applied</div>
               </div>
             )
           }
         </div>
-        <div className='w-full py-8 px-5 border rounded-xl border-white whitespace-pre-line'>
+        <div className='w-1/2 h-fit max-h-screen overflow-auto py-8 px-5 border rounded-xl border-white whitespace-pre-line'>
           {jobPost.description}
         </div>
       </div>
@@ -106,7 +106,7 @@ function SingleJobPost() {
         jobPosts.length > 0 && (
           <>
             <hr className='my-10' />
-            <div className='w-2/3'>
+            <div className='w-full'>
               <h1 className='w-full text-xl font-semibold mb-8'>Similar Jobs:</h1>
               <div className="w-full flex flex-wrap">
                 {
@@ -116,7 +116,7 @@ function SingleJobPost() {
                     }
 
                     return (
-                      <div key={index} className='w-1/2 pr-2 pb-2'>
+                      <div key={index} className='w-1/4 pr-2 pb-2'>
                         <JobPostCardForSearchResult jobPost={job} />
                       </div>
                     )
