@@ -57,7 +57,10 @@ interface useOrganizationDashboardReturn {
     updateOrganizationChallenge: (organizationId: number, challenge: ChallengeEntity) => Promise<void>;
     deleteOrganizationChallenge: (organizationId: number, challengeId: number) => Promise<void>;
     deleteEventChallenge: (eventId: number, challengeId: number) => Promise<void>;
+    deleteEvent: (eventId: number) => Promise<void>;
     appendNewChallenge: (challenge: ChallengeEntity) => void;
+    appendNewEvent: (event: EventEntity) => void;
+    updateEventList: (event: EventEntity) => void;
     updateOrganizationChallengeTestCases: (organization_id: number, challenge_id: number, testCases: TestCaseEntity[]) => Promise<void>;
     updateEventChallenge: (eventId: number, challenge: ChallengeEntity) => Promise<void>;
     updateEventChallengeTestCases: (event_id: number, challenge_id: number, testCases: TestCaseEntity[]) => Promise<void>;
@@ -89,7 +92,7 @@ interface OrganizationCard {
     name: string;
     logo: string;
     type: OrganizationType;
-    creator?: UserEntity  | undefined
+    creator?: UserEntity | undefined
 }
 
 interface useOrganizationChallengeReturn {

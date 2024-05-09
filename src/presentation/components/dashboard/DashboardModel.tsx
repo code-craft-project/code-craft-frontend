@@ -1,15 +1,20 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, Variants, motion } from "framer-motion";
 import { useDashboardModelReturn } from "../../../application/hooks/useDashboardModel";
 import { DashboardModelContext } from "../../../application/contexts/DashboardModelContext";
 
 interface DashboardModelProps {
     children: React.ReactNode;
     useDashboardModel: useDashboardModelReturn;
+    animationName?: AnimationName;
 };
 
-export default function DashboardModel({ children, useDashboardModel }: DashboardModelProps) {
+type AnimationName = 'CenterScaleFadeIn' | 'EdgeScaleFadeIn'
+
+export default function DashboardModel({ children, useDashboardModel, animationName = 'CenterScaleFadeIn' }: DashboardModelProps) {
     const { isOpen, close } = useDashboardModel;
+
+    console.log("animations[animationName]:", animations[animationName]);
 
     return (
         <DashboardModelContext.Provider value={useDashboardModel}>
@@ -17,24 +22,7 @@ export default function DashboardModel({ children, useDashboardModel }: Dashboar
                 {
                     isOpen && (
                         <motion.div
-                            variants={{
-                                open: {
-                                    opacity: 1,
-                                    width: "100%",
-                                    height: "100%",
-                                    left: 0,
-                                    top: 0,
-                                    transition: { duration: 0.3, ease: "easeOut" },
-                                },
-                                close: {
-                                    opacity: 0,
-                                    width: "60%",
-                                    height: "60%",
-                                    left: "20%",
-                                    top: "20%",
-                                    transition: { duration: 0.3, ease: "easeOut" },
-                                },
-                            }}
+                            variants={animations[animationName]}
                             initial="close"
                             animate="open"
                             exit="close"
@@ -55,4 +43,43 @@ export default function DashboardModel({ children, useDashboardModel }: Dashboar
             </AnimatePresence>
         </DashboardModelContext.Provider>
     )
+}
+
+type AnimationNamesMap = {
+    [key in AnimationName]: Variants;
+};
+
+const animations: AnimationNamesMap = {
+    EdgeScaleFadeIn: {
+        open: {
+            opacity: 1,
+            width: "100%",
+            height: "100%",
+            transition: { duration: 0.3, ease: "easeInOut" },
+        },
+        close: {
+            opacity: 0,
+            width: 0,
+            height: 0,
+            transition: { duration: 0.3, ease: "easeInOut" },
+        }
+    },
+    CenterScaleFadeIn: {
+        open: {
+            opacity: 1,
+            width: "100%",
+            height: "100%",
+            left: 0,
+            top: 0,
+            transition: { duration: 0.3, ease: "easeOut" },
+        },
+        close: {
+            opacity: 0,
+            width: "60%",
+            height: "60%",
+            left: "20%",
+            top: "20%",
+            transition: { duration: 0.3, ease: "easeOut" },
+        }
+    }
 }

@@ -1,14 +1,15 @@
 import { useContext, useState } from "react"
 import ToastContext from "../contexts/ToastContext";
 import { eventsService } from "../services";
+
 const initEvent: EventEntity = {
     title: '',
     description: '',
-    end_at: '',
+    start_at: '01-01-2024',
+    end_at: '03-01-2024',
     is_public: true,
     is_team_based: true,
-    organization_id: 1,
-    start_at: ''
+    organization_id: 0
 };
 
 export default function useEvent() {
@@ -18,55 +19,8 @@ export default function useEvent() {
     const toastManager = useContext(ToastContext);
     const alertSuccessHandler = (message: string) => { toastManager.alertSuccess(message) }
     const alertErroreHandler = (message: string) => { toastManager.alertError(message); }
-    const setTitle = (title: string): void => setEvent(prev => ({ ...prev, title }))
-    const setDescription = (description: string): void => setEvent(prev => ({ ...prev, description }))
-    const setIs_public = (is_public: boolean): void => setEvent(prev => ({ ...prev, is_public }))
-    const setPassword = (password: string): void => setEvent(prev => ({ ...prev, password }))
-    const setStartAt = (start_at: string): void => setEvent(prev => ({ ...prev, start_at }))
-    const setEndAt = (end_at: string): void => setEvent(prev => ({ ...prev, end_at }))
-    const setOrganizationId = (organization_id: number): void => setEvent(prev => ({ ...prev, organization_id }))
-    const setIsTeamBased = (is_team_based: boolean): void => setEvent(prev => ({ ...prev, is_team_based }))
-    const setMaxTeamMembers = (max_team_members: number): void => setEvent(prev => ({ ...prev, max_team_members }))
     const [isChallengesLoading, setIsChallengesLoading] = useState(false);
     const [isTeamsLoading, setIsTeamsLoading] = useState(false);
-
-    const createEvent = async (ev: any): Promise<void> => {
-        ev.preventDefault();
-        try {
-            const response = await eventsService.createEvent(event)
-            if (response.status == "success") {
-                alertSuccessHandler("Creation event successful");
-                setTimeout(() => {
-                    window.location.href = `/organization/${event.organization_id}/dashboard`;
-                }, 2000);
-            } else {
-                console.error('Creation event failed:', response.message);
-                alertErroreHandler("Creation event failed");
-            }
-        } catch (error) {
-            console.log(error);
-            alertErroreHandler("Creation failed");
-        }
-    }
-
-    const updateEvent = async (): Promise<void> => {
-        try {
-            const { id, password, logo_url, organization_id, organization, ...rest } = event
-            const response = await eventsService.updateEvent(event.id as number, rest)
-            if (response.status == "success") {
-                alertSuccessHandler("Updating event successful");
-                setTimeout(() => {
-                    window.location.href = `/organization/${event.id}/dashboard`;
-                }, 2000);
-            } else {
-                console.error('Updating event failed:', response.message);
-                alertErroreHandler("Updating event failed");
-            }
-        } catch (error) {
-            console.log(error);
-            alertErroreHandler("Creation failed");
-        }
-    }
 
     const getEventById = async (eventId: number): Promise<void> => {
         try {
@@ -158,11 +112,9 @@ export default function useEvent() {
 
 
     return {
-        event, setEvent,
-        setPassword, setTitle, setDescription, setIs_public,
-        createEvent, updateEvent, joinEvent, leaveEvent, setStartAt, setEndAt,
-        getEventById, eventChallenges, getEventChallenges, setOrganizationId,
-        setMaxTeamMembers, setIsTeamBased, isChallengesLoading, getTeams, isTeamsLoading,
+        event, setEvent, joinEvent, leaveEvent,
+        getEventById, eventChallenges, getEventChallenges,
+        isChallengesLoading, getTeams, isTeamsLoading,
         teams, setTeams, getEventChallengesByTopic
     }
 }

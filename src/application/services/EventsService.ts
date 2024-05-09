@@ -15,12 +15,23 @@ export default class EventsService {
         return (await this.axiosHttp.get<HttpResponse<EventEntity[]>>(`/api/events/?page=${pagesNbr}`)).data;
     }
 
-    async createEvent(event: any): Promise<HttpResponse<EventEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<EventEntity>>(`/api/events/create`, event)).data;
+    async createEvent(organizationId: number, event: EventEntity): Promise<HttpResponse<EventEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<EventEntity>, EventEntity>(`/api/events/create`, { ...event, organization_id: organizationId })).data;
     }
 
-    async updateEvent(eventId: number, event: any): Promise<HttpResponse<EventEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<EventEntity>>(`/api/events/${eventId}/update`, event)).data;
+    async updateEvent(event: EventEntity): Promise<HttpResponse<EventEntity>> {
+        const updatedEvent: EventEntity = {
+            title: event.title,
+            description: event.description,
+            is_public: event.is_public,
+            start_at: event.start_at,
+            end_at: event.end_at,
+            is_team_based: event.is_team_based,
+            max_team_members: event.max_team_members,
+            logo_url: event.logo_url
+        };
+
+        return (await this.axiosHttp.post<HttpResponse<EventEntity>, EventEntity>(`/api/events/${event.id}/update`, updatedEvent)).data;
     }
 
     async joinEvent(eventId: number, password: any): Promise<HttpResponse<any>> {
@@ -94,5 +105,9 @@ export default class EventsService {
 
     async updateEventChallengeTestCases(event_id: number, challenge_id: number, testCases: TestCaseEntity[]): Promise<HttpResponse<undefined>> {
         return (await this.axiosHttp.post<HttpResponse<undefined>, { test_cases: TestCaseEntity[] }>(`/api/events/${event_id}/challenges/${challenge_id}/update_test_cases`, { test_cases: testCases })).data;
+    }
+
+    async deleteEventById(eventId: number): Promise<HttpResponse<undefined>> {
+        return (await this.axiosHttp.post<HttpResponse<undefined>>(`/api/events/${eventId}/delete`)).data;
     }
 }

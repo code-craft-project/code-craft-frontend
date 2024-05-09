@@ -24,7 +24,6 @@ import OrganizationPage from './pages/SingleOrganization';
 import UserSessionContext from '../application/contexts/UserSessionContext';
 import useUserSession from '../application/hooks/useUserSession';
 import ProtectedAuthenticatedRoute from './components/ProtectedAuthenticatedRoute';
-import UpdateEvent from './pages/UpdateEvent';
 import MyOrganizations from './pages/MyOrganizations';
 import ProtectedUnauthenticatedRoute from './components/ProtectedUnauthenticatedRoute';
 
@@ -60,7 +59,6 @@ function App() {
           <Route path='/' element={(<WithoutFooter />)}>
             <Route path='/organization/create' element={<ProtectedAuthenticatedRoute><CreateOrganization /></ProtectedAuthenticatedRoute>} />
             <Route path="create-job-post" element={<ProtectedAuthenticatedRoute><CreateJobPost /></ProtectedAuthenticatedRoute>} />
-            <Route path="update-event/:id" element={<UpdateEvent />} />
           </Route>
         </Routes>
         <Toast />

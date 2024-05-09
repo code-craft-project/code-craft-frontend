@@ -237,8 +237,46 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         }
     }
 
+    const deleteEvent = async (eventId: number) => {
+        const response = await eventsService.deleteEventById(eventId);
+        if (response.status == 'success') {
+            setEvents(state => {
+                let list: EventEntity[] = [];
+                state.forEach(i => {
+                    if (i.id != eventId) {
+                        list.push(i);
+                    }
+                });
+
+                return list;
+            });
+        }
+    }
+
     const appendNewChallenge = (challenge: ChallengeEntity) => {
         setChallenges(state => [...state, challenge]);
+    }
+
+    const appendNewEvent = (event: EventEntity) => {
+        setEvents(state => [event, ...state]);
+    }
+
+    const updateEventList = (event: EventEntity) => {
+        setEvents(state => {
+            const list = [...state];
+            const newList: EventEntity[] = [];
+            list.forEach(e => {
+                if (e.id != event.id) {
+                    newList.push(e);
+                } else {
+                    newList.push(event);
+                }
+            });
+
+            console.log({ newList });
+
+            return newList;
+        });
     }
 
     return {
@@ -263,10 +301,11 @@ export default function useOrganizationDashboard(): useOrganizationDashboardRetu
         setImage,
         setImageUrl,
         appendNewChallenge,
+        appendNewEvent, updateEventList,
         updateOrganizationChallengeTestCases,
         updateEventChallengeTestCases,
         getEventChallenges,
-        deleteEventChallenge,
+        deleteEventChallenge, deleteEvent,
         updateEventChallenge
     };
 }
