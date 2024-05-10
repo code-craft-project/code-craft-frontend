@@ -82,7 +82,7 @@ function SingleEvent() {
   }
 
   const isTeamAdmin = (): boolean => {
-    return isValidSession && userTeam?.leader_id == userSession.user?.id
+    return isValidSession && userTeam?.leader?.id == userSession.user?.id
   }
 
   const updateTeamHandler = async () => {
@@ -279,7 +279,7 @@ function SingleEvent() {
                             )
                           }
                           {
-                            (userTeam && isValidSession && userTeam.leader_id != userSession.user?.id) && (
+                            (userTeam && isValidSession && userTeam.leader?.id != userSession.user?.id) && (
                               <div onClick={() => { leaveTeam(event.id as number) }} className='flex-1 ml-2 w-fit flex items-center justify-center py-2 text-gray-50 font-semibold rounded-xl bg-yellow-600 hover:bg-yellow-700 cursor-pointer duration-300 active:scale-105 select-none'>
                                 <Icon icon="pepicons-pop:leave" />
                                 <div className='ml-2 text-sm'>Leave My Team</div>
@@ -287,7 +287,7 @@ function SingleEvent() {
                             )
                           }
                           {
-                            (userTeam && isValidSession && userTeam.leader_id == userSession.user?.id) && (
+                            isTeamAdmin() && (
                               <div onClick={deleteTeamHandler} className='flex-1 ml-2 flex items-center justify-center py-2 rounded-xl bg-red-600 hover:bg-red-700 duration-300 font-semibold cursor-pointer active:scale-105 select-none'>
                                 <Icon icon="material-symbols:delete" />
                                 <div className='ml-2 text-sm'>Delete My Team</div>
