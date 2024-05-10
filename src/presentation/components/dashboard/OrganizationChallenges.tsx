@@ -76,7 +76,7 @@ export default function OrganizationChallenges() {
             <div className="w-full flex items-center mb-4">
                 <div onClick={() => useDashboardModelValue.open()} className="flex items-center active:scale-105 text-gray-50  duration-300 px-8 py-1 rounded-lg bg-yellow-600 cursor-pointer select-none">
                     <Icon icon="icon-park-outline:source-code" />
-                    <div className="ml-2 font-meduim ">{isForEvent() ? "Create New Challenge For This Event" : "Create New Challenge"}</div>
+                    <div className="ml-2 font-medium ">{isForEvent() ? "Create New Challenge For This Event" : "Create New Challenge"}</div>
                 </div>
             </div>
             <div className="w-full flex flex-col">

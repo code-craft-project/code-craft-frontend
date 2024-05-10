@@ -39,14 +39,14 @@ function Permissions() {
                 <h1 className="font-semibold text-xl">Owner (Admin)</h1>
                 <div className="flex gap-2 items-center">
                     <Icon icon="carbon:warning-filled" className="opacity-75" width="15" height="15" />
-                    <h1 className="font-meduim text-sm opacity-75">Owners have view and edit access to user management by default which cannot be changed </h1>
+                    <h1 className="font-medium text-sm opacity-75">Owners have view and edit access to user management by default which cannot be changed </h1>
                 </div>
             </div>
-            <h1 className="font-meduim text-sm opacity-75">Every member get basic permissions and functionaities by default. You can  customize settings all Members. </h1>
+            <h1 className="font-medium text-sm opacity-75">Every member get basic permissions and functionaities by default. You can  customize settings all Members. </h1>
             <div className="flex items-start justify-between">
                 <div>
                     <h1 className="font-semibold text-xl">Members</h1>
-                    <h1 className="font-meduim text-sm opacity-75">Manage your organization members and their account permissions here</h1>
+                    <h1 className="font-medium text-sm opacity-75">Manage your organization members and their account permissions here</h1>
                 </div>
                 <button className="bg-white bg-opacity-30 flex items-center gap-3 px-5 hover:bg-opacity-35 transition-all duration-200 active:scale-105 rounded-md">
                     <Icon icon="material-symbols:add" width="18" height="18" />
@@ -73,7 +73,7 @@ function Permissions() {
                                 <td className="px-3 py-8 flex items-center gap-1">
                                     <img src="" alt="PH" className="border h-12 w-12 rounded-full"/>
                                     <div className="flex flex-col gap-1">
-                                        <span className="font-semibold text-meduim">STA1</span>
+                                        <span className="font-semibold text-medium">STA1</span>
                                         <span className="opacity-90 font-light text-xs"> {user.email}</span>
                                     </div>
                                 </td>                                <td className="px-3 py-8 ">

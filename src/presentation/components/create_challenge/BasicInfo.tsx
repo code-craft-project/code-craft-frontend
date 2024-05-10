@@ -11,7 +11,7 @@ export default function BasicInfo() {
                 <h1 className="font-semibold text-gray-50 mb-2">Title:</h1>
                 <input
                     type="text"
-                    className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300"
+                    className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300"
                     placeholder="Type your title"
                     value={challenge.title}
                     onChange={ev => setChallenge(state => ({ ...state, title: ev.target.value }))}
@@ -22,7 +22,7 @@ export default function BasicInfo() {
                 <select
                     value={challenge.topic}
                     onChange={ev => setChallenge(state => ({ ...state, topic: ev.target.value as ChallengeTopic }))}
-                    className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
+                    className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
                 >
                     <option className="capitalize" value="" disabled selected>Select Topics</option>
                     {
@@ -41,7 +41,7 @@ export default function BasicInfo() {
                         <select
                             value={challenge.level}
                             onChange={ev => setChallenge(state => ({ ...state, level: ev.target.value as ChallengeLevel }))}
-                            className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
+                            className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
                         >
                             <option className="capitalize" value="" disabled selected>Select Level</option>
                             {
@@ -58,7 +58,7 @@ export default function BasicInfo() {
                         <select
                             value={challenge.is_public ? "public" : "private"}
                             onChange={ev => setChallenge(state => ({ ...state, is_public: ev.target.value == 'public' }))}
-                            className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize">
+                            className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize">
                             <option className="capitalize " value="" disabled selected>Select Privacy</option>
                             <option className="capitalize " value="public">Public</option>
                             <option className="capitalize " value="private">Private</option>

@@ -108,7 +108,7 @@ function CreateOrganization() {
 
                 </div>
                 <button
-                    className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} font-meduim px-3 py-1 rounded-lg w-1/2 hover:opacity-90 active:scale-105 transition-all duration-300 flex items-center justify-center`}
+                    className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} font-medium px-3 py-1 rounded-lg w-1/2 hover:opacity-90 active:scale-105 transition-all duration-300 flex items-center justify-center`}
                     onClick={() => { if (!isLoading) { createOrganization(); } }}
                 >
                     {isLoading && (<LoadingIndicator />)}

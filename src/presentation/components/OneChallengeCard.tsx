@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 type Challenge = {
     status: 'Done'|'Not Started',
     title: string,
-    difficulty: 'Hard'|'Meduim'|'Easy',
+    difficulty: 'Hard'|'Medium'|'Easy',
     maximumScore:number,
 }
 function OneChallengeCard({challenge}:  {challenge:Challenge}) {

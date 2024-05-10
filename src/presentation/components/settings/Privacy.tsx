@@ -6,7 +6,7 @@ function Privacy() {
     <div className="flex flex-col gap-8 py-5 px-20 w-4/5">
       <div>
           <h1 className="font-semibold text-2xl">Change Password</h1>
-          <h1 className="font-meduim text-lg opacity-75">To change your password, please fill in the fields below. Your password must contain at least 8 characters, it must also include at least one upper case letter, one lower case letter, one number and one special character.</h1>
+          <h1 className="font-medium text-sm opacity-75">To change your password, please fill in the fields below. Your password must contain at least 8 characters, it must also include at least one upper case letter, one lower case letter, one number and one special character.</h1>
       </div>
       <div className='w-full gap-3 flex flex-col  items-start'>
         <h1>Current Password</h1>
@@ -17,9 +17,9 @@ function Privacy() {
       </div>
       <div className='w-full gap-3 flex flex-col items-start'>
         <h1>New Password</h1>
-        <div className="flex mb-5 px-5 border-1.5 x rounded-xl justify-start items-center w-96 ">
+        <div className="flex mb-5 px-5 border-1.5 x rounded-xl justify-start items-center w-96">
             <Icon icon="mdi:password"  style={{color: "white"}} />                        
-            <input type="text" className=" w-5/6 outline-none bg-transparent placeholder:text-white placeholder:opacity-75 px-3 py-2 text-sm" placeholder="New Password" />
+            <input type="text" className=" w-5/6 outline-none bg-transparent  placeholder:text-white placeholder:opacity-75 px-3 py-2 text-sm" placeholder="New Password" />
         </div>
       </div>
       <div className='w-full gap-3 flex flex-col items-start'>

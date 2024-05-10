@@ -21,6 +21,7 @@ function Navbar() {
 
     const HandleSignOut = async () => {
         try {
+            setActiveMenu(!activeMenu)
             const response = await userAuthentication.signOut()
             if (response.status == "success") {
                 signOut()
@@ -114,9 +115,9 @@ function Navbar() {
                                             <Icon icon="mdi:company" width="18" height="18" />
                                             <div>My Organizations</div>
                                         </NavLink>
-                                        <li onClick={() => setActiveMenu(!activeMenu)} className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
+                                        <li onClick={() => HandleSignOut} className="my-3 cursor-pointer transition-all duration-200  p-2 text-sm flex items-center hover:bg-white hover:bg-opacity-10 rounded-lg gap-2 text-nowrap">
                                             <Icon icon="tabler:logout" width="18" height="18" />
-                                            <button onClick={HandleSignOut}>Logout</button>
+                                            <button >Logout</button>
                                         </li>
                                     </ul>
                                 </motion.div>

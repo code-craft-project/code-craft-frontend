@@ -207,7 +207,7 @@ function Home() {
                                 <span className="text-sm text-gray-50">{`${userProgress.correct_easy_submissions}/${userProgress.total_easy_submissions}`}</span>
                             </div>
                             <div className="flex gap-5">
-                                <span className="flex-1 text-yellow-600 text-sm">Meduim</span>
+                                <span className="flex-1 text-yellow-600 text-sm">Medium</span>
                                 <span className="text-sm text-gray-50">{`${userProgress.correct_medium_submissions}/${userProgress.total_medium_submissions}`}</span>
                             </div>
                             <div className="flex gap-5">
@@ -226,7 +226,7 @@ function Home() {
                             </div>
                             <div className="flex items-center mt-1">
                                 <input onChange={handleLevelFilter} value={"medium"} checked={challengeFilters.difficulty.includes('medium')} type="checkbox" />
-                                <span className="ml-2 text-sm">{`Meduim (${countChallengesByLevel('medium')})`}</span>
+                                <span className="ml-2 text-sm">{`Medium (${countChallengesByLevel('medium')})`}</span>
                             </div>
                             <div className="flex items-center mt-1">
                                 <input onChange={handleLevelFilter} value={"hard"} checked={challengeFilters.difficulty.includes('hard')} type="checkbox" />

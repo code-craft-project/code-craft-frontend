@@ -24,7 +24,7 @@ export default function OrganizationProfile() {
         <div className="w-full h-full flex flex-col py-5 px-20 bg-gray-950 rounded-xl">
             <div>
                 <h1 className="text-gray-50 font-semibold text-lg">Profile</h1>
-                <h1 className="font-meduim text-sm text-gray-600">Edit your organization profile</h1>
+                <h1 className="font-medium text-sm text-gray-600">Edit your organization profile</h1>
             </div>
             <div className='w-full flex flex-col my-8'>
                 <div className='relative w-32'>
@@ -52,7 +52,7 @@ export default function OrganizationProfile() {
                     onChange={(ev) => setEditOrganization(state => ({ ...state, description: ev.target.value }))}
                     rows={8}
                     disabled={!isEditMode}
-                    className={`w-4/6 text-gray-50 text-sm font-meduim rounded-lg border-none outline-none focus:bg-gray-800 duration-300 ${isEditMode ? "bg-gray-900 px-4 py-2 rounded-lg" : "bg-transparent"}`} placeholder="Description.." />
+                    className={`w-4/6 text-gray-50 text-sm font-medium rounded-lg border-none outline-none focus:bg-gray-800 duration-300 ${isEditMode ? "bg-gray-900 px-4 py-2 rounded-lg" : "bg-transparent"}`} placeholder="Description.." />
             </div>
 
             {

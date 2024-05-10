@@ -34,7 +34,7 @@ export default function OrganizationJobPosts() {
                 </div>
                 <button
                     onClick={onopen}
-                    className={`font-meduim px-3 py-1 rounded-lg mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap`}
+                    className={`font-medium px-3 py-1 rounded-lg mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap`}
                 >
                     Create Job Post
                 </button>

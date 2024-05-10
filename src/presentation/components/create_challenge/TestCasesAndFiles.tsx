@@ -12,7 +12,7 @@ export default function TestCasesAndFiles() {
             <div className="w-full flex flex-col">
                 <h1 className="font-semibold text-gray-50 mb-2">Challenge Type:</h1>
                 <select
-                    className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
+                    className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
                     value={challenge.type}
                     onChange={ev => { setChallenge(state => ({ ...state, type: ev.target.value as ChallengeType })) }}
                 >
@@ -24,7 +24,7 @@ export default function TestCasesAndFiles() {
 
             {challenge.type == "in_out" && (<InOut />)}
             {challenge.type == "project" && (<Project />)}
-            {!challenge.type && (<div className='font-meduim'>Please Choose Challenge Type To Continue!</div>)}
+            {!challenge.type && (<div className='font-medium'>Please Choose Challenge Type To Continue!</div>)}
         </div >
     )
 }
@@ -90,7 +90,7 @@ function InOut() {
                                     <div key={inputIndex} className="flex items-center mb-2">
                                         <input
                                             type="text"
-                                            className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 flex-grow mr-2"
+                                            className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 flex-grow mr-2"
                                             placeholder='Input'
                                             value={input.input}
                                             onChange={
@@ -104,7 +104,7 @@ function InOut() {
                                             }
                                         />
                                         <select
-                                            className="bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
+                                            className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
                                             value={input.type}
                                             onChange={
                                                 (ev) => {
@@ -159,7 +159,7 @@ function InOut() {
                         <div className="w-full flex mt-2 mb-8">
                             <input
                                 type="text"
-                                className="w-full bg-gray-800 text-gray-50 placeholder:font-meduim font-meduim px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300"
+                                className="w-full bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300"
                                 placeholder='Output'
                                 value={testCase.output}
                                 onChange={
