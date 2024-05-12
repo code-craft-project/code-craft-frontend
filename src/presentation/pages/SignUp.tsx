@@ -18,6 +18,7 @@ export default function SignUp() {
     let [username, setUsername] = useState("");
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); 
 
     async function sign_up(ev: any) {
         ev.preventDefault();
@@ -65,6 +66,10 @@ export default function SignUp() {
         }
     }
 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="bg-black w-full h-screen flex flex-col justify-center items-center">
             <div className='mb-2'>
@@ -80,21 +85,21 @@ export default function SignUp() {
                 </div>
             </div>
             <div className="w-1/2 h-5/6" style={{ backgroundImage: `url('${sign}')`, backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
-                <div className="flex flex-col justify-center items-center mb-4">
+                <div className="flex flex-col justify-center items-center mb-4 mt-1 ml-5">
                     <div className="w-12 h-12 overflow-hidden rounded-full flex justify-center items-center">
                         <Icon icon="mingcute:user-4-fill" className={` w-20 h-20 rounded-full ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`} />
                     </div>
                     <h1 className=" text-xl font-bold">Sign up</h1>
                 </div>
                 <form onSubmit={sign_up} className="pl-8 flex flex-col items-center ">
-                    <div className="mb-2">
+                    <div className="mb-1">
                         <div className="flex mb-2 justify-around items-center w-64 mx-auto">
                             <div className={`w-6 h-6 rounded-sm ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} flex justify-center items-center`}>
                                 <Icon icon="ph:user-fill" style={{ color: "white" }} />
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
+                                className="border outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="First name"
                                 value={first_name}
                                 onChange={(ev) => setFirst_name(ev.target.value)}
@@ -106,7 +111,7 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
+                                className="border outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Last name"
                                 value={last_name}
                                 onChange={(ev) => setLast_name(ev.target.value)}
@@ -119,7 +124,7 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
+                                className="border outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Username"
                                 value={username}
                                 onChange={(ev) => setUsername(ev.target.value)}
@@ -132,32 +137,42 @@ export default function SignUp() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
+                                className="border outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Email"
                                 value={email}
                                 onChange={(ev) => setEmail(ev.target.value)}
                             />
                         </div>
-                        <div className="flex  mb-3 justify-around items-center w-64 mx-auto">
+                        <div className="flex relative mb-3 justify-around items-center w-64 mx-auto">
                             <div className={`w-6 h-6 rounded-sm ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} flex justify-center items-center`}>
                                 <Icon icon="mdi:password" style={{ color: "white" }} />
                             </div>
                             <input
-                                type="password"
-                                className="border-1.5 outline-none   border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
+                                type={showPassword ? "text" : "password"}
+                                className="border outline-none border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(ev) => setPassword(ev.target.value)}
-
                             />
+                            <button
+                                type="button"
+                                className="rounded-full focus:outline-none absolute top-1/2 right-3 transform -translate-y-1/2 mr-2"
+                                onClick={toggleShowPassword}
+                            >
+                                {showPassword ? (
+                                <Icon icon="zondicons:view-show" width="16" height="16" style={{ color: "white" }} /> // Show icon when password is hidden
+                            ) : (
+                                <Icon icon="ep:hide" width="16" height="16" style={{ color: "white" }} /> // Hide icon when password is visible
+                                )}
+                            </button>
                         </div>
 
                     </div>
-                    <div className="flex items-center justify-center w-80  ">
-                        <button className={`px-2 py-1 rounded-xl w- text-xs font-semibold  shadow-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105`} type="submit">Create An Account</button>
+                    <div className="flex items-center justify-center w-80 ">
+                        <button className={`px-2 py-1 rounded-xl w- text-xs font-bold shadow-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105`} type="submit">Create An Account</button>
                         <div className="flex flex-col justify-center mx-4 items-center">
                             <p className="" style={{ fontSize: "8px" }}>Already have account?</p>
-                            <NavLink to='/sign-in' className=" font-semibold underline" style={{ fontSize: "10px" }} >Sign in!</NavLink>
+                            <NavLink to='/sign-in' className=" font-bold underline" style={{ fontSize: "10px" }} >Sign in!</NavLink>
                         </div>
                     </div>
                 </form>

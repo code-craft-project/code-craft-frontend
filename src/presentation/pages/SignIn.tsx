@@ -5,18 +5,17 @@ import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
 import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { userAuthentication } from "../../application/services.ts";
 import UserSessionContext from "../../application/contexts/UserSessionContext.ts";
 
 export default function SignIn() {
     const toastManager = useContext(ToastContext);
     const { signIn } = useContext(UserSessionContext);
-    const navigate = useNavigate();
     const { styles } = GradientColor();
     var [email, setEmail] = useState("");
     var [password, setPassword] = useState("");
-
+    const [showPassword, setShowPassword] = useState(false); 
 
     async function sign_in(ev: any) {
         ev.preventDefault();
@@ -29,8 +28,10 @@ export default function SignIn() {
                 const response = await userAuthentication.signIn(user);
                 if (response.status == "success") {
                     toastManager.alertSuccess("Sign In successfully");
-                    signIn(response.data);
-                    navigate("/home");
+                    setTimeout(() => {
+                        signIn(response.data);
+                        location.href = "/home";
+                    }, 1500);
                 } else {
                     console.error('Sign In failed:', response.message);
                     toastManager.alertError(response.message || "Sign In Failed");
@@ -42,6 +43,9 @@ export default function SignIn() {
         }
     }
 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <div className="w-full relative bg-black h-screen flex flex-col justify-center items-center">
@@ -58,7 +62,7 @@ export default function SignIn() {
                 </div>
             </div>
             <div className="w-1/2 h-5/6" style={{ backgroundImage: `url('${sign}')`, backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
-                <div className="flex flex-col justify-center items-center mb-8 ">
+                <div className="flex flex-col justify-center items-center mb-8 mt-1 ml-5">
                     <div className="w-14 h-14 overflow-hidden rounded-full flex justify-center items-center">
                         <Icon icon="mingcute:user-4-fill" className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  w-20 h-20 rounded-full`} />
                     </div>
@@ -72,25 +76,36 @@ export default function SignIn() {
                             </div>
                             <input
                                 type="text"
-                                className="border-1.5 outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white  ring-offset-1 transition-all duration-200"
+                                className="border outline-none  border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white  ring-offset-1 transition-all duration-200"
                                 placeholder="Email"
                                 value={email}
                                 onChange={(ev) => setEmail(ev.target.value)}
                             />
                         </div>
-                        <div className="flex  mb-5 justify-around items-center w-64 mx-auto">
+                        <div className="flex relative mb-5 justify-around items-center w-64 mx-auto">
                             <div className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} w-6 h-6 rounded-sm  flex justify-center items-center`}>
                                 <Icon icon="mdi:password" style={{ color: "white" }} />
                             </div>
                             <input
-                                type="password"
-                                className="border-1.5 outline-none border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200 "
+                                type={showPassword ? "text" : "password"}
+                                className="border outline-none border-white rounded-2xl bg-transparent placeholder:text-white px-3 py-1 text-sm focus:ring-1 focus:ring-white ring-offset-1 transition-all duration-200"
                                 placeholder="Password"
                                 value={password}
                                 onChange={(ev) => setPassword(ev.target.value)}
                             />
+                            <button
+                                type="button"
+                                className="rounded-full focus:outline-none absolute top-1/2 right-3 transform -translate-y-1/2 mr-2"
+                                onClick={toggleShowPassword}
+                            >
+                                {showPassword ? (
+                                    <Icon icon="zondicons:view-show" width="16" height="16" style={{ color: "white" }} /> // Show icon when password is hidden
+                                ) : (
+                                    <Icon icon="ep:hide" width="16" height="16" style={{ color: "white" }} /> // Hide icon when password is visible
+                                )}
+                            </button>
                         </div>
-                        <div className="flex  mb-5 justify-end items-center w-64 mx-auto">
+                        <div className="flex  mb-5 justify-center items-center ml-10 mx-auto">
                             <div className=" h-6 rounded-sm flex mr-5 justify-center items-center">
                                 <input type="checkbox" className="accent-primary-yellow" />
                                 <p className="ml-1  text-xs">Remember me</p>
@@ -100,10 +115,10 @@ export default function SignIn() {
 
                     </div>
                     <div className="flex items-center justify-center w-80  ">
-                        <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105 px-5 py-1 rounded-xl w- text-xs font-semibold  shadow-lg `} type="submit">LOGIN</button>
+                        <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} transition-transform  duration-300 active:scale-105 px-5 py-1 rounded-xl w- text-xs font-bold  shadow-lg `} type="submit">LOGIN</button>
                         <div className="flex flex-col justify-center mx-4 items-center">
                             <p className="" style={{ fontSize: "8px" }}>Don't have account?</p>
-                            <NavLink to='/sign-up' className=" font-semibold underline" style={{ fontSize: "10px" }} >Sign up!</NavLink>
+                            <NavLink to='/sign-up' className=" font-bold underline" style={{ fontSize: "10px" }} >Sign up!</NavLink>
                         </div>
                     </div>
                 </form>

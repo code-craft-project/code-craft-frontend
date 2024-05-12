@@ -5,7 +5,7 @@ interface UserEntity {
     last_name: string;
     email: string;
     password?: string;
-    bio: string;
+    bio?: string;
     created_at?: date;
     updated_at?: date;
     profile_image_url?: string;
