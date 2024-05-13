@@ -21,7 +21,7 @@ export default function OrganizationEvents() {
   }, [id]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 py-5">
+    <div className="w-full h-full flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 ">
       <div className="w-full flex mb-8">
         <div className="w-full flex flex-col items-start">
           <div className="text-3xl font-bold">Events</div>

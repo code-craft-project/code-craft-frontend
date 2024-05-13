@@ -13,6 +13,7 @@ import moment from "moment";
 import OrganizationSettings from "./OrganizationSettings.tsx";
 import { userProfilePicture } from "../../application/consts.ts";
 import OrganizationJobPosts from "../components/dashboard/OrganizationJobPosts.tsx";
+import Navbar from "../components/dashboard/Navbar.tsx";
 
 type OrganizationTabs = 'dashboard' | 'members' | 'events' | 'challenges' | 'job_posts' | 'settings';
 
@@ -79,7 +80,13 @@ function OrganizationDashboard() {
 
     return (
         <OrganizationDashboardContext.Provider value={useOrganizationDashboardState}>
-            <div className="w-full h-screen bg-black flex items-center overflow-auto">
+        <div className='w-full h-screen flex flex-col items-center py-3 overflow-auto bg-black '>
+
+                  {/* <div className='w-full flex-grow flex flex-col items-center'> */}
+
+                <Navbar/>
+
+            <div className="w-full h-screen bg-black flex items-center  ">
                 <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
                     <div onClick={() => setSelectedTab('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
                     {
@@ -117,6 +124,7 @@ function OrganizationDashboard() {
                     {selectedTab == 'settings' && (<OrganizationSettings />)}
                 </div>
             </div>
+        </div>
         </OrganizationDashboardContext.Provider>
 
     )
