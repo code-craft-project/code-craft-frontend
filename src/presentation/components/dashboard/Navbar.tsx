@@ -46,7 +46,7 @@ function Navbar() {
                             </motion.div>
                             <NavLink to={'/settings'}>
                                 <img
-                                    src={profile}
+                                    src={`${userSession.userSession.user?.profile_image_url ? userSession.userSession.user?.profile_image_url :profile}`}
                                     className='rounded-full h-10 w-10 border-3 cursor-pointer'
                                     alt=""
                                 />

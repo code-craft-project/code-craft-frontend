@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import defaultProfile from '../../../assets/Images/profile.png';
 import UserSessionContext from '../../../application/contexts/UserSessionContext';
-import { userAuthentication } from '../../../application/services';
+import { filesUploadServices, userAuthentication } from '../../../application/services';
 import ToastContext from '../../../application/contexts/ToastContext';
 import GradientColor from '../../../application/data/GradientColor';
 import { motion } from 'framer-motion';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 function PersonalDetails() {
     const toastManager = useContext(ToastContext);
@@ -21,14 +22,14 @@ function PersonalDetails() {
     const [first_name, setFirst_name] = useState<string>('');
     const [last_name, setLast_name] = useState<string>('');
     const [email, setEmail] = useState<string>('');
-    const [profileImage, setProfileImage] = useState<string>('');
+    const [profileImage, setProfileImage] = useState<File | null>();
 
     useEffect(() => {
         setUsername(userSession.userSession.user?.username || '');
         setFirst_name(userSession.userSession.user?.first_name || '');
         setLast_name(userSession.userSession.user?.last_name || '');
         setEmail(userSession.userSession.user?.email || '');
-        setProfileImage(userSession.userSession.user?.profile_image_url || defaultProfile);
+        // setProfileImage(userSession.userSession.user?.profile_image_url || defaultProfile);
     }, [userSession]);
 
     const handleEdit = (field: string) => {
@@ -67,10 +68,17 @@ function PersonalDetails() {
                 first_name,
                 last_name,
                 email,
-                profileImage,
             };
             try {
-                const response = await userAuthentication.updateUser(user);
+                let profile_image_url = undefined;
+                if (profileImage) {
+                    const uploadImageResponse = await filesUploadServices.uploadImage(profileImage);
+                    if (uploadImageResponse.status == 'success') {
+                        profile_image_url = uploadImageResponse.data;
+                    }
+                }
+
+                const response = await userAuthentication.updateUser({...user, profile_image_url});
                 if (response.status === 'success') {
                     alertSuccessHandler('Updating successful');
                 } else {
@@ -83,16 +91,17 @@ function PersonalDetails() {
             }
         }
     }
+    const imageRef = useRef<HTMLInputElement>(null);
 
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setProfileImage(reader.result as string);
-            };
-            reader.readAsDataURL(event.target.files[0]);
+    const selectImage = () => {
+        imageRef.current?.click();
+    }
+
+    const onFileSelected = async () => {
+        if (imageRef.current && imageRef.current.files && imageRef.current.files.length > 0) {
+            setProfileImage(imageRef.current.files[0]);
         }
-    };
+    }
 
     return (
         <form onSubmit={update_user} className="flex flex-col gap-8 py-5 px-20 w-4/5">
@@ -102,41 +111,11 @@ function PersonalDetails() {
                     <h1 className="font-medium text-sm opacity-75">Edit your personal details</h1>
                 </div>
                 <div className="relative">
-                    <img src={profileImage} alt="" className="w-20 h-20 rounded-full" />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.5 }}
-                            transition={{ duration: 0.3 }}
-                            className="absolute bottom-0 right-0 flex items-center justify-center bg-gray-800 text-white rounded-full w-6 h-6 cursor-pointer"
-                        >
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageUpload}
-                                className="absolute inset-0 opacity-0"
-                            />
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                                />
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
-                            </svg>
-                        </motion.div>
+                <img src={userSession.userSession.user?.profile_image_url ? userSession.userSession.user.profile_image_url : defaultProfile} className="w-20 h-20 rounded-full bg-gray-900 object-cover" />
+                        <div onClick={selectImage} className='absolute bottom-0 right-0 bg-yellow-600 rounded-full p-2 cursor-pointer hover:bg-yellow-500' title='Upload new profile image'>
+                            <Icon icon="majesticons:camera" />
+                            <input onChange={onFileSelected} ref={imageRef} type='file' hidden accept='image/*' />
+                        </div>
                 </div>
             </div>
             <div className="w-2/3 flex items-start justify-between">

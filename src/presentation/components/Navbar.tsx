@@ -90,7 +90,7 @@ function Navbar() {
                                 </motion.div>
                             </motion.div>
                             <img
-                                src={profile}
+                                src={`${userSession.userSession.user?.profile_image_url ? userSession.userSession.user?.profile_image_url :profile}`}
                                 className='rounded-full h-10 w-10 border-3 cursor-pointer'
                                 alt=""
                                 onClick={() => setActiveMenu(!activeMenu)}
