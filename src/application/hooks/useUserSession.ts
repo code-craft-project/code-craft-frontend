@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { userAuthentication, usersService } from "../services";
+import { axiosHttp, userAuthentication, usersService } from "../services";
 
 const USER_SESSION_KEY = "user_session";
 
@@ -64,6 +64,7 @@ export default function useUserSession(): useUserSessionReturn {
 
     function signIn(userSession: UserSession) {
         localStorage.setItem(USER_SESSION_KEY, JSON.stringify(userSession));
+        axiosHttp.reload();
         setUserSession(userSession);
         setIsValidSession(true);
         setIsLoading(false);

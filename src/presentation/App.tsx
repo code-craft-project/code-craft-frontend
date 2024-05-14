@@ -36,7 +36,7 @@ function App() {
       <UserSessionContext.Provider value={useUserSessionValue}>
         <Routes>
           <Route path="/sign-up" element={<ProtectedUnauthenticatedRoute><SignUp /></ProtectedUnauthenticatedRoute>} />
-          <Route path="/sign-in" element={<ProtectedUnauthenticatedRoute><SignIn /></ProtectedUnauthenticatedRoute>} />
+          <Route path="/sign-in" element={<SignIn />} />
           <Route path="/challenges/:id" element={<ChallengePage />} />
           <Route path='/' element={(<Root />)}>
             <Route path="" element={<LandingPage />} />
