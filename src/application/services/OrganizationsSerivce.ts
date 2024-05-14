@@ -77,6 +77,6 @@ export default class OrganizationsSerivce {
     }
 
     async deleteMemberRole(organization_id: number, member_id: number): Promise<HttpResponse<MemberEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<MemberEntity>>(`/api/organizations/${organization_id}/remove_member/${member_id}`)).data;
-    }
+        return (await this.axiosHttp.post<HttpResponse<MemberEntity>>(`/api/organizations/${organization_id}/remove_member`, member_id)).data;
+    }   
 }
