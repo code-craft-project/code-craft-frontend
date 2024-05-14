@@ -17,7 +17,7 @@ function ChallengeCard({ challenge }: ChallengeCardProps) {
       <div className="flex-1">
         <div className={`w-fit rounded-xl px-2 font-semibold capitalize ${challenge.status == 'done' ? "bg-green-500" : (challenge.status == 'wrong answer' ? 'bg-red-500' : 'bg-gray-500')}`}>{challenge.status || "Not Started"}</div>
       </div>
-      <div className="flex-1 font-semibold text-ellipsis whitespace-nowrap overflow-hidden" title={challenge.title}>{challenge.title}</div>
+      <div className="flex-[3] font-semibold text-ellipsis whitespace-nowrap overflow-hidden" title={challenge.title}>{challenge.title}</div>
       <div className={`flex-1 font-semibold capitalize ${challengeLevelColor[challenge.level.toLowerCase() as ChallengeLevel]}`}>{challenge.level}</div>
       <div className="flex-1 flex flex-col items-end">
         <div className='flex gap-2 items-center hover:underline'>

@@ -137,7 +137,7 @@ function ChallengesSearchResult({ challenges, didSearch }: ChallengesSearchResul
                                 <>
                                     <div className="w-full flex items-center py-2">
                                         <div className='flex-1 font-semibold'>Status</div>
-                                        <div className='flex-1 font-semibold'>Title</div>
+                                        <div className='flex-[3] font-semibold'>Title</div>
                                         <div className='flex-1 font-semibold'>Difficulty</div>
                                         <div className='flex-1 font-semibold'></div>
                                     </div>
