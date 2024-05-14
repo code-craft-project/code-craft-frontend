@@ -5,7 +5,7 @@ import sign from '../../assets/Images/Sign.png';
 import logo from '../../assets/Images/Logo.svg';
 import GradientColor from "../../application/data/GradientColor.ts";
 import { Icon } from '@iconify/react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { userAuthentication } from "../../application/services.ts";
 import UserSessionContext from "../../application/contexts/UserSessionContext.ts";
 
@@ -15,7 +15,8 @@ export default function SignIn() {
     const { styles } = GradientColor();
     var [email, setEmail] = useState("");
     var [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false); 
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     async function sign_in(ev: any) {
         ev.preventDefault();
@@ -30,8 +31,8 @@ export default function SignIn() {
                     toastManager.alertSuccess("Sign In successfully");
                     setTimeout(() => {
                         signIn(response.data);
-                        location.href = "/home";
-                    }, 1500);
+                        navigate("/home");
+                    }, 1000);
                 } else {
                     console.error('Sign In failed:', response.message);
                     toastManager.alertError(response.message || "Sign In Failed");
