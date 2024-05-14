@@ -12,11 +12,17 @@ interface ExecutionResultProps {
 
 export default function ExecutionResult({ challengeId }: ExecutionResultProps) {
     const [selectedTab, setSelectedTab] = useState<Tab>('test-cases');
-    const { testCases, getTestCases } = useContext(SubmissionContext);
+    const { testCases, getTestCases, newExecutionResult, setNewExecutionResult, hasWrongResults } = useContext(SubmissionContext);
 
     useEffect(() => {
         getTestCases(challengeId);
     }, []);
+
+    useEffect(() => {
+        if (newExecutionResult) {
+            setSelectedTab('test-result');
+        }
+    }, [newExecutionResult]);
 
     return (
         <div className="w-full h-full flex flex-col bg-gradient-to-b from-slate-950 to-blue-950 rounded-lg">
@@ -28,9 +34,16 @@ export default function ExecutionResult({ challengeId }: ExecutionResultProps) {
 
                 <div className="h-1/2 w-px bg-gray-50"></div>
 
-                <div className={`flex items-center py-2 px-4 cursor-pointer hover:text-gray-300 ${selectedTab == "test-result" ? "text-gray-50" : "text-gray-400"}`} onClick={() => setSelectedTab("test-result")} >
+                <div
+                    className={`relative flex items-center py-2 px-4 cursor-pointer hover:text-gray-300 ${selectedTab == "test-result" ? "text-gray-50" : "text-gray-400"}`}
+                    onClick={() => {
+                        setSelectedTab("test-result");
+                        setNewExecutionResult(false);
+                    }}
+                >
                     <Icon icon="ant-design:code-filled" />
                     <div className="ml-1 text-sm font-semibold">Test Result</div>
+                    {newExecutionResult && (<div className={`absolute top-2 left-3 w-2 h-2 ${hasWrongResults() ? "bg-red-500" : "bg-green-500"} rounded-full`}></div>)}
                 </div>
             </div>
             <div className="w-full flex flex-col items-center overflow-auto flex-grow">

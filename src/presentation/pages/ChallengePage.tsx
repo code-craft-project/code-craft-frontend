@@ -51,7 +51,7 @@ export default function ChallengePage() {
                                 <img src={logoSVG} className="w-10" />
                             </NavLink>
                             <Icon icon="icon-park-solid:paragraph-triangle" />
-                            <div className="ml-2 text-sm font-semibold">{challenge.title} - {challenge.topic}</div>
+                            <div className="ml-2 text-sm font-semibold">{challenge.title} - <div className="inline-block capitalize">{challenge.topic}</div></div>
                         </div>
 
                         <div className="w-1/3 flex items-center justify-center">

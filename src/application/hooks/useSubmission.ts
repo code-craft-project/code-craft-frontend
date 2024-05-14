@@ -14,6 +14,9 @@ export interface useSubmissionReturn {
     getTestCases: (challengeId: number) => Promise<void>;
     submissions: SubmissionEntity[];
     getSubmissions: (challengeId: number) => Promise<void>;
+    newExecutionResult: boolean;
+    setNewExecutionResult: React.Dispatch<React.SetStateAction<boolean>>;
+    hasWrongResults: () => boolean;
 };
 
 export default function useSubmission(): useSubmissionReturn {
@@ -23,6 +26,7 @@ export default function useSubmission(): useSubmissionReturn {
     const [runResult, setRunResult] = useState<ExecutionResult>({ output: '', error: '' });
     const [testCases, setTestCases] = useState<TestCaseEntity[]>([]);
     const [submissions, setSubmissions] = useState<SubmissionEntity[]>([]);
+    const [newExecutionResult, setNewExecutionResult] = useState(false);
 
     useEffect(() => {
         ws.current = new WebSocket("ws://localhost:3002/");
@@ -83,6 +87,7 @@ export default function useSubmission(): useSubmissionReturn {
         });
 
         setRunResult(runOperationResult.executionResult);
+        setNewExecutionResult(true);
     }
 
     const handleSubmitOperation = (submissionResult: SubmissionResult) => {
@@ -305,11 +310,24 @@ export default function useSubmission(): useSubmissionReturn {
         }
     }
 
+    const hasWrongResults = (): boolean => {
+        for (let i = 0; i < testCases.length; i++) {
+            const testCase = testCases[i];
+            if (testCase.run_result == 'wrong') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     return {
         sourceCode, setSourceCode,
         language, setLanguage,
         runResult, run, submit,
         testCases, getTestCases,
-        submissions, getSubmissions
+        submissions, getSubmissions,
+        newExecutionResult, setNewExecutionResult,
+        hasWrongResults
     };
 }

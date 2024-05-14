@@ -20,7 +20,7 @@ export default function ChallengeDescription({ title, level, description, topic 
 
             <div className={`text-sm font-semibold bg-blue-950 rounded-lg w-fit px-4 ${levelColorMap[level.toLowerCase() as ChallengeLevel]} mb-4`}>{level}</div>
 
-            <div className={`w-full prose ${markdownStyle} pb-16`}><Markdown rehypePlugins={[rehypeRaw]} >{description}</Markdown></div>
+            <div className={`w-full prose max-w-full prose-pre:text-wrap ${markdownStyle} pb-16`}><Markdown rehypePlugins={[rehypeRaw]} >{description}</Markdown></div>
         </div>
     )
 }
