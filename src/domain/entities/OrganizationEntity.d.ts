@@ -106,3 +106,9 @@ interface useOrganizationChallengeReturn {
     setFileUrl: React.Dispatch<React.SetStateAction<string>>;
 
 }
+
+interface useOrganizationMemberReturn {
+    member: MemberEntity;
+    setMember: React.Dispatch<React.SetStateAction<MemberEntity >>
+    deleteMember: () => {}
+}

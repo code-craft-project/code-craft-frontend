@@ -75,4 +75,8 @@ export default class OrganizationsSerivce {
     async getJobApplications(organization_id: number, job_post_id: number): Promise<HttpResponse<JobApplicationEntity[]>> {
         return (await this.axiosHttp.get<HttpResponse<JobApplicationEntity[]>>(`/api/organizations/${organization_id}/job_posts/${job_post_id}/applications`)).data;
     }
+
+    async deleteMemberRole(organization_id: number, member_id: number): Promise<HttpResponse<MemberEntity>> {
+        return (await this.axiosHttp.post<HttpResponse<MemberEntity>>(`/api/organizations/${organization_id}/remove_member/${member_id}`)).data;
+    }
 }
