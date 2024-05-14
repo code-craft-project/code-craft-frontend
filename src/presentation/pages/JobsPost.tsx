@@ -10,41 +10,7 @@ function JobsPost() {
   const { styles } = GradientColor()
   const { jobPosts } = useJobPosts()
 
-  const getTimeDifferenceString = (dateString: string) => {
-    if (!dateString) {
-      return 'Invalid date string provided.';
-    }
-    const date = new Date(dateString);
-    const now = Date.now();
-    const timeDifference = now - date.getTime();
-    // Convert milliseconds to seconds
-    const seconds = Math.floor(timeDifference / 1000);
-    // Define thresholds for different time units
-    const minuteInSecs = 60;
-    const hourInSecs = minuteInSecs * 60;
-    const dayInSecs = hourInSecs * 24;
-    // Determine the appropriate time unit
-    let unit;
-    let value;
-    if (seconds < minuteInSecs) {
-      unit = 'seconds';
-      value = seconds;
-    } else if (seconds < hourInSecs) {
-      unit = 'minutes';
-      value = Math.floor(seconds / minuteInSecs);
-    } else if (seconds < dayInSecs) {
-      unit = 'hours';
-      value = Math.floor(seconds / hourInSecs);
-    } else {
-      unit = 'days';
-      value = Math.floor(seconds / dayInSecs);
-    }
-    // Handle pluralization for units
-    unit = value > 1 ? unit + 's' : unit; // Add 's' for plural
-    // Construct the relative time string
-    const timeString = `${value} ${unit} ago`;
-    return timeString;
-  }
+  
 
   return (
     <>
@@ -98,7 +64,7 @@ function JobsPost() {
         <div className="scroll-content flex gap-16 min-w-full pb-16">
           {jobPosts.map((job, index) => (
             <div key={index} >
-              <JobPostCard cardStyle={'Large'} jobData={{ id:job.id as number, organization:job.organization as OrganizationEntity, "skill": job.role, 'location': job.location, 'tag': job.role, date_posted: getTimeDifferenceString(job.created_at as string), tag_color: 'blue-700' }} />
+              <JobPostCard cardStyle={'Large'} jobData={job} />
             </div>
           ))}
         </div>
