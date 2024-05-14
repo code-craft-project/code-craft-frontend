@@ -21,25 +21,10 @@ const topics: TopicsIconsMap = {
 const isActiveBackground = `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`;
 
 function Challenges() {
-
-    // const scroller =() => {
-    //     const scrollContainer:any = document.querySelector('.scroll-container');
-    //     const startScroll = () => {
-    //         scrollContainer.scrollLeft += 5; 
-    //     };
-    //     startScroll();
-    // }
     const { isValidSession, userProgress, getUserProgress } = useContext(UserSessionContext);
     const { challenges, filtredChallenges, filterChallenges, isChallengesLoading, getChallenges, getChallengesByTopic } = useChallenges();
     const [selectedTopic, setSelectedTopic] = useState<ChallengeTopic>('all topics');
     const [challengeFilters, setChallengeFilters] = useState<ChallengeFilters>({ difficulty: [] });
-    const scroller = () => {
-        const scrollContainer: any = document.querySelector('.scroll-container');
-        const startScroll = () => {
-            scrollContainer.scrollLeft += 10;
-        };
-        startScroll();
-    }
 
     const hasFilter = () => {
         return challengeFilters.difficulty.length > 0;
@@ -95,13 +80,13 @@ function Challenges() {
 
         return counter;
     }
-  return (
-    <div className='w-full mt-20'>
-        <h1 className="opacity-60 pt-8 mb-2">All Challenges</h1>
-        <div className="flex gap-16 pb-16 w-full">
+    return (
+        <div className='w-full mt-20'>
+            <h1 className="opacity-60 pt-8 mb-2">All Challenges</h1>
+            <div className="flex gap-16 pb-16 w-full">
                 <div className="w-2/3">
                     <div className="scroll-container w-full scrollbar-none ">
-                        <div className="flex py-2 gap-4 relative  items-center flex-nowrap">
+                        <div className="flex py-2 gap-2 relative items-center flex-wrap">
                             {
                                 challengesTopics.map((topic, index) => {
                                     const selectTopic = () => {
@@ -116,10 +101,6 @@ function Challenges() {
                                     )
                                 })
                             }
-
-                            <div onClick={scroller} className="cursor-pointer shadow-[0_0_10px_15px_rgba(0,0,0,0.5)] rounded-full sticky top-4 right-0 ">
-                                <Icon icon="material-symbols:double-arrow" width="18" height="18" />
-                            </div>
                         </div>
                     </div>
                     <div className="text-sm">
@@ -199,8 +180,8 @@ function Challenges() {
 
                 </div>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
-export default Challenges
+export default Challenges;
