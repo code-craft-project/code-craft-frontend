@@ -2,13 +2,12 @@ import { NavLink } from "react-router-dom";
 
 type JobData = {
     id: number
-    logo: string;
-    company: string;
     skill: string;
     location: string;
     tag: string;
     date_posted: string;
     tag_color: string
+    organization: OrganizationEntity;
 };
 
 type Size = {
@@ -51,10 +50,10 @@ const JobPostCard: React.FC<JobPostCardProps> = ({ jobData, cardStyle }) => {
         tag:'text-[0.5rem]'
     }
     return (
-        <NavLink to={`/job-posts/${jobData.id}`} className={`flex flex-col justify-around cursor-pointer bg-white ${cardStyle == 'Large' ? LargeSize.card : SmallSize.card}  shadow-white text-black `}>
+        <NavLink to={`/job-posts/${jobData.id}`} className={`flex flex-col justify-around cursor-pointer bg-white ${cardStyle == 'Large' ? LargeSize.card : SmallSize.card}  shadow-white shadow-lg text-black `}>
             <div className={`flex justify-start items-center gap-3 `}>
-                <img src={jobData.logo} alt="" className={`rounded-full ${cardStyle == 'Large' ? LargeSize.logo : SmallSize.logo}  `}/>
-                <p className={`font-semibold text-xs ${cardStyle == 'Large' ? LargeSize.div1_text : SmallSize.div1_text}  `}>{jobData.company}</p>
+                <img src={jobData.organization.profile_image_url} alt="" className={`rounded-full ${cardStyle == 'Large' ? LargeSize.logo : SmallSize.logo}  `}/>
+                <p className={`font-semibold text-xs ${cardStyle == 'Large' ? LargeSize.div1_text : SmallSize.div1_text}  `}>{jobData.organization.name}</p>
                 <p className={`opacity-40 ${cardStyle == 'Large' ? LargeSize.div1_text : SmallSize.div1_text}`}>{jobData.date_posted}</p>
             </div>
             <div className={`flex flex-col justify-center items-start gap-1`}>
@@ -62,7 +61,7 @@ const JobPostCard: React.FC<JobPostCardProps> = ({ jobData, cardStyle }) => {
                 <span className={`opacity-40 text-[0.6rem] ${cardStyle == 'Large' ? LargeSize.div2_text.location : SmallSize.div2_text.location}  `}>{jobData.location}</span>
             </div>
             <p className={`font-semibold  flex items-center gap-1 ${cardStyle == 'Large' ? LargeSize.tag : SmallSize.tag}  `}>
-                <div className={`bg-${jobData.tag_color} inline-block w-1 h-1 rounded-full`}></div>
+                <div className={`${'bg-'+jobData.tag_color} inline-block w-1.5 h-1.5 rounded-full`}></div>
                 {jobData.tag} 
             </p>
         </NavLink>
