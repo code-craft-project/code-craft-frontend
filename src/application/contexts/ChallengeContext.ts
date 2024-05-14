@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export default createContext<useChallengeReturn>({
-    challenge: { description: '', is_public: true, level: 'easy', title: '', topic: '', type: 'in_out' },
+    challenge: { description: '', is_public: true, level: 'easy', title: '', topic: 'problem solving', type: 'in_out' },
     comments: [],
     isLoading: true,
     isCommentsLoading: true,

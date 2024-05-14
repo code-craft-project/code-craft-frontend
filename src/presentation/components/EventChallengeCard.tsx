@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom"
-import { Icon } from '@iconify/react';
 
 interface EventChallengeCardProps {
     challenge: ChallengeEntity;

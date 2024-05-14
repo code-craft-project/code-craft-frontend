@@ -1,3 +1,4 @@
+type ChallengeTopic = 'all topics' | 'problem solving' | 'algorithms' | 'data structures' | 'databases';
 type ChallengeLevel = 'hard' | 'medium' | 'easy';
 type ChallengeStatus = "done" | "not started" | "wrong answer";
 type ChallengeType = 'in_out' | 'project';
@@ -48,8 +49,6 @@ type ChallengeLevelColor = {
     [key in ChallengeLevel]: string;
 };
 
-type ChallengeTopic = 'all topics' | 'problem solving' | 'algorithms' | 'data structures' | 'databases';
-
 interface ChallengeFilters {
     difficulty: ChallengeLevel[];
 };
@@ -65,4 +64,6 @@ interface useCreateChallengeReturn {
     testCaseFile: File | null;
     setTestCaseFile: React.Dispatch<React.SetStateAction<File | null>>;
     resetChallenge: () => void;
+    projectFile: File | null;
+    setProjectFile: React.Dispatch<React.SetStateAction<File | null>>;
 };

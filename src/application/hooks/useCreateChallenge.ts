@@ -19,6 +19,7 @@ export default function useCreateChallenge(): useCreateChallengeReturn {
     const [challenge, setChallenge] = useState<ChallengeEntity>(initChallenge);
     const [testCases, setTestCases] = useState<TestCaseEntity[]>([initTestCase]);
     const [testCaseFile, setTestCaseFile] = useState<File | null>(null);
+    const [projectFile, setProjectFile] = useState<File | null>(null);
 
     const createOrganizationChallenge = async (organizationId: number): Promise<ChallengeEntity | null> => {
         const res = await organizationsService.createOrganizationChallenge(organizationId, challenge);
@@ -58,6 +59,7 @@ export default function useCreateChallenge(): useCreateChallengeReturn {
     return {
         challenge, setChallenge, createOrganizationChallenge, createEventChallenge,
         testCases, setTestCases, getTestCases,
-        testCaseFile, setTestCaseFile, resetChallenge
+        testCaseFile, setTestCaseFile, resetChallenge,
+        projectFile, setProjectFile
     }
 }

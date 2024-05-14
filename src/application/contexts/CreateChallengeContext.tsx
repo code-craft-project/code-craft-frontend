@@ -17,5 +17,9 @@ export const CreateChallengeContext = createContext<useCreateChallengeReturn>({
     setTestCases: () => { },
     testCaseFile: null,
     setTestCaseFile: () => { },
-    getTestCases: async (challengeId: number) => { challengeId; }
+    getTestCases: async (challengeId: number) => { challengeId; },
+    createEventChallenge: async (eventId: number): Promise<ChallengeEntity | null> => { eventId; return null; },
+    resetChallenge: () => { },
+    projectFile: null,
+    setProjectFile: () => { }
 });

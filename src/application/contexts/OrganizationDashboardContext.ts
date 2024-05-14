@@ -46,7 +46,11 @@ const initialValue: useOrganizationDashboardReturn = {
     deleteEventChallenge: async (eventId: number, challengeId: number) => { eventId; challengeId; },
     getEventChallenges: (eventId: number) => { eventId; },
     updateEventChallenge: async (eventId: number, challenge: ChallengeEntity) => { eventId; challenge; },
-    updateEventChallengeTestCases: async (eventId: number, challengeId: number, testCases: TestCaseEntity[]) => { eventId; challengeId; testCases; }
+    updateEventChallengeTestCases: async (eventId: number, challengeId: number, testCases: TestCaseEntity[]) => { eventId; challengeId; testCases; },
+    appendNewEvent: (event: EventEntity) => { event; },
+    deleteEvent: async (eventId: number) => { eventId; },
+    updateEventList: (event: EventEntity) => { event; }
+
 };
 
 export default createContext<useOrganizationDashboardReturn>(initialValue);

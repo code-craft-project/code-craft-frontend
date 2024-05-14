@@ -2,7 +2,6 @@ import { useContext, useRef } from 'react';
 import upload from '../../../assets/Icons/upload.svg';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { CreateChallengeContext } from '../../../application/contexts/CreateChallengeContext';
-import useOrganizationChallenge from '../../../application/hooks/useOrganizationChallenge';
 import { testCaseInputTypes } from '../../../application/consts';
 
 export default function TestCasesAndFiles() {
@@ -227,8 +226,9 @@ function InOut() {
 }
 
 function Project() {
+    const { projectFile, setProjectFile } = useContext(CreateChallengeContext)
     const fileRef = useRef<HTMLInputElement>(null);
-    const { file, fileUrl, setFile } = useOrganizationChallenge()
+
     const onDragOver: React.DragEventHandler<HTMLDivElement> = (event: React.DragEvent) => {
         event.preventDefault();
     };
@@ -241,13 +241,13 @@ function Project() {
                 // If dropped items aren't files, reject them
                 if (item.kind === "file") {
                     const file = item.getAsFile();
-                    setFile(file);
+                    setProjectFile(file);
                 }
             });
         } else {
             // Use DataTransfer interface to access the file(s)
             [...ev.dataTransfer.files].forEach((file) => {
-                setFile(file);
+                setProjectFile(file);
             });
         }
 
@@ -259,7 +259,7 @@ function Project() {
 
     const onFileSelected = async () => {
         if (fileRef.current && fileRef.current.files && fileRef.current.files.length > 0) {
-            setFile(fileRef.current.files[0]);
+            setProjectFile(fileRef.current.files[0]);
         }
     }
 
@@ -267,10 +267,10 @@ function Project() {
         <>
             <input ref={fileRef} onChange={onFileSelected} type="file" accept="*" hidden />
             {
-                file ? (
+                projectFile ? (
                     <div className="w-full flex flex-col items-center">
                         <div className="py-2 text-gray-200 font-medium">Click on image to update</div>
-                        <img onClick={selectFile} src={fileUrl} title={fileUrl} className="w-96 h-96 bg-white object-cover rounded-xl cursor-pointer" />
+                        {/* <img onClick={selectFile} src={fileUrl} title={fileUrl} className="w-96 h-96 bg-white object-cover rounded-xl cursor-pointer" /> */}
                     </div>
                 ) : (
                     <div className="flex flex-col gap-3 w-full">
