@@ -75,7 +75,9 @@ function OrganizationDashboard() {
         url.search = '';
         url.searchParams.set('tab', tab);
 
-        window.location.href = url.toString();
+        history.pushState(null, '', url);
+
+        setSelectedTab(tab);
     }
 
     return (
@@ -83,15 +85,15 @@ function OrganizationDashboard() {
             <div className='w-full h-screen flex flex-col items-center bg-black '>
                 <div className="w-full h-screen bg-black flex items-center overflow-auto">
                     <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
-                        <div onClick={() => setSelectedTab('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
+                        <div onClick={() => goTo('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
                         {
                             useOrganizationDashboardState.hasPermissions('admin') && (
-                                <div onClick={() => setSelectedTab('members')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'members' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="tdesign:member" /></div>
+                                <div onClick={() => goTo('members')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'members' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="tdesign:member" /></div>
                             )
                         }
                         {
                             useOrganizationDashboardState.hasPermissions('events_manager') && (
-                                <div onClick={() => setSelectedTab('events')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'events' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="mdi:events" /></div>
+                                <div onClick={() => goTo('events')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'events' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="mdi:events" /></div>
                             )
                         }
                         {
@@ -101,12 +103,12 @@ function OrganizationDashboard() {
                         }
                         {
                             useOrganizationDashboardState.hasPermissions('job_posts_manager') && (
-                                <div onClick={() => setSelectedTab('job_posts')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'job_posts' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="fluent-mdl2:work" /></div>
+                                <div onClick={() => goTo('job_posts')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'job_posts' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="fluent-mdl2:work" /></div>
                             )
                         }
                         {
                             useOrganizationDashboardState.hasPermissions('admin') && (
-                                <div onClick={() => setSelectedTab('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
+                                <div onClick={() => goTo('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
                             )
                         }
                     </div>
