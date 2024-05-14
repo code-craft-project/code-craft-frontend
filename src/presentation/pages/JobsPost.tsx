@@ -88,17 +88,17 @@ function JobsPost() {
         </div>
         <div className='relative w-fit flex flex-col justify-center items-center mt-10'>
           <div className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
-            <h1 className=' text-6xl font-semibold p-5 mr-3'>250.000</h1>
+            <h1 className=' text-6xl font-semibold p-5 mr-3'>{jobPosts.length}</h1>
           </div>
           <Icon icon="material-symbols:add" width="32" height="32" className='absolute bottom-20 right-0 text-primary-yellow' />
           <p className='text-center opacity-60 font-semibold'>Total Job Posted</p>
         </div>
       </div>
       <div className="w-full flex scroll-container mx-auto scrollbar-none ">
-        <div className="scroll-content flex gap-16 min-w-full">
+        <div className="scroll-content flex gap-16 min-w-full pb-16">
           {jobPosts.map((job, index) => (
             <div key={index} >
-              <JobPostCard cardStyle={'Large'} jobData={{ id:job.id as number,"logo": 'https://w7.pngwing.com/pngs/606/802/png-transparent-meta-meta-logo-facebook-fb-logo-meta-icon-meta-symbol-facebook-logo-thumbnail.png', "company": job.organization_id.toString() as string, "skill": job.role, 'location': job.location, 'tag': "App development", date_posted: getTimeDifferenceString(job.created_at as string), tag_color: 'green-700' }} />
+              <JobPostCard cardStyle={'Large'} jobData={{ id:job.id as number, organization:job.organization as OrganizationEntity, "skill": job.role, 'location': job.location, 'tag': job.role, date_posted: getTimeDifferenceString(job.created_at as string), tag_color: 'blue-700' }} />
             </div>
           ))}
         </div>
