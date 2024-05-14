@@ -13,7 +13,7 @@ import moment from "moment";
 import OrganizationSettings from "./OrganizationSettings.tsx";
 import { userProfilePicture } from "../../application/consts.ts";
 import OrganizationJobPosts from "../components/dashboard/OrganizationJobPosts.tsx";
-import Navbar from "../components/dashboard/Navbar.tsx";
+import DashboardHeader from "../components/dashboard/DashboardHeader.tsx";
 
 type OrganizationTabs = 'dashboard' | 'members' | 'events' | 'challenges' | 'job_posts' | 'settings';
 
@@ -80,51 +80,49 @@ function OrganizationDashboard() {
 
     return (
         <OrganizationDashboardContext.Provider value={useOrganizationDashboardState}>
-        <div className='w-full h-screen flex flex-col items-center py-3 overflow-auto bg-black '>
-
-                  {/* <div className='w-full flex-grow flex flex-col items-center'> */}
-
-                <Navbar/>
-
-            <div className="w-full h-screen bg-black flex items-center  ">
-                <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
-                    <div onClick={() => setSelectedTab('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
-                    {
-                        useOrganizationDashboardState.hasPermissions('admin') && (
-                            <div onClick={() => setSelectedTab('members')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'members' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="tdesign:member" /></div>
-                        )
-                    }
-                    {
-                        useOrganizationDashboardState.hasPermissions('events_manager') && (
-                            <div onClick={() => setSelectedTab('events')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'events' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="mdi:events" /></div>
-                        )
-                    }
-                    {
-                        useOrganizationDashboardState.hasPermissions('challenges_manager') && (
-                            <div onClick={() => goTo('challenges')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'challenges' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="jam:code" /></div>
-                        )
-                    }
-                    {
-                        useOrganizationDashboardState.hasPermissions('job_posts_manager') && (
-                            <div onClick={() => setSelectedTab('job_posts')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'job_posts' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="fluent-mdl2:work" /></div>
-                        )
-                    }
-                    {
-                        useOrganizationDashboardState.hasPermissions('admin') && (
-                            <div onClick={() => setSelectedTab('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
-                        )
-                    }
-                </div>
-                <div className="flex-grow h-full flex flex-col items-center p-8">
-                    {selectedTab == 'dashboard' && (<DashboardComponent />)}
-                    {selectedTab == 'members' && (<OrganizationMembers />)}
-                    {selectedTab == 'events' && (<OrganizationEvents />)}
-                    {selectedTab == 'challenges' && (<OrganizationChallenges />)}
-                    {selectedTab == 'job_posts' && (<OrganizationJobPosts />)}
-                    {selectedTab == 'settings' && (<OrganizationSettings />)}
+            <div className='w-full h-screen flex flex-col items-center bg-black '>
+                <div className="w-full h-screen bg-black flex items-center overflow-auto">
+                    <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
+                        <div onClick={() => setSelectedTab('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
+                        {
+                            useOrganizationDashboardState.hasPermissions('admin') && (
+                                <div onClick={() => setSelectedTab('members')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'members' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="tdesign:member" /></div>
+                            )
+                        }
+                        {
+                            useOrganizationDashboardState.hasPermissions('events_manager') && (
+                                <div onClick={() => setSelectedTab('events')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'events' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="mdi:events" /></div>
+                            )
+                        }
+                        {
+                            useOrganizationDashboardState.hasPermissions('challenges_manager') && (
+                                <div onClick={() => goTo('challenges')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'challenges' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="jam:code" /></div>
+                            )
+                        }
+                        {
+                            useOrganizationDashboardState.hasPermissions('job_posts_manager') && (
+                                <div onClick={() => setSelectedTab('job_posts')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'job_posts' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="fluent-mdl2:work" /></div>
+                            )
+                        }
+                        {
+                            useOrganizationDashboardState.hasPermissions('admin') && (
+                                <div onClick={() => setSelectedTab('settings')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'settings' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="uil:setting" /></div>
+                            )
+                        }
+                    </div>
+                    <div className="flex-grow h-full flex flex-col items-center px-8">
+                        <DashboardHeader />
+                        <div className="w-full flex-grow flex flex-col items-center py-8">
+                            {selectedTab == 'dashboard' && (<DashboardComponent />)}
+                            {selectedTab == 'members' && (<OrganizationMembers />)}
+                            {selectedTab == 'events' && (<OrganizationEvents />)}
+                            {selectedTab == 'challenges' && (<OrganizationChallenges />)}
+                            {selectedTab == 'job_posts' && (<OrganizationJobPosts />)}
+                            {selectedTab == 'settings' && (<OrganizationSettings />)}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </OrganizationDashboardContext.Provider>
 
     )
