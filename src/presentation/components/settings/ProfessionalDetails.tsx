@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import GradientColor from '../../../application/data/GradientColor';
+import { userAuthentication, usersService } from '../../../application/services';
+import ToastContext from '../../../application/contexts/ToastContext';
+import UserSessionContext from '../../../application/contexts/UserSessionContext';
 
 function ProfessionalDetails() {
     const [editMode, setEditMode] = useState<{ [key: string]: boolean }>({
@@ -9,8 +12,8 @@ function ProfessionalDetails() {
     });
     const { styles } = GradientColor();
 
-    const [bio, setBio] = useState<string>('');
-    const [skills, setSkills] = useState<string[]>([]);
+    const [bio, setBio] = useState<string|undefined>('');
+    // const [skills, setSkills] = useState<string[]>([]);
     const [newSkill, setNewSkill] = useState<string>('');
 
     const handleEdit = (field: string) => {
@@ -37,11 +40,59 @@ function ProfessionalDetails() {
     async function update_user(ev: any) {
         ev.preventDefault();
     }
+    const toastManager = useContext(ToastContext);
+    const userSession = useContext(UserSessionContext);
 
     useEffect(() => {
-        setBio('web developer | ui ux designer ');
-        setSkills(['ui ux', 'mern stack', 'devops engineer', 'frontend', 'backend']);
+        setBio(userSession.userSession.user?.bio);
+        userSession.getUserSkills()
+        // setSkills(['ui ux', 'mern stack', 'devops engineer', 'frontend', 'backend']);
     }, []);
+
+    const addNewSkill = async (ev: any) => {
+        ev.preventDefault();
+        console.log(newSkill)
+        try{
+            const response = await usersService.addNewSkills(newSkill)
+            if (response.status === 'success') {
+                userSession.setUserSkills([...userSession.userSkills, {user_id:userSession.userSession.user?.id as number,name:newSkill}]);
+                setNewSkill('');
+            }else {
+                console.error('Updating skill:', response.message);
+            }
+        }catch (error) {
+            console.log(error);
+        }
+    }
+    
+
+    async function update_bio(ev: any) {
+        ev.preventDefault();
+        if (bio) {
+            const user = {bio};
+            try {
+                const response = await userAuthentication.updateUser(user);
+                if (response.status === 'success') {
+                    toastManager.alertSuccess('Updating successful');
+                } else {
+                    console.error('Updating failed:', response.message);
+                    toastManager.alertError(response.message || 'updating failed');
+                }
+            } catch (error) {
+                console.log(error);
+                toastManager.alertError('Updating failed');
+            }
+        }
+    }
+
+    const removeSkill = async (skill_id: number) => {
+        const response = await usersService.removeSkillById(skill_id)
+        if ( response.message === 'success' ) {
+            console.log(response)
+        }else {
+            console.log(response.message)
+        }
+    }
 
     return (
         <form onSubmit={update_user} className="flex flex-col gap-8 py-5 px-20 w-4/5">
@@ -102,10 +153,7 @@ function ProfessionalDetails() {
                             />
                             <button
                                 className="bg-primary-yellow rounded-md px-3 hover:opacity-90 py-0.5 transition-all duration-100 active:scale-105"
-                                onClick={() => {
-                                    setSkills([...skills, newSkill]);
-                                    setNewSkill('');
-                                }}
+                                onClick={addNewSkill}
                             >
                                 Add
                             </button>
@@ -121,13 +169,17 @@ function ProfessionalDetails() {
                     </motion.div>
                 ) : (
                     <div className="w-full flex flex-wrap">
-                        {skills.map((sk, index) => (
+                        {userSession.userSkills.map((sk, index) => (
                             <div key={index} className="flex items-center gap-1">
                                 <div
                                     className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} hover:opacity-80 bg-clip-text text-transparent cursor-pointer border-1.5 border-opacity-75 flex items-center gap-2 rounded-xl border-blue-900 border-b-yellow-600 border-r-yellow-600 px-1.5 py-0.5 font-medium m-1`}
-                                    onClick={() => setSkills(skills.filter((_, i) => i !== index))}
+                                    onClick={() => {
+                                        removeSkill(sk.id as number)
+                                        userSession.setUserSkills(userSession.userSkills.filter((_, i) => i !== index))
+                                    }
+                                    }
                                 >
-                                    {sk}
+                                    {sk.name}
                                     <div >
                                         x
                                     </div>
@@ -144,6 +196,7 @@ function ProfessionalDetails() {
                 <button
                     type="submit"
                     className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} font-medium px-8 py-1 rounded-lg hover:opacity-90 active:scale-105 transition-all duration-300`}
+                    onClick={update_bio}
                 >
                     Save
                 </button>

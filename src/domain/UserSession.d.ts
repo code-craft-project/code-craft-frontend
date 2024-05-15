@@ -11,5 +11,8 @@ interface useUserSessionReturn {
     signIn: (userSession: UserSession) => void;
     signOut: () => void;
     getUserProgress: () => void;
+    getUserSkills: () => void;
+    userSkills: SkillEntity[],
+    setUserSkills: React.Dispatch<React.SetStateAction<SkillEntity[]>>
 };
 

@@ -15,6 +15,7 @@ export default function useUserSession(): useUserSessionReturn {
             email: ""
         }
     });
+    const [userSkills, setUserSkills] = useState<SkillEntity[]>([])
 
     const [userProgress, setUserProgress] = useState<UserProgress>({
         correct_easy_submissions: 0,
@@ -84,6 +85,15 @@ export default function useUserSession(): useUserSessionReturn {
         }
     }
 
+    const getUserSkills = async () => {
+        const response = await usersService.getUserSkills();
+        if (response.status == 'success') {
+            setUserSkills(response.data);
+        } else {
+            // TODO: Handle Errors
+        }
+    }
+
     return {
         isLoading,
         userSession,
@@ -91,6 +101,9 @@ export default function useUserSession(): useUserSessionReturn {
         signIn,
         signOut,
         userProgress,
-        getUserProgress
+        getUserProgress,
+        getUserSkills,
+        userSkills,
+        setUserSkills,
     }
 };

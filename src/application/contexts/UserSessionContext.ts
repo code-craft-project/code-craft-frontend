@@ -16,5 +16,8 @@ export default createContext<useUserSessionReturn>({
     isValidSession: false,
     signOut: () => { },
     signIn: (userSession: UserSession) => { userSession; },
-    getUserProgress: () => { }
+    getUserProgress: () => { },
+    getUserSkills: () => { },
+    userSkills: [],
+    setUserSkills: () => { },
 });
