@@ -111,4 +111,5 @@ interface useOrganizationMemberReturn {
     member: MemberEntity;
     setMember: React.Dispatch<React.SetStateAction<MemberEntity >>
     deleteMember: () => {}
+    updateMember: () => {}
 }
