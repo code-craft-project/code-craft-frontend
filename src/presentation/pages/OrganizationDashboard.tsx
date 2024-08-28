@@ -82,9 +82,9 @@ function OrganizationDashboard() {
 
     return (
         <OrganizationDashboardContext.Provider value={useOrganizationDashboardState}>
-            <div className='w-full h-screen flex flex-col items-center bg-black '>
-                <div className="w-full h-screen bg-black flex items-center overflow-auto">
-                    <div className="p-2 rounded-r-lg bg-gray-900 flex flex-col items-center">
+            <div className='w-full md:h-screen relative flex flex-col items-center bg-black '>
+                <div className="w-full md:h-screen absolute top-0 left-0 bg-black flex flex-col md:flex-row items-center overflow-auto">
+                    <div className="p-2 rounded-r-lg fixed z-30 top-auto md:static bg-gray-900 flex flex-row md:flex-col items-center w-full md:w-fit justify-between">
                         <div onClick={() => goTo('dashboard')} className={`text-2xl py-4 transition-all hover:scale-125 cursor-pointer hover:text-yellow-500 ${selectedTab == 'dashboard' ? "text-yellow-500 scale-125" : ""}`}><Icon icon="material-symbols:dashboard" /></div>
                         {
                             useOrganizationDashboardState.hasPermissions('admin') && (
@@ -112,7 +112,7 @@ function OrganizationDashboard() {
                             )
                         }
                     </div>
-                    <div className="flex-grow h-full flex flex-col items-center px-8">
+                    <div className="flex-grow w-full h-full flex flex-col items-center md:px-8">
                         <DashboardHeader />
                         <div className="w-full flex-grow flex flex-col items-center py-8">
                             {selectedTab == 'dashboard' && (<DashboardComponent />)}
@@ -143,10 +143,10 @@ function DashboardComponent() {
     return (
         <div className="w-full flex flex-col pb-8">
             <div className="w-full flex">
-                <div className="font-bold text-gray-50 text-3xl">Welcome to Dashboard</div>
+                <div className="font-bold text-gray-50 text-2xl md:text-3xl">Welcome to Dashboard</div>
             </div>
-            <div className="w-full flex mt-8">
-                <div className="w-1/4 flex flex-col bg-gray-950 rounded-3xl">
+            <div className="w-full flex flex-col md:flex-row mt-8">
+                <div className="md:w-1/4 w-full flex flex-col bg-gray-950 rounded-3xl">
                     <div className="px-4 py-2 font-semibold text-gray-50 text-xl">Latest Event</div>
                     <div className="w-full flex flex-col items-center px-4">
                         <div className="w-full py-4">
@@ -158,8 +158,8 @@ function DashboardComponent() {
                         </div>
                     </div>
                 </div>
-                <div className="w-3/4 flex items-center pl-8">
-                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl p-4">
+                <div className="md:w-3/4 w-full flex flex-wrap items-center md:pl-8 gap-8 md:gap-0">
+                    <div className="flex-1 w-full h-full flex flex-col items-center bg-gray-950 rounded-3xl p-4">
                         <div className="text-2xl font-bold text-gray-50">Members</div>
                         <div className="my-8 text-7xl">
                             <Icon icon="mdi:users" />
@@ -168,7 +168,7 @@ function DashboardComponent() {
                         <div className="flex-grow w-full"></div>
                         <div className="text-sm font-semibold text-gray-400 cursor-pointer hover:text-gray-200 duration-300">view</div>
                     </div>
-                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl ml-8 p-4">
+                    <div className="flex-1 w-full h-full flex flex-col items-center bg-gray-950 rounded-3xl md:ml-8 p-4">
                         <div className="text-2xl font-bold text-gray-50">Events</div>
                         <div className="my-8 text-7xl">
                             <Icon icon="mdi:events" />
@@ -177,7 +177,7 @@ function DashboardComponent() {
                         <div className="flex-grow w-full"></div>
                         <div className="text-sm font-semibold text-gray-400 cursor-pointer hover:text-gray-200 duration-300">view</div>
                     </div>
-                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl ml-8 p-4">
+                    <div className="flex-1 w-full h-full flex flex-col items-center bg-gray-950 rounded-3xl md:ml-8 p-4">
                         <div className="text-2xl font-bold text-gray-50">Challenges</div>
                         <div className="my-8 text-7xl">
                             <Icon icon="jam:code" />
@@ -186,7 +186,7 @@ function DashboardComponent() {
                         <div className="flex-grow w-full"></div>
                         <div className="text-sm font-semibold text-gray-400 cursor-pointer hover:text-gray-200 duration-300">view</div>
                     </div>
-                    <div className="flex-1 h-full flex flex-col items-center bg-gray-950 rounded-3xl ml-8 p-4">
+                    <div className="flex-1 w-full h-full flex flex-col items-center bg-gray-950 rounded-3xl md:ml-8 p-4">
                         <div className="text-2xl font-bold text-gray-50">Participants</div>
                         <div className="my-8 text-7xl">
                             <Icon icon="fluent:people-team-20-filled" />
@@ -198,11 +198,11 @@ function DashboardComponent() {
                 </div>
 
             </div>
-            <div className="mt-8 w-full flex flex-grow">
-                <div className="w-1/2 flex flex-col bg-gray-950 rounded-3xl">
+            <div className="mt-8 w-full flex flex-col md:flex-row gap-16 md:gap-0 flex-grow">
+                <div className="md:w-1/2 w-full flex flex-col bg-gray-950 rounded-3xl">
                     <div className="px-4 py-3 text-gray-50 text-xl font-semibold">Latest Challenges</div>
-                    <div className="w-full flex flex-col px-4">
-                        <div className="p-2 w-full flex items-center">
+                    <div className="w-full flex flex-col px-4 overflow-x-scroll scrollbar-none gap-2 md:gap-0">
+                        <div className="p-2 w-full flex items-center ">
                             <div className="flex-1 text-gray-200 text-sm font-medium">Title</div>
                             <div className="flex-1 text-gray-200 text-sm font-medium">Topic</div>
                             <div className="flex-1 text-gray-200 text-sm font-medium">Difficulty</div>
@@ -213,10 +213,10 @@ function DashboardComponent() {
                             {
                                 dashboardStats.latest_challenges.map((challenge, index) => {
                                     return (
-                                        <NavLink key={index} to={`/challenges/${challenge.id}`} className="w-full flex items-center py-2">
-                                            <div className="flex-1 font-semibold">{challenge.title}</div>
-                                            <div className="flex-1 font-semibold">{challenge.topic}</div>
-                                            <div className={`flex-1 font-semibold ${challengeLevelColor[challenge.level]}`}>{challenge.level}</div>
+                                        <NavLink key={index} to={`/challenges/${challenge.id}`} className="w-full flex gap-2 md:gap-0 items-center py-2 overflow-x-scroll md:overflow-auto">
+                                            <div className="flex-1 font-semibold text-nowrap">{challenge.title}</div>
+                                            <div className="flex-1 font-semibold text-nowrap">{challenge.topic}</div>
+                                            <div className={`flex-1 font-semibold text-nowrap ${challengeLevelColor[challenge.level]}`}>{challenge.level}</div>
                                             <div className="flex-1 flex flex-col items-end">
                                                 <div className='flex gap-2 items-center hover:underline'>
                                                     <Icon icon="ph:chat-fill" style={{ color: 'white' }} width="18" height="18" />
@@ -230,20 +230,20 @@ function DashboardComponent() {
                         </div>
                     </div>
                 </div>
-                <div className="ml-8 w-1/2 flex flex-col bg-gray-950 rounded-3xl">
+                <div className="md:ml-8 md:w-1/2 w-full flex flex-col bg-gray-950 rounded-3xl">
                     <div className="px-4 py-3 text-gray-50 text-xl font-semibold">New Members</div>
                     <div className="w-full flex-grow flex flex-col px-4">
-                        <div className="w-full flex items-center bg-gray-900 rounded-lg px-4 py-2">
-                            <div className="flex-1 text-sm font-semibold text-gray-200">Profile Picture</div>
-                            <div className="flex-1 text-sm font-semibold text-gray-200">First Name</div>
-                            <div className="flex-1 text-sm font-semibold text-gray-200">Last Name</div>
-                            <div className="flex-1 text-sm font-semibold text-gray-200">Role</div>
-                            <div className="flex-1 text-sm font-semibold text-gray-200">Joined At</div>
+                        <div className="w-full flex items-center gap-2 md:gap-0 bg-gray-900 overflow-x-scroll scrollbar-none rounded-lg px-4 py-2">
+                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Profile Picture</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">First Name</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Last Name</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Role</div>
+                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Joined At</div>
                         </div>
-                        <div className="w-full flex-grow">
+                        <div className="w-full flex-grow overflow-x-scroll md:overflow-x-auto" >
                             {
                                 isDashboardStatsLoading && (
-                                    <div className="w-full flex flex-col items-center">
+                                    <div className="w-full flex flex-col items-center ">
                                         <LoadingIndicator />
                                     </div>
                                 )
@@ -251,14 +251,14 @@ function DashboardComponent() {
                             {
                                 dashboardStats.latest_members.map((member, index) => {
                                     return (
-                                        <div key={index} className="w-full flex items-center px-4 py-2">
+                                        <div key={index} className="w-full flex gap-2 md:gap-0 items-center px-4 py-2 ">
                                             <div className="flex-1">
                                                 <img src={member.user?.profile_image_url || userProfilePicture} className="w-10 h-10 bg-gray-800 rounded-full object-cover" />
                                             </div>
-                                            <div className="flex-1 text-sm font-semibold text-gray-200">{member.user?.first_name}</div>
-                                            <div className="flex-1 text-sm font-semibold text-gray-200">{member.user?.last_name}</div>
-                                            <div className="flex-1 text-sm font-semibold text-gray-200">{member.role}</div>
-                                            <div className="flex-1 text-sm font-semibold text-gray-200">{moment(member.created_at).format("DD-MM-yyyy HH:mm")}</div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">{member.user?.first_name}</div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">{member.user?.last_name}</div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">{member.role}</div>
+                                            <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">{moment(member.created_at).format("DD-MM-yyyy HH:mm")}</div>
                                         </div>
                                     )
                                 })

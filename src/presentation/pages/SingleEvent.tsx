@@ -122,8 +122,8 @@ function SingleEvent() {
   return (
     <div className="w-full flex flex-col items-center mt-12">
       {event && (
-        <div className='w-full flex'>
-          <div className="w-1/2 pr-8">
+        <div className='w-full flex flex-col md:flex-row gap-4 md:gap-0'>
+          <div className="md:w-1/2 w-full md:pr-8 order-2 md:order-1">
             <div className="text-gray-50 text-2xl font-semibold py-4">{event.title}</div>
             <div className='text-gray-300 text-sm'>{event.description}</div>
             <div className='mt-8 py-1 flex items-center gap-2'>
@@ -159,15 +159,15 @@ function SingleEvent() {
                   <div className='ml-2'>Leave</div>
                 </div>
               ) : (
-                <div onClick={joinEventHandler} className='mt-8 px-16 py-1 flex items-center rounded-xl bg-yellow-600 text-gray-50 font-medium w-fit cursor-pointer hover:bg-yellow-700 duration-300 active:scale-110 select-none'>
+                <div onClick={joinEventHandler} className='mt-8 md:w-fit px-16 py-1 flex justify-center items-center rounded-xl bg-yellow-600 text-gray-50 font-medium w-full cursor-pointer hover:bg-yellow-700 duration-300 active:scale-110 select-none'>
                   <Icon icon="clarity:event-solid" />
                   <div className='ml-2'>Join</div>
                 </div>
               )
             }
           </div>
-          <div className='w-1/2 flex flex-col items-end'>
-            <div className='w-3/4 rounded-xl relative'>
+          <div className='md:w-1/2 w-full flex flex-col items-center md:items-end order-1 md:order-2'>
+            <div className='md:w-3/4 w-full rounded-xl relative'>
               {
                 isComming() && (
                   <div className='absolute w-full h-full bg-black/40'>

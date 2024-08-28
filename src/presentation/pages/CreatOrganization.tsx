@@ -46,7 +46,7 @@ function CreateOrganization() {
         <div className="my-16 w-full">
             <div className="flex flex-col gap-10 items-center">
                 <h1 className="text-center font-bold text-3xl">Create Organization</h1>
-                <div className="flex flex-col gap-5 w-1/2 items-center">
+                <div className="flex flex-col gap-5 w-full md:w-1/2 items-center">
                     <div className="flex flex-col gap-3 w-full">
                         <div>Organization Name:</div>
                         <input
@@ -108,7 +108,7 @@ function CreateOrganization() {
 
                 </div>
                 <button
-                    className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} font-medium px-3 py-1 rounded-lg w-1/2 hover:opacity-90 active:scale-105 transition-all duration-300 flex items-center justify-center`}
+                    className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} font-medium px-3 py-1 rounded-lg w-full md:w-1/2 hover:opacity-90 active:scale-105 transition-all duration-300 flex items-center justify-center`}
                     onClick={() => { if (!isLoading) { createOrganization(); } }}
                 >
                     {isLoading && (<LoadingIndicator />)}

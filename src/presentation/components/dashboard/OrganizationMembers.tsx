@@ -19,14 +19,14 @@ export default function OrganizationMembers() {
     }, [id]);
 
     return (
-        <div className="w-full h-full flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 py-5">
-            <div className="w-full flex mb-8">
+        <div className="w-full md:h-full mt-16 md:mt-0 flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-4 md:px-8 py-5">
+            <div className="w-full flex flex-col md:flex-row gap-4 md:gap-0 mb-8">
                 <div className="w-full flex flex-col items-start">
                     <div className="text-3xl font-bold">Members</div>
                     <div className="text-xs text-gray-300">{"Manage your organization members and their account permissions here"}</div>
                 </div>
                 <button
-                    className={`w-fit font-medium px-8 py-1 rounded-lg hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap flex items-center mb-8`}
+                    className={`md:w-fit w-full font-medium px-8 py-1 rounded-lg hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap flex items-center justify-center mb-8`}
                     onClick={useDashboardModelValue.open}
                 >
                     <Icon icon="tdesign:member" width="18" height="18" />
@@ -34,12 +34,12 @@ export default function OrganizationMembers() {
                 </button>
             </div>
             <div className="w-full flex-grow flex flex-col">
-                <div className="w-full flex items-center bg-gray-900 rounded-lg px-4 py-2">
-                    <div className="flex-1 text-sm font-semibold text-gray-200">Profile Picture</div>
-                    <div className="flex-1 text-sm font-semibold text-gray-200">First Name</div>
-                    <div className="flex-1 text-sm font-semibold text-gray-200">Last Name</div>
-                    <div className="flex-1 text-sm font-semibold text-gray-200">Role</div>
-                    <div className="flex-1 text-sm font-semibold text-gray-200">Joined At</div>
+                <div className="w-full flex items-center bg-gray-900 rounded-lg px-4 py-2 gap-2 md:gap-0 overflow-x-scroll scrollbar-none">
+                    <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Profile Picture</div>
+                    <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">First Name</div>
+                    <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Last Name</div>
+                    <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Role</div>
+                    <div className="flex-1 text-sm font-semibold text-gray-200 text-nowrap">Joined At</div>
                 </div>
                 <div className="w-full flex-grow overflow-auto">
                     {
@@ -52,7 +52,7 @@ export default function OrganizationMembers() {
                     {
                         members.map((member, index) => {
                             return (
-                                <div key={index}>
+                                <div key={index} className="w-full">
                                     <MemberCard memberData={member} />
                                 </div>
                             )

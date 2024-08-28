@@ -18,7 +18,7 @@ function MyOrganizations() {
         </div>
       </div>
       <div className='flex justify-end w-full'>
-        <NavLink to={'/organization/create'} className={`transition-all duration-200 active:scale-105 hover:opacity-80 rounded-lg px-3 py-1 w-80 text-nowrap flex justify-center items-center  font-semibold text-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
+        <NavLink to={'/organization/create'} className={`transition-all duration-200 active:scale-105 hover:opacity-80 rounded-lg px-3 py-1 w-full md:w-80 text-nowrap flex justify-center items-center  font-semibold text-lg ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`}>
           <Icon icon="ion:create" width="24" height="24" className='mx-2'/>
           CREATE NEW ORGANIZATION
         </NavLink>

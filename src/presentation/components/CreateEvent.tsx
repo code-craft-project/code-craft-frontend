@@ -128,7 +128,7 @@ export default function CreateEvent({ useEditEvent }: CreateEventProps) {
     }
 
     return (
-        <form onSubmit={formSubmitHandler} className="w-1/2 flex flex-col items-center">
+        <form onSubmit={formSubmitHandler} className="md:w-1/2 w-full flex flex-col items-center">
             <div className="w-full text-gray-50 font-semibold text-2xl mb-4">{editEvent ? "Update Your Event" : "Create New Event"}</div>
             <div className="w-full flex flex-col mb-4">
                 <h1 className="text-gray-50 font-meduim text-start mb-2">Event Name:</h1>

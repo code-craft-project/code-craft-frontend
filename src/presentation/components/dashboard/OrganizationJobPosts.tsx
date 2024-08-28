@@ -27,7 +27,7 @@ export default function OrganizationJobPosts() {
 
     return (
         <div className="w-full h-full flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 ">
-            <div className="w-full flex mb-8">
+            <div className="w-full flex flex-col mt-16 md:flex-row mb-8">
                 <div className="w-full flex flex-col items-start">
                     <div className="text-3xl font-bold">Job Posts</div>
                     <div className="text-xs text-gray-300">{"Manage Job Posts"}</div>
@@ -56,7 +56,7 @@ export default function OrganizationJobPosts() {
                             }
 
                             return (
-                                <div key={index} className="w-1/4 pr-4 mb-4">
+                                <div key={index} className="md:w-1/4 w-full pr-4 mb-4">
                                     <MyJobPostCard jobPost={jobPost} viewJobApplications={viewJobApplications} />
                                 </div>
                             )

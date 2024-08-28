@@ -59,10 +59,13 @@ export default function SignIn() {
                 </NavLink>
                 <div className="flex flex-col justify-center items-center text-sm">
                     <h1 className=" font-medium text-xl">For Developers & Organizers</h1>
-                    <p className=" opacity-90 ">Practice coding, events feature, and job opportunities.</p>
+                    <p className=" opacity-90  text-center md:text-start">Practice coding, events feature, and job opportunities.</p>
                 </div>
             </div>
-            <div className="w-1/2 h-5/6" style={{ backgroundImage: `url('${sign}')`, backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
+            <div
+                className=" w-full md:w-1/2 h-3/5 md:h-5/6 bg-cover bg-center  md:bg-contain overflow-hidden md:bg-no-repeat"
+                style={{ backgroundImage: `url('${sign}')` }}
+            >
                 <div className="flex flex-col justify-center items-center mb-8 mt-1 ml-5">
                     <div className="w-14 h-14 overflow-hidden rounded-full flex justify-center items-center">
                         <Icon icon="mingcute:user-4-fill" className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  w-20 h-20 rounded-full`} />

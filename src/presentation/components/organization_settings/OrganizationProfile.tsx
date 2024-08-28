@@ -26,7 +26,7 @@ export default function OrganizationProfile() {
                 <h1 className="text-gray-50 font-semibold text-lg">Profile</h1>
                 <h1 className="font-medium text-sm text-gray-600">Edit your organization profile</h1>
             </div>
-            <div className='w-full flex-grow flex items-start py-8'>
+            <div className='w-full flex-grow flex flex-col md:flex-row items-start py-8'>
                 <div className='w-60 flex flex-col items-center'>
                     <div className='relative w-32'>
                         <img src={isEditMode ? imageUrl : (organization.profile_image_url || organizationProfilePicture)} className="w-32 h-32 rounded-full bg-gray-900 object-cover" />
@@ -47,14 +47,14 @@ export default function OrganizationProfile() {
                         <span className="text-sm font-semibold text-gray-600 flex-1">Type:</span>
                         <input className={`text-gray-50 font-medium flex-[5] duration-300 border-none outline-none focus:bg-gray-800 bg-transparent capitalize`} value={editOrganization.type} disabled />
                     </div>
-                    <div className="w-full flex items-start justify-between mt-2">
+                    <div className="w-full flex flex-col md:flex-row items-start justify-between mt-2">
                         <span className="text-sm font-semibold text-gray-600 flex-1">Description:</span>
                         <textarea
                             value={editOrganization.description}
                             onChange={(ev) => setEditOrganization(state => ({ ...state, description: ev.target.value }))}
                             rows={8}
                             disabled={!isEditMode}
-                            className={`flex-[5] text-gray-50 text-sm font-medium rounded-lg border-none outline-none focus:bg-gray-800 duration-300 ${isEditMode ? "bg-gray-900 px-4 py-2 rounded-lg" : "bg-transparent"}`} placeholder="Description.." />
+                            className={`flex-[5] w-full md:w-fit text-gray-50 text-sm font-medium rounded-lg border-none outline-none focus:bg-gray-800 duration-300 ${isEditMode ? "bg-gray-900 px-4 py-2 rounded-lg" : "bg-transparent"}`} placeholder="Description.." />
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@ export default function OrganizationProfile() {
                         <div onClick={() => { updateOrganization(); setIsEditMode(false); }} className='w-fit self-end bg-yellow-600 border border-px border-yellow-600 px-8 py-2 rounded-lg font-semibold text-gray-50 cursor-pointer'>Save</div>
                     </div>
                 ) : (
-                    <div onClick={() => setIsEditMode(true)} className='my-4 w-fit self-end bg-yellow-600 px-8 py-2 rounded-lg font-semibold text-gray-50 ml-20 cursor-pointer flex items-center'><Icon icon="lucide:edit" className='mr-2' /> Edit</div>
+                    <div onClick={() => setIsEditMode(true)} className='my-4 justify-center self-end bg-yellow-600 px-8 py-2 rounded-lg font-semibold w-full md:w-fit  text-gray-50 ml-20 cursor-pointer flex items-center'><Icon icon="lucide:edit" className='mr-2' /> Edit</div>
                 )
             }
         </div >)

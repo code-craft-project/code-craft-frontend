@@ -175,10 +175,10 @@ export default function CreateOrganizationChallenge({ useEditChallenge }: Create
 
     return (
         <CreateChallengeContext.Provider value={useCreateChallengeValue}>
-            <div className="w-full h-full flex flex-col items-center ">
+            <div className="w-full h-full flex flex-col items-center mt-8">
                 <div className="w-full flex flex-col items-center">
                     <h1 className="text-gray-50 text-center font-semibold text-2xl mb-8">{editChallenge ? "Edit Challenge" : "Create New Challenge"}</h1>
-                    <div className=" w-11/12 flex items-center justify-around">
+                    <div className="w-full md:w-11/12 flex items-center flex-col md:flex-row gap-2 md:gap-0 justify-around">
                         <div className="flex items-center">
                             <div className="w-14 h-14 rounded-full flex items-center justify-center bg-none relative">
                                 <CircleLoading isCompleted={currentStep > 0} />
@@ -235,14 +235,14 @@ export default function CreateOrganizationChallenge({ useEditChallenge }: Create
                         </div>
                     </div>
                 </div>
-                <div className="w-1/2 flex flex-col items-center mt-10">
+                <div className="md:w-1/2 w-full flex flex-col items-center mt-10">
                     <div className="w-full flex flex-col items-center relative">
                         <div className="absolute left-0 top-0 w-full flex flex-col items-center">
                             <SlideInOut animation={useSlideInOutValue0.slideInOutAnimation}>
                                 <BasicInfo />
-                                <div className="w-full flex items-center mb-8 mt-4">
+                                <div className="w-full md:w-fit flex items-center mb-8 mt-4">
 
-                                    <div onClick={goToStep2} className="flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 text-gray-50 px-8 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer mr-2">
+                                    <div onClick={goToStep2} className="flex w-full md:w-fit items-center justify-center bg-yellow-600 hover:bg-yellow-700 text-gray-50 px-8 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer mr-2">
                                         Next
                                     </div>
                                 </div>
@@ -264,7 +264,7 @@ export default function CreateOrganizationChallenge({ useEditChallenge }: Create
                                     </div>
                                     <div
                                         onClick={goToStep3}
-                                        className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-gray-50 px-8 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer">Next</div>
+                                        className="flex items-center justify-center w-full md:w-fit bg-green-600 hover:bg-green-700 text-gray-50 px-8 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer">Next</div>
                                 </div>
                             </SlideInOut>
                         </div>
@@ -272,19 +272,19 @@ export default function CreateOrganizationChallenge({ useEditChallenge }: Create
                         <div className="absolute left-0 top-0 w-full flex flex-col items-center ">
                             <SlideInOut animation={useSlideInOutValue2.slideInOutAnimation}>
                                 <TestCasesAndFiles />
-                                <div className="w-full flex items-center justify-between my-8">
+                                <div className="w-full flex flex-col md:flex-row items-center justify-between my-8">
                                     <div
                                         onClick={() => {
                                             setCurrentStep(1);
                                             useSlideInOutValue1.open();
                                             useSlideInOutValue2.back();
                                         }}
-                                        className="flex items-center justify-center bg-yellow-600 hover:bg-yellow-700 text-gray-50 px-8 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer mr-2">
+                                        className="flex items-center w-full md:w-fit justify-center bg-yellow-600 hover:bg-yellow-700 text-gray-50 px-8 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer md:mr-2 mb-2 md:mb-0">
                                         Back
                                     </div>
                                     <div
                                         onClick={createChallengeHandler}
-                                        className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-gray-50 px-16 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer">
+                                        className="flex items-center w-full md:w-fit justify-center bg-green-600 hover:bg-green-700 text-gray-50 px-16 py-1 rounded-lg active:scale-110 duration-300 cursor-pointer">
                                         {editChallenge ? "Update" : "Create"}
                                     </div>
                                 </div>

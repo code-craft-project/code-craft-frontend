@@ -88,9 +88,9 @@ function Home() {
                 <h3 className="text-gray-400">Welcome to</h3>
                 <h2 className="font-semibold text-2xl mt-2">Challenger  Mentality Home</h2>
             </div>
-            <div className="flex py-14 w-full">
+            <div className="flex flex-wrap py-14 w-full gap-4 md:gap-0">
                 <div className="flex-1 flex flex-col items-start">
-                    <div className="bg-primary-blue bg-opacity-80 px-6 py-4 w-11/12 h-full flex flex-col items-start justify-between rounded-lg">
+                    <div className="bg-primary-blue bg-opacity-80 px-6 py-4 md:w-11/12 h-full flex flex-col items-start justify-between rounded-lg">
                         <div>
                             <div className="flex items-center mb-2">
                                 <Icon icon="fluent:code-24-filled" className="text-3xl" />
@@ -103,7 +103,7 @@ function Home() {
                 </div>
 
                 <div className="flex-1 flex flex-col items-center">
-                    <div className="bg-primary-blue bg-opacity-80 px-6 py-4 w-11/12 h-full flex flex-col items-start justify-between rounded-lg">
+                    <div className="bg-primary-blue bg-opacity-80 px-6 py-4 md:w-11/12 h-full flex flex-col items-start justify-between rounded-lg">
                         <div>
                             <div className="flex items-center mb-2">
                                 <Icon icon="mdi:events" className="text-xl" />
@@ -116,7 +116,7 @@ function Home() {
                 </div>
 
                 <div className="flex-1 flex flex-col items-end">
-                    <div className="bg-primary-blue bg-opacity-80 px-6 py-4 w-11/12 h-full flex flex-col items-start justify-between rounded-lg">
+                    <div className="bg-primary-blue bg-opacity-80 px-6 py-4 md:w-11/12 h-full flex flex-col items-start justify-between rounded-lg">
                         <div>
                             <div className="flex items-center mb-2">
                                 <Icon icon="fluent-mdl2:work" className="text-xl" />
@@ -129,8 +129,8 @@ function Home() {
                 </div>
             </div>
             <h1 className="text-gray-300 font-medium text-xl pt-16 mb-4">Top Challenges:</h1>
-            <div className="flex gap-16 pb-16 w-full">
-                <div className="w-2/3">
+            <div className="flex flex-wrap gap-16 pb-16 w-full">
+                <div className="md:w-2/3 w-full">
                     <div className="scroll-container w-full scrollbar-none ">
                         <div className="flex py-2 gap-2 relative items-center flex-wrap">
                             {
@@ -140,7 +140,7 @@ function Home() {
                                     }
 
                                     return (
-                                        <div key={index} onClick={selectTopic} className={`cursor-pointer hover:opacity-75 transition-opacity duration-300 flex items-center px-4 py-1 rounded-lg ${topic == selectedTopic ? isActiveBackground : 'border-1.5'}`}>
+                                        <div key={index} onClick={selectTopic} className={`cursor-pointer hover:opacity-75 transition-opacity duration-300 flex w-full md:w-fit items-center px-4 py-1 rounded-lg ${topic == selectedTopic ? isActiveBackground : 'border-1.5'}`}>
                                             {topics[topic]}
                                             <span className="ml-2 whitespace-nowrap capitalize">{topic}</span>
                                         </div>

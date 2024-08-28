@@ -26,7 +26,7 @@ export default function DashboardModel({ children, useDashboardModel, animationN
                             initial="close"
                             animate="open"
                             exit="close"
-                            className="w-full h-screen bg-black/20 overflow-auto flex flex-col items-center absolute top-0 left-0 backdrop-blur-sm"
+                            className="w-full mt-16 md:mt-0 h-screen bg-black/20 overflow-auto flex flex-col items-center absolute top-0 left-0 backdrop-blur-sm"
                         >
                             <div className="w-11/12 flex items-center flex-nowrap justify-between py-4">
                                 <div></div>

@@ -95,20 +95,20 @@ function ProfessionalDetails() {
     }
 
     return (
-        <form onSubmit={update_user} className="flex flex-col gap-8 py-5 px-20 w-4/5">
+        <form onSubmit={update_user} className="flex flex-col gap-8 py-5 md:px-20 w-full md:w-4/5">
             <div className='h-20'>
                 <h1 className="font-semibold text-2xl">Professional details</h1>
                 <h1 className="font-medium text-sm opacity-75">Edit your Professional details</h1>
             </div>
-            <div className="w-2/3 flex items-start justify-between">
-                <span className="text-sm w-20">Bio</span>
+            <div className="md:w-2/3 w-full flex items-center md:items-start justify-between">
+                <span className="text-sm w-20 mr-2 md:mr-0">Bio</span>
                 {editMode.bio ? (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.3 }}
-                        className='flex items-start justify-between'
+                        className='flex flex-col md:flex-row gap-2 justify-end items-start w-full'
                     >
                         <textarea
                             className="text-sm bg-transparent border-1.5 rounded-md px-2 py-1 w-72"
@@ -134,7 +134,7 @@ function ProfessionalDetails() {
                     </div>
                 )}
             </div>
-            <div className="w-2/3 flex items-start justify-between">
+            <div className="md:w-2/3 w-full flex items-center md:items-start justify-between">
                 <span className="text-sm w-20">Skills</span>
                 {editMode.skills ? (
                     <motion.div
@@ -142,7 +142,7 @@ function ProfessionalDetails() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.3 }}
-                        className='flex items-start justify-between w-full '
+                        className='flex flex-col md:flex-row gap-2 justify-end items-start w-full'
                     >
                         <div className="flex gap-2 mx-5">
                             <input

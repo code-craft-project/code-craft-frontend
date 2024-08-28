@@ -70,7 +70,7 @@ export default function Search() {
                 </form>
                 <Icon onClick={searchButtonHandler} icon="iconoir:search" className=" h-10 w-10 px-1.5 cursor-pointer absolute left-2 top-0 text-white opacity-75" />
             </div>
-            <div className='w-full flex gap-x-4 justify-start items-center'>
+            <div className='w-full flex flex-wrap md:gap-x-4 justify-start items-center'>
                 <div onClick={() => { setSelectedTab('all') }} className={`px-4 py-2 text-gray-50 cursor-pointer active:scale-105 duration-300 hover:bg-yellow-700/20 text-sm rounded-lg ${selectedTab == 'all' ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}` : ''}`}>All</div>
                 <div onClick={() => { setSelectedTab('events') }} className={`px-4 py-2 text-gray-50 cursor-pointer active:scale-105 duration-300 hover:bg-yellow-700/20 text-sm rounded-lg ${selectedTab == 'events' ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}` : ''}`}>Events</div>
                 <div onClick={() => { setSelectedTab('challenges') }} className={`px-4 py-2 text-gray-50 cursor-pointer active:scale-105 duration-300 hover:bg-yellow-700/20 text-sm rounded-lg ${selectedTab == 'challenges' ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}` : ''}`}>Challenges</div>
@@ -83,28 +83,28 @@ export default function Search() {
                     <div className='w-full flex-grow flex flex-col mt-8'>
                         {
                             (selectedTab == 'all' || selectedTab == 'challenges') && (
-                                <div className='w-full flex flex-col mb-8'>
+                                <div className='w-full flex flex-wrap mb-8'>
                                     <ChallengesSearchResult challenges={challenges} didSearch={didSearch} />
                                 </div>
                             )
                         }
                         {
                             (selectedTab == 'all' || selectedTab == 'events') && (
-                                <div className='w-full flex flex-col mb-8'>
+                                <div className='w-full flex flex-wrap mb-8'>
                                     <EventsSearchResult events={events} didSearch={didSearch} />
                                 </div>
                             )
                         }
                         {
                             (selectedTab == 'all' || selectedTab == 'job_posts') && (
-                                <div className='w-full flex flex-col mb-8'>
+                                <div className='w-full flex flex-wrap mb-8'>
                                     <JobPostsSearchResult jobPosts={jobPosts} didSearch={didSearch} />
                                 </div>
                             )
                         }
                         {
                             (selectedTab == 'all' || selectedTab == 'organizations') && (
-                                <div className='w-full flex flex-col mb-8'>
+                                <div className='w-full flex flex-wrap mb-8'>
                                     <OrganizationsSearchResult organizations={organizations} didSearch={didSearch} />
                                 </div>
                             )
@@ -167,17 +167,17 @@ interface EventsSearchResultProps {
 
 function EventsSearchResult({ events, didSearch }: EventsSearchResultProps) {
     return (
-        <div className='w-full flex flex-col'>
+        <div className='w-full flex flex-wrap'>
             <div className="text-xl mb-4 font-semibold text-gray-50">Events:</div>
             {
                 (events.length == 0 && didSearch) ? (
                     <div className='w-full text-gray-400 text-sm flex items-center'><Icon icon="zondicons:question" className='mr-2' />Didn't find anything.</div>
                 ) : (
-                    <div className='w-full flex flex-wrap'>
+                    <div className='w-full flex flex-wrap justify-center md:justify-start'>
                         {
                             events.map((event, index) => {
                                 return (
-                                    <div key={index} className='w-1/5 pr-4 mb-8'>
+                                    <div key={index} className='md:w-1/5 pr-4 mb-8'>
                                         <EventCard event={event} />
                                     </div>
                                 )
@@ -197,17 +197,17 @@ interface JobPostsSearchResultProps {
 
 function JobPostsSearchResult({ jobPosts, didSearch }: JobPostsSearchResultProps) {
     return (
-        <div className='w-full flex flex-col'>
+        <div className='w-full flex flex-wrap'>
             <div className="text-xl mb-4 font-semibold text-gray-50">Job Posts:</div>
             {
                 (jobPosts.length == 0 && didSearch) ? (
                     <div className='w-full text-gray-400 text-sm flex items-center'><Icon icon="zondicons:question" className='mr-2' />Didn't find anything.</div>
                 ) : (
-                    <div className='w-full flex flex-wrap'>
+                    <div className='w-full flex flex-wrap justify-center md:justify-start'>
                         {
                             jobPosts.map((jobPost, index) => {
                                 return (
-                                    <div key={index} className='w-1/5 pr-4 mb-8'>
+                                    <div key={index} className='md:w-1/5 pr-4 mb-8'>
                                         <JobPostCardForSearchResult jobPost={jobPost} />
                                     </div>
                                 )
@@ -227,17 +227,17 @@ interface OrganizationsSearchResultProps {
 
 function OrganizationsSearchResult({ organizations, didSearch }: OrganizationsSearchResultProps) {
     return (
-        <div className='w-full flex flex-col'>
+        <div className='w-full flex flex-wrap'>
             <div className="text-xl mb-4 font-semibold text-gray-50">Organizations:</div>
             {
                 (organizations.length == 0 && didSearch) ? (
                     <div className='w-full text-gray-400 text-sm flex items-center'><Icon icon="zondicons:question" className='mr-2' />Didn't find anything.</div>
                 ) : (
-                    <div className='w-full flex flex-wrap'>
+                    <div className='w-full flex flex-wrap justify-center md:justify-start'>
                         {
                             organizations.map((organization, index) => {
                                 return (
-                                    <div key={index} className='w-1/5 pr-4 mb-4'>
+                                    <div key={index} className='md:w-1/5 pr-4 mb-4'>
                                         <OrganizationCardForSearchResult organization={organization} />
                                     </div>
                                 )

@@ -41,10 +41,10 @@ function SingleJobPost() {
 
   return (
     <div className='w-full flex flex-col items-center'>
-      <div className='w-full flex my-10'>
-        <div className='w-1/2 flex flex-col mb-8 pr-8'>
+      <div className='w-full flex flex-col md:flex-row my-10'>
+        <div className='md:w-1/2 w-full flex flex-col mb-8 md:pr-8'>
           <div className='w-full flex flex-col items-start'>
-            <img src={jobPost.organization?.profile_image_url || organizationProfilePicture} alt="Company Image" className='w-20 rounded-lg mb-2' />
+            <img src={jobPost.organization?.profile_image_url || organizationProfilePicture} alt="Company Image" className='md:w-20 w-1/2 rounded-lg mb-2' />
             <div className='flex flex-col items-start mb-4'>
               <h1 className='font-semibold text-xl'>{jobPost.title}</h1>
               <p className='font-light text-gray-400'>{jobPost.role}</p>
@@ -88,7 +88,7 @@ function SingleJobPost() {
                 }
                 <input onChange={onSelectFile} ref={fileInputRef} type='file' accept='.pdf, .docs' hidden />
                 <div className='w-full flex flex-col mt-8'>
-                  <div onClick={() => { applyJobPost(jobPost.id!); }} className={`w-fit ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} px-8 py-1 rounded-lg mt-4 cursor-pointer hover:bg-green-600 duration-300 active:scale-110 select-none`}>Submit Application</div>
+                  <div onClick={() => { applyJobPost(jobPost.id!); }} className={`w-fit ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} px-8 py-1 rounded-lg mt-4 cursor-pointer hover:bg-green-600 duration-300 active:scale-110 select-none w-full md:w-fit text-center`}>Submit Application</div>
                 </div>
               </div>
             ) : (
@@ -98,7 +98,7 @@ function SingleJobPost() {
             )
           }
         </div>
-        <div className='w-1/2 h-fit max-h-screen overflow-auto py-8 px-5 border rounded-xl border-white whitespace-pre-line'>
+        <div className='md:w-1/2 w-full h-fit max-h-screen overflow-auto py-8 px-5 border rounded-xl border-white whitespace-pre-line'>
           {jobPost.description}
         </div>
       </div>
@@ -116,7 +116,7 @@ function SingleJobPost() {
                     }
 
                     return (
-                      <div key={index} className='w-1/4 pr-2 pb-2'>
+                      <div key={index} className='md:w-1/4 w-full pr-2 pb-2'>
                         <JobPostCardForSearchResult jobPost={job} />
                       </div>
                     )

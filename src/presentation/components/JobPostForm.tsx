@@ -27,8 +27,8 @@ function JobPostForm({formType,jobPostId }: any) {
 
 
     return (
-        <form onSubmit={handleFormSubmit} className="flex flex-col gap-5 w-full items-center">
-            <div className="flex flex-col gap-5 w-1/2 items-center">
+        <form onSubmit={handleFormSubmit} className="flex flex-col mt-4 gap-5 w-full items-center">
+            <div className="flex flex-col gap-5 w-full md:w-1/2 items-center">
                 <div className="flex flex-col gap-3 w-full">
                     <h1 className="text-xl font-medium text-start ">Title</h1>
                     <input 
@@ -49,8 +49,8 @@ function JobPostForm({formType,jobPostId }: any) {
                         onChange={ev => setRole(ev.target.value)}
                     />
                 </div>
-                <div className="flex w-full gap-3 items-start">
-                    <div className="flex flex-col gap-2 w-[49%]">
+                <div className="flex flex-col md:flex-row w-full gap-3 items-start">
+                    <div className="flex flex-col gap-2 w-full md:w-[49%]">
                         <h1 className="text-xl font-medium text-start">Place</h1>
                         <select  onChange={ ev => {setType(ev.target.value as JobType)}} className="w-full bg-white font-medium py-1 px-3 rounded-lg text-black">
                             <option disabled>Select Place</option>
@@ -59,7 +59,7 @@ function JobPostForm({formType,jobPostId }: any) {
                             <option value="Hyprid">Hyprid</option>
                         </select>
                     </div>
-                    <div className="flex flex-col gap-2 w-[49%]">
+                    <div className="flex flex-col gap-2 w-full md:w-[49%]">
                         <h1 className="text-xl font-medium text-start">Contract Type</h1>
                         <select onChange={ ev => {setContractType(ev.target.value as ContractType)}} className="w-full bg-white font-medium py-1 px-3 rounded-lg text-black">
                             <option value="">Select Contract Type</option>
@@ -92,7 +92,7 @@ function JobPostForm({formType,jobPostId }: any) {
                     />
                 </div>
             </div>
-            <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-medium px-3 py-1 rounded-lg w-1/2 mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 capitalize `}>{formType}</button>
+            <button className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-medium px-3 py-1 rounded-lg w-full md:w-1/2 mt-5 hover:opacity-90 active:scale-105 transition-all duration-300 capitalize `}>{formType}</button>
         </form>
     )
 }

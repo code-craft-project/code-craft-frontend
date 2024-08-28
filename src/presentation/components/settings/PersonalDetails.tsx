@@ -104,8 +104,8 @@ function PersonalDetails() {
     }
 
     return (
-        <form onSubmit={update_user} className="flex flex-col gap-8 py-5 px-20 w-4/5">
-            <div className="flex justify-between items-center">
+        <form onSubmit={update_user} className="flex flex-col gap-8 py-5 md:px-20 w-full md:w-4/5">
+            <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className='h-20'> 
                     <h1 className="font-semibold text-2xl">Personal details</h1>
                     <h1 className="font-medium text-sm opacity-75">Edit your personal details</h1>
@@ -118,7 +118,7 @@ function PersonalDetails() {
                         </div>
                 </div>
             </div>
-            <div className="w-2/3 flex items-start justify-between">
+            <div className="md:w-2/3 w-full flex items-center md:items-start justify-between">
                 <span className="text-sm w-20">username</span>
                 {editMode.username ?
                     <motion.div
@@ -126,11 +126,11 @@ function PersonalDetails() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.3 }}
-                        className='flex justify-end items-start w-full'
+                        className='flex flex-col md:flex-row gap-2 justify-end items-start w-full'
                     >
                         <input
                             type="text"
-                            className="text-sm text-black px-3 py-1 rounded-lg w-36 mr-16"
+                            className="text-sm text-black px-3 py-1 rounded-lg w-36 md:mr-16"
                             value={username}
                             onChange={(ev) => setUsername(ev.target.value)}
                         />
@@ -146,7 +146,7 @@ function PersonalDetails() {
                     </>
                 }
             </div>
-            <div className="w-2/3 flex items-start justify-between">
+            <div className="md:w-2/3 w-full flex items-start justify-between">
                 <span className="text-sm w-20">First Name</span>
                 {editMode.first_name ?
                     <motion.div
@@ -154,11 +154,11 @@ function PersonalDetails() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.3 }}
-                        className='flex justify-end items-start w-full'
+                        className='flex flex-col md:flex-row gap-2 justify-end items-start w-full'
                     >
                         <input
                             type="text"
-                            className="text-sm text-black px-3 py-1 rounded-lg w-36 mr-16"
+                            className="text-sm text-black px-3 py-1 rounded-lg w-36 md:mr-16"
                             value={first_name}
                             onChange={(ev) => setFirst_name(ev.target.value)}
                         />
@@ -174,7 +174,7 @@ function PersonalDetails() {
                     </>
                 }
             </div>
-            <div className="w-2/3 flex items-start justify-between">
+            <div className="md:w-2/3 w-full flex items-start justify-between">
                 <span className="text-sm w-20">Last Name</span>
                 {editMode.last_name ?
                     <motion.div
@@ -182,11 +182,11 @@ function PersonalDetails() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.3 }}
-                        className='flex justify-end items-start w-full'
+                        className='flex flex-col md:flex-row gap-2 justify-end items-start w-full'
                     >
                         <input
                             type="text"
-                            className="text-sm text-black px-3 py-1 rounded-lg w-36 mr-16"
+                            className="text-sm text-black px-3 py-1 rounded-lg w-36 md:mr-16"
                             value={last_name}
                             onChange={(ev) => setLast_name(ev.target.value)}
                             placeholder='Your last name'
@@ -204,7 +204,7 @@ function PersonalDetails() {
                 }
             </div>
 
-            <div className="w-2/3 flex items-start justify-between">
+            <div className="md:w-2/3 w-full flex items-start justify-between">
                 <span className="text-sm w-20">Email</span>
                 {editMode.email ?
                     <motion.div
@@ -212,11 +212,11 @@ function PersonalDetails() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.3 }}
-                        className='flex justify-end items-start w-full'
+                        className='flex flex-col md:flex-row gap-2 justify-end items-start w-full'
                     >
                         <input
                             type="text"
-                            className="text-sm text-black px-3 py-1 rounded-lg w-36 mr-16"
+                            className="text-sm text-black px-3 py-1 rounded-lg w-36 md:mr-16"
                             value={email}
                             onChange={(ev) => setEmail(ev.target.value)}
                         />
@@ -232,8 +232,8 @@ function PersonalDetails() {
                     </>
                 }
             </div>
-            <div className='flex justify-end w-[69%] mt-2'>
-                <button type='submit' className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}  font-medium px-8 py-1 rounded-lg  hover:opacity-90 active:scale-105 transition-all duration-300`}>Save</button>
+            <div className='flex justify-end w-full md:w-[69%] mt-2'>
+                <button type='submit' className={`${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} w-full md:w-fit  font-medium px-8 py-1 rounded-lg  hover:opacity-90 active:scale-105 transition-all duration-300`}>Save</button>
             </div>
         </form>
     )

@@ -86,10 +86,10 @@ function InOut() {
                             </div>
                             {
                                 testCase.inputs?.map((input, inputIndex) => (
-                                    <div key={inputIndex} className="flex items-center mb-2">
+                                    <div key={inputIndex} className="flex flex-col gap-2 md:gap-0 md:flex-row items-center mb-2">
                                         <input
                                             type="text"
-                                            className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 flex-grow mr-2"
+                                            className="bg-gray-800 w-full md:w-fit text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 flex-grow md:mr-2"
                                             placeholder='Input'
                                             value={input.input}
                                             onChange={
@@ -103,7 +103,7 @@ function InOut() {
                                             }
                                         />
                                         <select
-                                            className="bg-gray-800 text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
+                                            className="bg-gray-800 w-full md:w-fit text-gray-50 placeholder:font-medium font-medium px-4 py-2 rounded-lg outline-none focus:bg-gray-700 duration-300 capitalize"
                                             value={input.type}
                                             onChange={
                                                 (ev) => {

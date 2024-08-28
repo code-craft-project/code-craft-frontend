@@ -33,12 +33,12 @@ function MemberCard({ memberData }: { memberData: MemberEntity } ) {
 
     return (
         member ? (
-            <div className="w-full flex items-center px-4 py-2 relative">
+            <div className="w-full flex items-center gap-2 md:gap-0 px-4 py-2 relative overflow-x-scroll scrollbar-none">
                 <div className="flex-1">
                     <img src={member.user?.profile_image_url || userProfilePicture} className="w-10 h-10 bg-gray-800 rounded-full object-cover" />
                 </div>
-                <div className="flex-1 text-sm font-semibold text-gray-200">{member.user?.first_name}</div>
-                <div className="flex-1 text-sm font-semibold text-gray-200">{member.user?.last_name}</div>
+                <div className="flex-1 text-sm font-semibold text-nowrap text-gray-200">{member.user?.first_name}</div>
+                <div className="flex-1 text-sm font-semibold text-nowrap text-gray-200">{member.user?.last_name}</div>
                 {!isEditable 
                 ? <div className="flex-1 text-sm font-semibold text-gray-200">{member.role}</div>
                 :<div className='flex-1 text-sm font-semibold '>
@@ -49,10 +49,10 @@ function MemberCard({ memberData }: { memberData: MemberEntity } ) {
                     </select>
                 </div>
                 }
-                <div className="flex-1 text-sm font-semibold text-gray-200">{moment(member.created_at).format("DD-MM-yyyy HH:mm")}</div>
+                <div className="flex-1 text-sm font-semibold text-nowrap text-gray-200">{moment(member.created_at).format("DD-MM-yyyy HH:mm")}</div>
                 {!isEditable 
                 ? <Icon
-                    className='absolute top-4 right-8 cursor-pointer text-white hover:bg-white/20 rounded-md p-1'
+                    className='md:absolute top-4 right-16 md:right-8 cursor-pointer text-white hover:bg-white/20 rounded-md p-1'
                     icon="charm:menu-kebab"
                     width="24"
                     height="24"

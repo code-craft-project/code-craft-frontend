@@ -57,11 +57,11 @@ function Settings() {
     }
 
     return (
-        <div className="w-full flex mt-14 pb-5" >
-            <div className="flex w-1/6 flex-col justify-between py-5  border-r border-white">
-                <div className="flex flex-col gap-8 pl-2">
+        <div className="w-full flex flex-col md:flex-row mt-14 pb-5" >
+            <div className="flex w-full md:w-1/6 flex-col justify-between items-start py-5 gap-2 md:border-r border-white">
+                <div className="flex flex-col gap-8 md:pl-2">
                     <h1 className="opacity-90 ">Profile Settings</h1>
-                    <div className="flex flex-col gap-3 items-center pl-2">
+                    <div className="flex flex-col gap-3 items-start md:pl-2">
                         <button 
                             onClick={() => setChangeComponent(0)} 
                             className={`cursor-pointer hover:opacity-60 flex gap-1 transition-colors duration-300 ease-in-out items-center ${changeComponent == 0 ? `${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} bg-clip-text text-transparent` : ''}`}
@@ -70,7 +70,7 @@ function Settings() {
                             ? <img src={user} alt="" className="w-3 h-3"/>
                             : <Icon icon="mdi:user" width="20" height="20" />
                             }
-                            <div className="w-44 text-sm text-start">Personal details</div>
+                            <div className="md:w-44 text-sm text-start">Personal details</div>
                         </button>
                         <button 
                             onClick={() => setChangeComponent(1)} 
@@ -80,7 +80,7 @@ function Settings() {
                             ? <img src={ProfessionalDetailsImg} alt="" className="w-3 h-3"/>
                             : <Icon icon="carbon:skill-level-intermediate" width="18" height="18" />
                             }
-                            <div className="w-44 text-sm text-start">Professional details</div>
+                            <div className="md:w-44 text-sm text-start">Professional details</div>
                         </button>
                         <button 
                             onClick={() => setChangeComponent(2)} 
@@ -90,7 +90,7 @@ function Settings() {
                             ? <img src={privacy} alt="" />
                             : <Icon icon="material-symbols:privacy-tip" width="18" height="18" />
                             }
-                            <div className="w-44 text-sm text-start">Privacy</div>
+                            <div className="md:w-44 text-sm text-start">Privacy</div>
                         </button>
                         <button 
                             onClick={() => setChangeComponent(3)} 
@@ -104,7 +104,7 @@ function Settings() {
                         </button>
                     </div>
                 </div>
-                <div onClick={HandleSignOut} className="flex gap-2 items-center pr-8 cursor-pointer hover:text-primary-yellow ">
+                <div onClick={HandleSignOut} className="flex gap-2 items-center md:pr-8 cursor-pointer hover:text-primary-yellow ">
                     <Icon icon="tabler:logout" width="18" height="18" />
                     <div>Log out</div>
                 </div>

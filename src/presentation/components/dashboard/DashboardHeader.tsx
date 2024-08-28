@@ -15,7 +15,7 @@ export default function DashboardHeader() {
 
     return (
         <motion.div
-            className={`shadow-xl w-full flex justify-between items-center px-8 bg-gray-900 py-2 rounded-xl mt-2`}
+            className={`shadow-xl w-full flex justify-between items-center absolute z-50 top-auto px-4 md:px-8 bg-gray-900 py-2 rounded-xl mt-2`}
             initial="hidden"
             animate="visible"
             variants={navbarVariants}

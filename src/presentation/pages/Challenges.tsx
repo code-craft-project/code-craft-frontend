@@ -83,8 +83,8 @@ function Challenges() {
     return (
         <div className='w-full mt-20'>
             <h1 className="opacity-60 pt-8 mb-2">All Challenges</h1>
-            <div className="flex gap-16 pb-16 w-full">
-                <div className="w-2/3">
+            <div className="flex flex-col md:flex-row gap-16 pb-16 w-full">
+                <div className="md:w-2/3 w-full">
                     <div className="scroll-container w-full scrollbar-none ">
                         <div className="flex py-2 gap-2 relative items-center flex-wrap">
                             {
@@ -94,7 +94,7 @@ function Challenges() {
                                     }
 
                                     return (
-                                        <div key={index} onClick={selectTopic} className={`cursor-pointer hover:opacity-75 transition-opacity duration-300 flex items-center px-4 py-1 rounded-lg ${topic == selectedTopic ? isActiveBackground : 'border-1.5'}`}>
+                                        <div key={index} onClick={selectTopic} className={`cursor-pointer hover:opacity-75 w-full md:w-fit transition-opacity duration-300 flex items-center px-4 py-1 rounded-lg ${topic == selectedTopic ? isActiveBackground : 'border-1.5'}`}>
                                             {topics[topic]}
                                             <span className="ml-2 whitespace-nowrap capitalize">{topic}</span>
                                         </div>

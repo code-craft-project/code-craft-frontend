@@ -15,24 +15,24 @@ function JobsPost() {
   return (
     <>
       <div className='w-full py-16 flex flex-col items-center'>
-        <div className='w-full flex justify-between'>
-          <div className='w-1/2 py-10 flex flex-col items-start'>
-            <h1 className='text-6xl'>Find a job that suits your <br /> passion</h1>
+        <div className='w-full flex flex-col md:flex-row justify-between'>
+          <div className='md:w-1/2 w-full py-10 flex flex-col items-start order-2 md:order-1'>
+            <h1 className='text-3xl md:text-6xl'>Find a job that suits your <br /> passion</h1>
             <div className='flex justify-start mt-16'>
               <div className="flex relative ">
-                <input type="text" placeholder="Quick Search" className=" bg-white rounded-l-sm px-10 w-[22rem] py-2 text-black outline-primary-yellow" />
+                <input type="text" placeholder="Quick Search" className=" bg-white rounded-l-sm px-10 w-full md:w-[22rem] py-2 text-black outline-primary-yellow" />
                 <Icon icon="iconoir:search" className=" h-10 w-10 px-2 cursor-pointer absolute left-0 text-black opacity-40" />
               </div>
-              <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-medium px-4 py-2 rounded-r-sm ">Search</NavLink>
+              <NavLink to="/search" className="bg-primary-yellow bg-opacity-80 font-medium px-4 py-2 rounded-r-sm ">Search</NavLink>
             </div>
           </div>
-          <div className='w-1/2'>
+          <div className='md:w-1/2 w-full order-1 md:order-2'>
             <img src={JobImg} alt="" className='w-full' />
           </div>
         </div>
         <div className='w-full flex flex-col items-center'>
-          <div className='flex w-full justify-between py-2'>
-            <h1 className='text-xl text-center'>Our<br />Organizations</h1>
+          <div className='flex w-full flex-wrap gap-4 md:gap-0 justify-between py-2'>
+            <h1 className='text-xl text-center w-full md:w-auto'>Our<br />Organizations</h1>
             <div className='flex justify-center items-center'>
               <Icon icon="ri:openai-fill" width="32" height="32" style={{ color: "white", marginRight: "5px" }} />
               <h1 className='text-xl'>Open AI</h1>
@@ -73,8 +73,8 @@ function JobsPost() {
         <h1 className=' text-4xl font-semibold p-5 mr-3'>Explore the job</h1>
         <p className='text-center opacity-60 font-semibold'>Choose your favorite job</p>
       </div>
-      <div className='w-full mx-auto flex flex-wrap h-52 my-20 justify-center'>
-        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+      <div className='w-full mx-auto flex flex-wrap md:h-52 my-20 justify-center'>
+        <div className='p-2 bg-white mx-4 md:mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon
               icon="clarity:mobile-line"
@@ -85,7 +85,7 @@ function JobsPost() {
             <h1>Mobile App Developer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-4 md:mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon
               icon="simple-icons:frontendmentor"
@@ -96,7 +96,7 @@ function JobsPost() {
             <h1>Front End Developer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-4 md:mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon
               icon="iconoir:pc-firewall"
@@ -107,25 +107,25 @@ function JobsPost() {
             <h1>Back End Developer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-4 md:mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon icon="material-symbols:full-stacked-bar-chart" width="32" height="32" className='text-primary-blue'/>
             <h1>Full Stack Developer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-4 md:mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon icon="carbon:concept" width="32" height="32" className='text-primary-blue'/>
             <h1>Software Engineer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-4 md:mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon icon="codicon:azure-devops" width="32" height="32" className='text-primary-blue'/>
             <h1>DevOps Engineer</h1>
           </div>
         </div>
-        <div className='p-2 bg-white mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
+        <div className='p-2 bg-white mx-4 md:mx-10 mb-8 w-32 cursor-pointer h-32 rounded-xl flex items-center justify-center'>
           <div className={` ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} text-transparent bg-clip-text`}>
             <Icon icon="basil:adobe-experince-design-outline" width="36" height="36" className='text-primary-blue'/> 
             <h1 className='mr-2'> UI/UX   Designer</h1>

@@ -64,9 +64,9 @@ export default function LandingPage() {
 
     return (
         <div className="w-full flex flex-col items-center">
-            <div className="w-full flex">
-                <div className="w-1/2 py-10">
-                    <div className='mt-8 mb-4 w-2/3'>
+            <div className="w-full flex flex-col md:flex-row">
+                <div className="md:w-1/2 w-full py-10">
+                    <div className='mt-8 mb-4 w-full md:w-2/3'>
                         <h1 className="text-gray-50 font-semibold text-2xl leading-8">
                             Start Your Coding Adventure Open Challenges, Limitless Growth
                         </h1>
@@ -76,35 +76,25 @@ export default function LandingPage() {
                             enhancement and career advancement.
                         </h2>
                     </div>
-                    <div className="w-fit flex items-center mb-4 py-4 rounded-lg">
+                    <div className="md:w-fit w-full flex items-center mb-4 py-4 rounded-lg">
                         <img src={profiles} alt="" className="h-8" />
                         <p className="ml-4 text-xs text-gray-400">
                             Join 780,900 Developers Engaged in Learning,<br />
                             Collaboration, and Growth
                         </p>
                     </div>
-                    {/* <div className="w-full flex items-center">
-                        <div className="flex-grow flex items-center rounded-xl bg-white mr-2 outline-primary-yellow">
-                            <input type="text" placeholder="Quick Search" className="flex-grow bg-transparent px-8 py-2 text-black outline-none" />
-                            <NavLink to='/search' className='cursor-pointer px-4 text-lg'>
-                                <Icon icon="iconoir:search" className="text-primary-yellow" />
-                            </NavLink>
-                        </div>
-                        <NavLink to="/sign-in" className="bg-primary-yellow bg-opacity-80 font-medium px-4 py-2 rounded-xl">Get Started</NavLink>
-                    </div> */}
                     <NavLink to="/sign-up" className="w-fit">
-                        <div className="w-fit select-none bg-primary-yellow bg-opacity-80 font-medium px-16 py-2 rounded-lg hover:bg-yellow-700 duration-300 active:scale-105">Join Us Today</div>
+                        <div className="md:w-fit w-full text-center select-none bg-primary-yellow bg-opacity-80 font-medium px-16 py-2 rounded-lg hover:bg-yellow-700 duration-300 active:scale-105">Join Us Today</div>
                     </NavLink>
                 </div>
-                <div className="flex flex-col items-end w-1/2">
+                <div className="flex flex-col items-end w-full md:w-1/2">
                     <div className="w-full h-full flex flex-col items-end justify-end" >
                         <div className='w-fit relative'>
-                            <div className="w-80 absolute bottom-1/3 right-1/2">
+                            <div className="w-80 md:absolute bottom-1/3 right-1/2">
                                 <button className={`absolute z-10 -top-4 left-4 ${styles.active} ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc} p-2 opacity-70 rounded-md`}><Icon icon="ph:code-duotone" style={{ color: "white" }} /></button>
-                                <img src={Landimg1} className="w-full" />
+                                <img src={Landimg1} className="md:w-full w-60" />
                             </div>
-                            <img src={Landimg2} className="w-80" />
-
+                            <img src={Landimg2} className="w-40 md:w-80 absolute md:static top-1/2 left-1/2" />
                         </div>
                     </div>
                 </div>
@@ -112,21 +102,11 @@ export default function LandingPage() {
             <div className='w-full flex flex-col items-center'>
                 <img src={arrowShapeImage} className='w-full' />
             </div>
-            {
-                /* <div className="py-28 w-full flex items-center justify-between mt-32 relative">
-                    <div className="absolute top-0 left-[49.95%] h-2 w-80 bg-primary-yellow bg-opacity-60 z-50"></div>
-                    <div className="absolute bottom-96 left-[77%] h-36 w-2 bg-primary-yellow bg-opacity-60 "></div>
-                    <div className="absolute bottom-[21.3rem] left-[74%] rounded-full h-20 w-20 bg-primary-yellow opacity-30 flex justify-center items-center"></div>
-                    <div className="absolute bottom-[22.8rem] left-[75.5%] h-10 w-10 rounded-full bg-primary-yellow opacity-100 flex justify-center items-center"></div>
-                    <div className="absolute bottom-[23.4rem] left-[76.5%] h-4 w-4 rounded-full bg-primary-yellow" style={{ boxShadow: "0px 2px 10px 1px rgb(0,0,0,.8)" }}></div>
-                    <Icon icon="formkit:arrowdown" width='120' height='120' className="absolute bottom-[17.9rem]   left-[44.5%] text-primary-yellow opacity-60" />
-                 </div> */
-            }
-            <div className='w-full flex items-center justify-center flex-wrap'>
+            <div className='w-full flex flex-col md:flex-row items-center justify-center flex-wrap'>
                 {
                     features.map((feature, index) => {
                         return (
-                            <div className='w-1/3 flex flex-col items-center mb-4'>
+                            <div className='md:w-1/3 w-full flex flex-col items-center mb-4'>
                                 <div className='w-11/12 flex flex-col items-center'>
                                     <InformationCard key={index} feature={feature} />
                                 </div>
@@ -136,13 +116,13 @@ export default function LandingPage() {
                 }
             </div>
 
-            <div className="w-full flex flex-col items-center mt-10">
+            <div className="w-full flex flex-col justify-center items-center mt-10">
                 <motion.h1
                     ref={ref1}
                     initial={{ opacity: 0, x: -100 }}
                     animate={controls1}
                     transition={{ duration: 0.5 }}
-                    className="inline-block text-3xl font-bold mb-5"
+                    className="inline-block text-3xl text-center font-bold mb-5"
                 >
                     Tech hiring is evolving
                 </motion.h1>
@@ -156,13 +136,13 @@ export default function LandingPage() {
                     Tech hiring needs a reset. Instead of the traditional route, <br /> let’s empower developers with the right tools.
                 </motion.h1>
             </div>
-            <div className="flex w-full justify-around gap-[24rem] items-center p-10">
+            <div className="flex flex-col md:flex-row w-full justify-around md:gap-[24rem] items-center p-10">
                 <motion.div
                     ref={ref2}
                     initial={{ opacity: 0, x: 100 }}
                     animate={controls2}
                     transition={{ duration: 0.5 }}
-                    className="w-1/4"
+                    className="md:w-1/4"
                 >
                     <h1 className="font-semibold text-xl text-center mb-3">Take part in the challenges</h1>
                     <p className="text-center">Sharpen your skills by solving real-world problems, Understand the fundamentals and connect with the tech community.</p>
@@ -176,7 +156,7 @@ export default function LandingPage() {
                     alt=""
                 />
             </div>
-            <div className="flex w-full  justify-around gap-[16rem] items-center py-10  ">
+            <div className="flex flex-col md:flex-row w-full  justify-around md:gap-[16rem] items-center py-10  ">
                 <motion.img
                     ref={ref3}
                     initial={{ opacity: 0, x: -100 }}
@@ -191,18 +171,18 @@ export default function LandingPage() {
                     initial={{ opacity: 0, x: -100 }}
                     animate={controls3}
                     transition={{ duration: 0.5 }}
-                    className="w-1/4 mr-1">
+                    className="md:w-1/4 mr-1">
                     <h1 className="font-semibold text-xl text-center mb-3">Create job opportunities</h1>
                     <p className=" text-center"> Stay updated with the latest hiring trends and job openings in the tech industry.Companies like EY, HCL tech, Google, and HBE are actively hiring.</p>
                 </motion.div>
             </div>
-            <div className="flex w-full  justify-around gap-[20rem] items-center p-10">
+            <div className="flex flex-col md:flex-row w-full  justify-around md:gap-[20rem] items-center p-10">
                 <motion.div
                     ref={ref4}
                     initial={{ opacity: 0, x: 100 }}
                     animate={controls4}
                     transition={{ duration: 0.5 }}
-                    className="w-1/4">
+                    className="md:w-1/4">
                     <h1 className="font-semibold text-xl text-center mb-3">Coding challenge events</h1>
                     <p className=" text-center">Events are exciting opportunities for developers to showcase their skills and learn</p>
                 </motion.div>
@@ -214,11 +194,11 @@ export default function LandingPage() {
                     src={Landimg5} alt=""
                     className=" scale-75" />
             </div>
-            <div className={`w-full my-10 rounded-3xl p-10 flex flex-col items-center justify-center ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`} style={{ backgroundImage: `linear-gradient(to bottom, rgba(33, 32, 156, 0.3), rgba(253, 184, 39, 0.3))` }}>
+            <div className={`w-full my-10 rounded-3xl py-5 md:p-10 flex flex-col items-center justify-center ${styles.from} ${styles.from_prc} ${styles.to} ${styles.to_prc}`} style={{ backgroundImage: `linear-gradient(to bottom, rgba(33, 32, 156, 0.3), rgba(253, 184, 39, 0.3))` }}>
                 <img src={logo} alt="" className="w-52 my-2" />
                 <h1 className="my-2 text-center">Practice coding challenges & Discuss with programmers</h1>
                 <h1 className="my-2 text-center">Public Challenge Discourse enables open discussions within the <br /> project and idea exchange.</h1>
-                <NavLink to={''} className='flex items-center border hover:scale-105 transition-transform duration-1000 active:scale-110 hover:bg-white hover:text-black border-white px-16 py-2 rounded-xl my-2 text'>
+                <NavLink to={''} className='flex items-center border hover:scale-105 transition-transform duration-1000 active:scale-110 hover:bg-white hover:text-black border-white px-4 md:px-16 py-2 rounded-xl my-2 '>
                     Discover our challenges world
                     <Icon icon="tabler:arrow-right" style={{ margin: "5px", }} />
                 </NavLink>

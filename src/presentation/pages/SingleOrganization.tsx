@@ -20,8 +20,8 @@ function OrganizationPage() {
 
     return (
         <div className="mt-24 w-full">
-            <div className='flex justify-between'>
-                <div className="w-2/3 pr-16">
+            <div className='flex flex-col md:flex-row gap-4 md:gap-0 justify-between'>
+                <div className="md:w-2/3 w-full md:pr-16">
                     <h1 className="text-3xl">{organization.name}</h1>
                     <p className='mt-8 whitespace-pre-line'>
                         {organization.description}
@@ -35,7 +35,7 @@ function OrganizationPage() {
                         <span className='capitalize'>{organization.type}</span>
                     </div>
                 </div>
-                <div className='w-1/3 h-80'>
+                <div className='md:w-1/3 w-full h-80'>
                     <img src={organization.profile_image_url ? organization.profile_image_url : OrganizationImg} alt="" className='rounded-3xl bg-white w-full h-full object-contain' />
                 </div>
             </div>
@@ -45,7 +45,7 @@ function OrganizationPage() {
                     {
                         events.map((event, index) => {
                             return (
-                                <div key={index} className='w-1/5 pr-4'>
+                                <div key={index} className='md:w-1/5 w-full pr-4'>
                                     <EventCard event={event} />
                                 </div>
                             )
@@ -53,7 +53,7 @@ function OrganizationPage() {
                     }
                 </div>
             </div>
-            <div className="text-sm my-20 w-[60%] ml-2">
+            <div className="text-sm my-20 w-full md:w-[60%] ml-2">
                 <h1 className="text-3xl mb-4 font-semibold">Challenges:</h1>
                 <div >
                     <div className="w-full flex items-center py-2">
@@ -69,7 +69,7 @@ function OrganizationPage() {
                 </div>
             </div>
             <div className='w-full flex flex-col items-center'>
-                <NavLink to='/challenges' className='flex items-center px-8 py-2 border transition-all duration-300 rounded-lg border-white hover:scale-105 hover:bg-white hover:text-black'>
+                <NavLink to='/challenges' className='flex items-center w-full text-center px-8 py-2 border transition-all duration-300 rounded-lg border-white hover:scale-105 hover:bg-white hover:text-black'>
                     {"View more challenges"}
                     <Icon icon="material-symbols-light:double-arrow" width="18" height="18" />
                 </NavLink>

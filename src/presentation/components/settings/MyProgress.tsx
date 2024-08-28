@@ -9,14 +9,14 @@ function MyProgress() {
     const cardAnimationDelay = 0.1;
     const userSession = useContext(UserSessionContext);
     return (
-        <div className="flex flex-col gap-8 py-5 pl-20 w-4/5">
+        <div className="flex flex-col gap-8 py-5 md:pl-20 w-full md:w-4/5">
             <div className='h-20'>
                 <div className="font-semibold text-2xl">User Progress:</div>
                 <h1 className="font-medium text-sm opacity-75">Track your progress in various levels</h1>
             </div>
-            <div className="flex w-full gap-5 justify-start">
+            <div className="flex flex-wrap w-full gap-5 justify-start">
                 <motion.div
-                    className="bg-primary-blue bg-opacity-60 py-4 w-[34%] h-48 flex flex-col items-center justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg"
+                    className="bg-primary-blue bg-opacity-60 py-4 w-full md:w-[34%] h-48 flex flex-col items-center justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg"
                     variants={cardVariants}
                     initial="hidden"
                     animate="visible"
@@ -46,7 +46,7 @@ function MyProgress() {
                     </div>
                 </motion.div>
                 <motion.div
-                    className="bg-primary-blue bg-opacity-60 py-6 w-[34%]  h-48 flex flex-col items-start justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg"
+                    className="bg-primary-blue bg-opacity-60 py-6 w-full md:w-[34%]  h-48 flex flex-col items-start justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg"
                     variants={cardVariants}
                     initial="hidden"
                     animate="visible"
@@ -73,7 +73,7 @@ function MyProgress() {
                     </div>
                 </motion.div>
                 <motion.div
-                    className="bg-primary-blue bg-opacity-60 py-6 w-[34%]  h-48 flex flex-col items-start justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg"
+                    className="bg-primary-blue bg-opacity-60 py-6 w-full md:w-[34%]  h-48 flex flex-col items-start justify-around  shadow-[0_0_10px_5px_rgba(32,32,156,0.5)] rounded-lg"
                     variants={cardVariants}
                     initial="hidden"
                     animate="visible"

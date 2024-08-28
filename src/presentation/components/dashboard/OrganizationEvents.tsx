@@ -21,7 +21,7 @@ export default function OrganizationEvents() {
   }, [id]);
 
   return (
-    <div className="w-full h-full flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 ">
+    <div className="w-full md:h-full mt-16 md:mt-0 flex flex-col bg-gray-950 shadow-2xl shadow-gray-900 rounded-xl px-8 ">
       <div className="w-full flex mb-8">
         <div className="w-full flex flex-col items-start">
           <div className="text-3xl font-bold">Events</div>
@@ -30,7 +30,7 @@ export default function OrganizationEvents() {
       </div>
       <button
         onClick={() => { setEditEvent(undefined); useDashboardModelValue.open(); }}
-        className={`w-fit font-meduim px-8 py-1 rounded-lg hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap flex items-center mb-8`}
+        className={`md:w-fit justify-center w-full font-meduim px-8 py-1 rounded-lg hover:opacity-90 active:scale-105 transition-all duration-300 bg-primary-yellow text-nowrap flex items-center mb-8`}
       >
         <Icon icon="mdi:event-plus" />
         <div className="ml-2 font-medium">Create Event</div>
@@ -50,7 +50,7 @@ export default function OrganizationEvents() {
               }
 
               return (
-                <div key={index} className="w-1/4 pr-4 mb-8">
+                <div key={index} className="md:w-1/4 w-full md:pr-4 mb-8">
                   <DashboardEventCard event={event} updateEvenetHandler={updateEvenetHandler} />
                 </div>
               );
