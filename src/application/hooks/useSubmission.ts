@@ -29,7 +29,7 @@ export default function useSubmission(): useSubmissionReturn {
     const [newExecutionResult, setNewExecutionResult] = useState(false);
 
     useEffect(() => {
-        ws.current = new WebSocket("ws://localhost:3002/");
+        ws.current = new WebSocket(import.meta.env.BASE_WS_URL);
         ws.current.onopen = () => {
             console.log("websocket:", "client connected");
         }
