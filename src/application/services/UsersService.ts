@@ -16,7 +16,7 @@ export default class UsersService {
     }
 
     async addNewSkills(skill_name: string): Promise<HttpResponse<SkillEntity>> {
-        return (await this.axiosHttp.post<HttpResponse<SkillEntity>>('/api/users/me/skills/create',{name:skill_name})).data
+        return (await this.axiosHttp.post<HttpResponse<SkillEntity>, { name: string }>('/api/users/me/skills/create', { name: skill_name })).data
     }
 
     async removeSkillById(skill_id: number): Promise<HttpResponse<any>> {

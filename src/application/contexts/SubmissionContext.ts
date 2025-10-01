@@ -12,5 +12,8 @@ export default createContext<useSubmissionReturn>({
     getTestCases: async (challengeId: number): Promise<void> => { challengeId; },
     submissions: [],
     getSubmissions: async (challengeId: number) => { challengeId; },
-    submit: (challengeId: number) => { challengeId }
+    submit: (challengeId: number) => { challengeId },
+    hasWrongResults: () => false,
+    newExecutionResult: false,
+    setNewExecutionResult: () => { }
 });

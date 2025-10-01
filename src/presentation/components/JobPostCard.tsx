@@ -88,7 +88,7 @@ const JobPostCard: React.FC<JobPostCardProps> = ({ jobData, cardStyle }) => {
                 <span className={`opacity-40 text-[0.6rem] ${cardStyle == 'Large' ? LargeSize.div2_text.location : SmallSize.div2_text.location}  `}>{jobData.location}</span>
             </div>
             <p className={`font-semibold  flex items-center gap-1 ${cardStyle == 'Large' ? LargeSize.tag : SmallSize.tag}  `}>
-                <div className={`${jobData.contractType== 'Full-time' ? 'bg-blue-700' : 'bg-green-700'} inline-block w-1.5 h-1.5 rounded-full`}></div>
+                <div className={`${jobData.contractType.toLocaleLowerCase() == 'full-time' ? 'bg-blue-700' : 'bg-green-700'} inline-block w-1.5 h-1.5 rounded-full`}></div>
                 {jobData.contractType} 
             </p>
         </NavLink>
